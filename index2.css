@@ -1,0 +1,140 @@
+body{
+    font-family: Arial, sans-serif;
+    background-image: url('./image/rock.jpg');
+    background-size:cover;
+}
+#sign.sign{
+    position: relative;
+    width: 80vw;
+    height: auto;
+    background:linear-gradient(rgb(124, 87, 150),rgb(151, 88, 151),rgb(80, 80, 151));
+    border-radius: 20px;
+    justify-self: center;
+    text-align: center;
+    text-decoration: none;
+    top: 50px;
+    color: white;
+    text-transform: capitalize;
+}
+.log input{
+    position: relative;
+    width: 40vw;
+    height: 6vh;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font: 20px bold;
+    color: black;
+    cursor: pointer;
+}
+.log input::placeholder{
+    position: relative;
+    font-weight: 900;
+    font: bold;
+    color: purple;
+    text-transform: lowercase;
+    cursor: pointer;
+    text-align: center;
+    font-style: italic;
+}
+.log input:hover{
+    transition: all 0.3s ease;
+    transform: translateY(-4px);
+    padding-bottom: 4px;
+    cursor: pointer;
+    border: 1px transparent;
+    background-color: transparent;
+    color: white;
+    box-shadow: 10px 10px 10px white;
+}
+.button button{
+    position: relative;
+    width: 20vw;
+    height: 7vh;
+    border: 1px transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font: 20px bold;
+    font-weight: 900;
+    color: white;
+    background:linear-gradient(to right,blue,cyan) ;
+    top: 20px;
+}
+.button button:hover{
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color:greenyellow;
+    color: black;
+    transform: translateY(-4px);
+    padding-bottom: 4px;
+}
+.login button{
+     position: relative;
+    width: 20vw;
+    height: 7vh;
+    border: 1px transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font: 20px bold;
+    font-weight: 900;
+    color: white;
+    background:linear-gradient(to right,rgb(183, 0, 255),rgb(136, 255, 0)) ;
+    top: 10px;
+}
+.login button:hover{
+    position: relative;
+    transform: translateY(-4px);
+    padding-bottom: 4px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    background: linear-gradient(to left,purple,blue,cyan);
+}
+.social h2{
+    position: relative;
+    text-decoration:underline;
+    text-transform: capitalize;
+    bottom: 10px;
+}
+.social button{
+      position: relative;
+    width: 20vw;
+    height: 7vh;
+    border: 1px transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    font: bold;
+    font-weight: 900;
+    color: white;
+    bottom: 10px;
+    background:linear-gradient(to right,rgb(183, 0, 255),rgb(136, 255, 0)) ;
+}
+.social button:hover{
+    position: relative;
+    transform: translateY(-4px);
+    padding-bottom: 4px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    background: linear-gradient(to left,purple,skyblue,cyan);
+}
+.social a{
+    position: relative;
+    text-decoration: none;
+    color: white;
+    overflow-wrap: break-word;
+    font: 20px bold;
+    font-weight: 900;
+}
+.logo{
+    position: relative;
+    width: 60px;
+    text-align: center;
+    height: 60px;
+    border-radius: 60px;
+    cursor: pointer;
+    margin-left: 20px;
+    top: 20px;
+    background: linear-gradient(to right,blue,purple);
+}
+.logo b{
+    position: relative;
+    top: 10px;
+}

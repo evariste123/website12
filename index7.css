@@ -1,0 +1,180 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right,rgb(107, 205, 243),rgb(163, 161, 163));
+}
+
+.navbar{
+    position: relative;
+    padding: 10px;
+    width: 100vw;
+    justify-self: center;
+    text-align: center;
+    background-color: rgb(6, 36, 31);
+    flex-direction: column;
+    background-size: cover;
+    border-radius: none;
+}
+.menu{
+    display: -ms-flexbox;
+    gap:20px;
+}
+.menu a{
+    position: relative;
+    text-decoration: none;
+    justify-content: space-between;
+    color: white;
+    margin-left: 20px;
+    bottom: 20px;
+    text-align: center;
+    text-transform: capitalize;
+    cursor: pointer;
+    padding: 2px 2px 2px 2px;
+    font-weight: 500;
+    font-style: italic;
+}
+.menu a:hover{
+    transition: all 0.3s ease;
+    font: bold;
+    font-weight: 900;
+    cursor: pointer;
+    transform: translateX(4px);
+    background-color: rgb(96, 24, 124);
+    color:white;
+    border: 0px solid #701d70;
+    border-radius: 5px 0 5px 0;
+    position: relative;
+}
+.logo{
+    position: relative;
+    width: 60px;
+    top: 10px;
+    height:60px;
+    border-radius: 60px;
+    margin-left:10px;
+    background: linear-gradient(to right,blue,purple);
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+.logo b{
+    position: relative;
+    top: 10px;
+    font: bold;
+    font-style: italic;
+    font-weight: 900;
+}
+#products.container{
+    position: relative;
+    width: auto;
+    height: 100vh;
+    background-size: cover;
+    opacity: 1;
+    background: linear-gradient(to right,rgb(107, 205, 243),rgb(173, 172, 173));
+}
+.footer{
+    position: relative;
+    width: auto;
+    height: 50vh;
+    background-color: #010101;
+    text-align: center;
+}
+.footer p{
+    position: relative;
+    text-align: center;
+    top: 20px;
+    font-size: 20px medium;
+    font-style: italic;
+    text-align: center;
+    font-weight: 500;
+    color: white;
+}
+.footer h1{
+    text-align: center;
+    position: relative;
+    top: 10px;
+    color: white;
+}
+    .item0 a{
+        position: relative;
+        text-indent: 1;
+        text-align: center;
+        text-decoration: none;
+        color: whitesmoke;
+        top: 10px;
+        flex: auto;
+    }
+    .item0 a:hover{
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+        padding-bottom: 4px;
+        color: #8509f8;
+        cursor: pointer;
+        font-size: medium;
+    }
+    .line{
+        position: relative;
+        top: 30px;
+        font-size: 40px;
+        font-weight:900
+    }
+    .foot p{
+        position: relative;
+        color: white;
+        text-align: center;
+        top: 20px;
+    }
+    .social-links,h1{
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+    }
+    .social-links a img:hover{
+        transition: all 0.3s ease;
+        transform: translateY(4px);
+        font-size: medium
+    }
+    .social-links img{
+        position: relative;
+        height: 40px;
+        width: 40px;
+        border-radius: 30px;
+        top: 20px;
+    }
+    .hero{
+        position: relative;
+        text-align: center;
+        top: 100px;
+    }
+    .hero strong,h2{
+        position: relative;
+        color:rgb(17, 17, 17);
+        text-transform: capitalize;
+        font: 20px bold;
+    }
+    .btn{
+        position: relative;
+        justify-self: center;
+        text-align: center;
+        top: 160px;
+    }
+    .btn button{
+        position: relative;
+        width: 24vw;
+        top: 180px;
+        font-size: 20px;
+        text-transform: capitalize;
+        height: 10vh;
+        font: bold;
+        border-radius: 5px;
+        border: 1px solid transparent;
+    }
+    .btn button:hover{
+        position: relative;
+        transition: all 0.3s ease-in;
+        transform: translateX(-4px);
+        padding-bottom: -4px;
+        cursor: pointer;
+        background-color: #250f25;
+        color: white;
+    }

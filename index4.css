@@ -1,0 +1,116 @@
+body{
+    background-image: url('./images\ \(1\).jpeg');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+.container{
+    position: relative;
+    width: 90vw;
+    height: auto;
+    justify-self: center;
+    text-align: center;
+    border-radius: 20px;
+    text-shadow: 10px 10px 10px blue;
+    color: white;
+    background: linear-gradient(to right,white,rgb(51, 150, 150),rgb(61, 61, 172));
+}
+.container:hover{
+    transition: all ease 0.3s;
+    cursor: pointer;
+    position: relative;
+    transform: translateY(4px);
+    padding-bottom: 4px;
+}
+.card input{
+    position: relative;
+    width: 40vw;
+    height: 7vh;
+    border: 1px solid violet;
+    text-indent: 5;
+    cursor: pointer;
+     border-radius: 5px;
+     font-style: italic;
+}
+.card input::placeholder{
+    font-weight: 900;
+    font: bold;
+    color: black;
+    font-style: medium;
+    position: relative;
+    font-style: italic;
+}
+.card input:hover{
+    position: relative;
+    transition: all 0.3s ease;
+    transform: translateY(4px);
+    padding-bottom: 4px;
+    text-align: center;
+    font-size: 20px;
+    background-color: #b0b;
+}
+.card select{
+    position: relative;
+    width: 25vw;
+    height: 5vh;
+    border: 1px solid cyan;
+    border-radius: 5px;
+    text-align: center;
+    font:20px bold;
+    font-style: italic;
+}
+.card select:hover{
+    font-size: 20px;
+    position: relative;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.card button{
+    position: relative;
+    width: 20vw;
+    height: 6vh;
+    border: 1px solid indigo;
+    border-radius: 5px;
+    cursor: pointer;
+    font:20px bold ;
+}
+.button button{
+    position: relative;
+    width: 20vw;
+    height: 5vh;
+    border: 1px solid purple;
+    border-radius: 5px;
+    cursor: pointer;
+    font: 20px bold;
+}
+.container button{
+    position: relative;
+    width: 23vw;
+    height: 5vh;
+    border: 1px solid green;
+    border-radius: 5px;
+    cursor: pointer;
+    font: 20px bold;
+}
+.container button:hover{
+    position: relative;
+    transition: all ease 0.3s;
+    transform: translateY(4px);
+    padding-bottom: 4px;
+}
+.logo{
+    position: relative;
+    width: 60px;
+    text-align: center;
+    height: 60px;
+    border-radius: 60px;
+    cursor: pointer;
+    margin-left: 20px;
+    top: 20px;
+    background: linear-gradient(to right,blue,purple);
+}
+.logo b{
+    position: relative;
+    top: 10px;
+}

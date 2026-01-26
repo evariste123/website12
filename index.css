@@ -1,0 +1,362 @@
+body{
+    background-color: #3378;
+}
+.circle{
+    position: relative;
+    background-color: #3378;
+    width: 100vw;
+    justify-self: center;
+    height: auto;
+    bottom: 10px;
+}
+.logo{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    border-radius: 30px 0 30px 0;
+    top: 10px;
+    text-align: center;
+    background: linear-gradient(to right,indigo,skyblue,cyan);
+}
+.logo a{
+    position: relative;
+    text-decoration: none;
+}
+.logo strong{
+    position: relative;
+    top: 5px;
+    color: white;
+}
+.card{
+    position: relative;
+    justify-self: center;
+    width: 120px;
+    height: 120px;
+    top: 20px;
+    text-align: center;
+    border-radius: 60px 0 60px 0;
+    background: linear-gradient(to right,purple,cyan,olive);
+    animation-timing-function: 300ms;
+    animation-duration: 10s;
+    animation-name: card;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes card{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);}
+}
+.card h3{
+    position: relative;
+    top: 30px;
+}
+.card:hover{
+    position: relative;
+    transition: all ease-in 0.3s;
+    background: linear-gradient(to right,olive,cyan,purple);
+    cursor: pointer;
+}
+.card b{
+    position: relative;
+    top: 40px;
+    font: 20px bold;
+}
+.line{
+    position: relative;
+    justify-self: center;
+    top: 40px;
+    width: 250px;
+    text-align: center;
+    overflow-wrap: break-word;
+    height: 120px;
+    border-radius: 60px 0 0 60px;
+    background-color: #ddfabc;
+}
+.line h3{
+    position: relative;
+    top: 10px;
+}
+.line a{
+    position: relative;
+    color: rgb(57, 1, 65);
+    text-decoration: none;
+    cursor: pointer;
+}
+.card1{
+    position: relative;
+    justify-self: center;
+    width: 120px;
+    height: 120px;
+    top: 60px;
+    text-align: center;
+    border-radius: 60px 0 60px 0;
+    background: linear-gradient(to right,purple,cyan,olive);
+    animation-timing-function: 300ms;
+    animation-duration: 10s;
+    animation-name: card1;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes card1{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(-360deg);}
+}
+.card1:hover{
+    position: relative;
+    transition: all ease-in 0.3s;
+    background: linear-gradient(to right,olive,cyan,purple);
+    cursor: pointer;        
+}
+.card1 h3{
+    position: relative;
+    top: 40px;
+}
+.circle h1{
+    position: relative;
+    color: rgb(66, 64, 64);
+    top: 40px;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+.card2{
+    position: relative;
+    justify-self: center;
+    top: 40px;
+    width: 60vw;
+    text-align: center;
+    height: auto;
+    background-color: white;
+    border: 5px solid rgb(221, 218, 211);
+    border-radius: 20px;
+}
+.card2 input{
+    position: relative;
+    width: 25vw;
+    cursor: pointer;
+    height: 6vh;
+    border: 1px solid cyan;
+}
+.card2 input::placeholder{
+    position: relative;
+    font: bold;
+    color: black;
+    text-transform: capitalize;
+}
+.card2 input:hover{
+position: relative;
+transition: all ease-in 0.3s;
+border: 1px solid purple;
+border-radius: 10px;
+}
+.card2 button{
+    position: relative;
+    width: 15vw;
+    font: 20px bold;
+    height: 8vh;
+    border-radius: 10px;
+    background-color: #0000ff;
+    border: none;
+    color: white;
+}
+.card2 button:hover{
+    position: relative;
+    transition: all ease-in 0.3s;
+    background-color: #012727;
+    color: white;
+    cursor: pointer;
+}
+.para{
+    position: relative;
+    text-align: center;
+    top: 50px;
+    color: #353434;
+    overflow-wrap: break-word;
+}
+.para video{
+    position: relative;
+    width: 50vw;
+    height: 40vh;
+    background-color: transparent;
+    border-radius: 10px;
+}
+.hero{
+    position: relative;
+    top: 60px;
+    width: 100vw;
+    height: auto;
+    color: #0f010f;
+    text-align: center;
+    justify-self: center;
+    background-color: #3378;
+    overflow-wrap: break-word;
+}
+.btn{
+    position: relative;
+    top: 60px;
+    justify-self: center;
+    background-color: #3378;
+    border-radius: 20px;
+}
+.btn button{
+    position: relative;
+    width: 20vw;
+    height: 10vh;
+    border: 1px solid cyan;
+    background-color: #011111;
+    color: white;
+    font: bold;
+    border-radius: 20px;
+    overflow-wrap: break-word;
+    cursor: pointer;
+}
+.btn button:hover{
+    position: relative;
+    transition: all ease-in 0.3s;
+    background-color: #012727;
+    color: white;
+    cursor: pointer;
+}
+.foot{
+    position: relative;
+    width: 100vw;
+    height: auto;
+    background-color: #353434;
+    justify-self: center;
+    top: 40px;
+}
+.footer{
+    position: relative;
+    width: 20vw;
+    height: auto;
+    background-color: transparent;
+    text-align: center;
+}
+.vada{
+    gap: 5px;
+}
+.vada a{
+    position: relative;
+    text-decoration: none;
+    color: white;
+    flex: auto;
+}
+.vada a:hover{
+    position: relative;
+    transition: all ease-in 0.3s;
+    color: wheat;
+    cursor: pointer;
+}
+.quick-links{
+    position: absolute;
+    justify-self: center;
+    text-align: center;
+    width: 20vw;
+    height: auto;
+    background-color: transparent;
+    bottom:50px;
+}
+.vada1{
+    display: grid;
+    gap: 5px;
+}
+.vada1 a{
+    position: relative;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+.vada1 a:hover{
+    position: relative;
+    transition: all ease-in 0.3s;
+    color: wheat;
+}
+.contact{
+    position: absolute;
+    justify-self: right;
+    text-align: center;
+    width: 30vw;
+    height: auto;
+    background-color: transparent;
+    bottom: 30px;
+}
+.contact  input{
+    position: relative;
+    width: 20vw;
+    height: 4vh;
+    background-color: #353434;
+    border: 1px solid #fdfbfb;
+    cursor: pointer;
+}
+.contact input::placeholder{
+    position: relative;
+    font: bold;
+    cursor: pointer;
+    color: white;
+    font-style: italic;
+    cursor: pointer;
+}
+.contact textarea{
+    position: relative;
+    width: 20vw;
+    height: 5vh;
+    background-color: #353434;
+    cursor: pointer;
+}
+.button1 button{
+    position: relative;
+    width: 10vw;
+    height: 6vh;
+    color: white;
+    overflow-wrap: break-word;
+    font: bold;
+    border: 1px solid purple;
+    border-radius: 10px;
+    background-color: #012727;
+    cursor: pointer;
+}
+.some-contact{
+    position: relative;
+    width: 30vw;
+    bottom: 10px;
+    height: auto;
+    background-color: transparent;
+    text-align: center;
+}
+.some-contact input{
+    position: relative;
+    width: 20vw;
+    height: 2vw;
+    background-color: #353434;
+    border:1px solid black;
+}
+.some-contact input::placeholder{
+    position: relative;
+    color: #d4d1d1;
+    font: bold;
+}
+.dropdown{
+    position: relative;
+    margin-left: 10px;
+}
+.dropdown select{
+    position: relative;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font: 20px bold;
+    border: none;
+}
+
+.last{
+    position: relative;
+    justify-self: center;
+    font: 20px bold;
+    color: #b1acac;
+}

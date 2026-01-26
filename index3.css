@@ -1,0 +1,88 @@
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right,rgb(148, 74, 148),rgb(73, 73, 139),rgb(90, 143, 55));
+}
+.reset{
+    position: relative;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 20px;
+    border: 1px transparent;
+    justify-self: center;
+    top: 100px;
+    text-align: center;
+    background: linear-gradient(white,rgb(68, 160, 160));
+}
+.reset:hover{
+    position: relative;
+    transform: translateX(-4px);
+    padding-bottom: -4px;
+    cursor: pointer;
+}
+.card h1{
+    position: relative;
+    top: 30px;
+    text-transform: capitalize;
+}
+.card input{
+    position: relative;
+    width: 30vw;
+    height: 5vh;
+    border: 1px transparent;
+    border-radius: 5px;
+    top: 20px;
+}
+.card input::placeholder{
+    position: relative;
+    color: black;
+    text-transform: lowercase;
+    font-weight: 900;
+    font-style: italic;
+    flex: auto;
+}
+.card input:hover{
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid indigo;
+}
+.card button{
+    position: relative;
+    width: 20vw;
+    height: 5vh;
+    border: 1px solid blue;
+    background-color: blue;
+    color: white;
+    font-weight: 900;
+    top: 30px;
+}
+.card button:hover{
+    position: relative;
+    background-color: rgb(2, 2, 65);
+    cursor: pointer;
+    border: 1px solid rgb(1, 1, 83);
+    border-radius: 5px;
+    font: 20px bold;
+}
+.card h2{
+    position: relative;
+    top: 30px;
+    text-decoration: none;
+    color: white;
+    text-transform: capitalize;
+}
+.logo{
+    position: relative;
+    width: 60px;
+    text-align: center;
+    height: 60px;
+    border-radius: 60px;
+    cursor: pointer;
+    margin-left: 20px;
+    top: 20px;
+    background: linear-gradient(to right,blue,purple);
+}
+.logo b{
+    position: relative;
+    top: 10px;
+}

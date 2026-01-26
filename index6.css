@@ -1,0 +1,248 @@
+body{
+    background-size: cover;
+   background-color: rgb(39, 39, 114);
+   font-family: Arial,sans-serif;
+   margin: 0;
+}
+#search.search{
+    position: relative;
+    width: auto;
+    height: 130vh;
+    text-transform: capitalize;
+     background: linear-gradient(white,rgb(39, 39, 114));
+}
+.logo{
+    position: relative;
+    top: 10px;
+    margin-left: 5px;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px 0 60px;
+    text-align: center;
+    border: none;
+ animation-timing-function: 300ms;
+    animation-duration: 10s;
+    animation-name: eva;
+    animation-delay: 3s;
+    animation-iteration-count: infinite;
+    background: linear-gradient(to right,purple,rgb(40, 40, 128),cyan);
+}
+.logo:hover{
+    position: relative;
+    transition: all 0.3s ease-in;
+    transform: translateX(4px);
+    cursor: pointer;
+}
+.logo b a{
+    position: relative;
+    color: white;
+    overflow-wrap: break-word;
+    top: 40px;
+    text-decoration: none;
+    font: 20px bold;
+}
+@keyframes eva{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+.dropdown{
+    position: relative;
+    bottom: 55px;
+    justify-self: right;
+    margin-right: 10px;
+    flex: auto;
+}
+.dropdown b{
+    position: relative;
+    text-transform: capitalize;
+    font-style: italic;
+    margin-left: 5px;
+}
+.dropdown select{
+    position: relative;
+    width: 15vw;
+    height: 5vh;
+    text-transform: capitalize;
+    top: 5px;
+    font: 20px bold;
+    border: 0px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    justify-self: right;
+    background-color: transparent;
+}
+.drop h4{
+    position: relative;
+    color: white;
+    top: 20px;
+    text-align: center;
+}
+.hero h2{
+    position: relative;
+    text-align: center;
+    top: 10px;
+}
+.hero p,h1{
+    position: relative;
+    color: white;
+    text-align: center;
+}
+.hero p,i{
+    position: relative;
+    color: black;
+    font-size: 20px;
+    font-style: italic;
+    text-transform: capitalize;
+}
+.button{
+    position: relative;
+    margin-left: 10px;
+    top: 40px;
+    cursor: pointer;
+    justify-self: center;
+    border-right: 3px solid green;
+    border-left: 3px solid orangered;
+}
+.button button{
+    width: 34vw;
+    height: 30vh;
+    font-size: medium;
+    border-radius: 20px;
+    font-style: italic;
+    border: 1px solid transparent;
+    background: linear-gradient(to right,rgb(253, 239, 239),rgb(190, 190, 243)); 
+}
+.button button:hover{
+    position: relative;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+    border:2px solid hwb(0 5% 95%);
+    transform: translateY(-4px);
+    padding-bottom: -4px;
+}
+.form{
+    position: relative;
+    justify-self: center;
+    top: 100px;
+}
+.form h1{
+    position: relative;
+    top: 10px;
+}
+.form input{
+    width: 40vw;
+    height: 5vh;
+    color: white;
+    background-color: #010101;
+    border: 1px solid green;
+    font-style: italic;
+}
+.form input:hover{
+    position: relative;
+    background-color: rgb(4, 4, 37);
+    cursor: pointer;
+    color: white;
+    border: 1px solid violet;
+    text-align: center;
+    transition: all 0.3s ease-in;
+}
+.form input::placeholder{
+    position: relative;
+    font: medium bold;
+    font-weight: 500;
+    cursor: pointer;
+}
+.form button{
+    position: relative;
+    width: 5vw;
+    height: 5vh;
+    background-color: rgb(14, 253, 14);
+    color: black;
+    font: 20px bold;
+    border: 1px solid green;
+    border-top: 3px solid orchid;
+    border-radius: 30px 0 30px;
+    top: 2px;
+    cursor: pointer;
+}
+.footer{
+    top: 100px;
+    position: relative;
+    width: auto;
+    height: 55vh;
+    background-color: #010101;
+    text-align: center;
+}
+.footer p{
+    position: relative;
+    text-align: center;
+    top: 20px;
+    font-size: 20px medium;
+    font-style: italic;
+    text-align: center;
+    font-weight: 500;
+    color: white;
+}
+    .item0 a{
+        position: relative;
+        text-indent: 1;
+        text-align: center;
+        text-decoration: none;
+        color: whitesmoke;
+        top: 10px;
+        flex: auto;
+    }
+    .item0 a:hover{
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+        padding-bottom: 4px;
+        color: #8509f8;
+        cursor: pointer;
+        font-size: medium;
+    }
+    .line{
+        position: relative;
+        top: 30px;
+        font-size: 40px;
+        font-weight:900
+    }
+    .foot p{
+        position: relative;
+        color: white;
+        text-align: center;
+        top: 20px;
+    }
+    .social-links,h1{
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+    }
+    .social-links a:hover{
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+        padding-bottom: 4px;
+        font-size: medium
+    }
+    .social-links img{
+        position: relative;
+        height: 40px;
+        width: 40px;
+        border-radius: 40px;
+        top: 20px;
+    }
+    .social-links a img:hover{
+        transition: all 0.3s ease;
+        transform: translateY(4px);
+        font-size: medium
+    }
+    .social-links img{
+        position: relative;
+        height: 40px;
+        width: 40px;
+        border-radius: 30px;
+        top: 20px;
+    }

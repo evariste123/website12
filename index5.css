@@ -1,0 +1,882 @@
+body{
+    background-color: rgb(32, 124, 131);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.navbar{
+    position: relative;
+    padding: 10px;
+    width: 100vw;
+    background-color: #2d2e2e;
+    flex-direction: column;
+    background-size: cover;
+    text-align: center;
+    bottom: 10px;
+    justify-self: center;
+    border-radius: none;
+}
+.menu{
+    display: -ms-flexbox;
+    gap:40px;
+}
+.menu a{
+    position: relative;
+    text-decoration: none;
+    justify-content: space-between;
+    color: white;
+    margin-left: 20px;
+    bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+    padding: 2px 2px 2px 2px;
+    font-weight: 500;
+    font-style: italic;
+}
+.menu a:hover{
+    transition: all 0.3s ease;
+    font: bold;
+    font-weight: 900;
+    cursor: pointer;
+    border-radius: -4px;
+    transform: translateX(-4px);
+    background-color: rgb(96, 24, 124);
+    color:white;
+    border: 0px solid #701d70;
+    padding-bottom: 4px;
+    border-radius: 5px 0 5px 0;
+    position: relative;
+}
+.logo{
+    position: relative;
+    width: 60px;
+    top: 10px;
+    height:60px;
+    border-radius: 60px;
+    margin-left:10px;
+    background: linear-gradient(to right,blue,purple);
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+.logo b{
+    position: relative;
+    top: 10px;
+    font: bold;
+    font-style: italic;
+    font-weight: 900;
+}
+.container{
+    position: relative;
+    flex: auto;
+    width: auto;
+    height: auto;
+    background-color:hwb(209 1% 63%);
+    border-radius: 20px;
+}
+.container h1{
+    position: relative;
+    color: white;
+    text-align: center;
+    text-shadow: 10px 10px 10px rgb(252, 253, 253);
+    }
+    .container p{
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+    .container button{
+        position: relative;
+        width: 25vw;
+        height: 8vh;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        font: 20px bold;
+        margin-left: 50px;
+        overflow-wrap: break-word;
+        border: none;
+        cursor: pointer;
+    }
+    .container button:hover{
+        position: relative;
+        transition: all 0.3s ease;
+        font-weight: 900;
+        border-radius: 25px;
+        border-bottom-right-radius:3px solid blue;
+        background:linear-gradient(to right,blue,purple,cyan);
+        color: white;
+        text-shadow: 10px 10px 10px white;
+    }
+    .card h2{
+        position: relative;
+        width: 20vw;
+        height: 5vh;
+        display: flex;
+        border-radius: 5px;
+        overflow-wrap: break-word;
+        color: white;
+        background: linear-gradient(to right,purple,cyan);
+        justify-self: center;
+        animation-timing-function: 300ms;
+        animation-duration: 3s;
+        animation-name: anima;
+        animation-delay: 3s;
+        animation-iteration-count: infinite;
+    }
+    @keyframes anima{
+        0%{transform: translateX(-40px);}
+        50%{transform: translateX(10px);}
+        100%{transform: translateX(-40px);}
+    }
+    #technologies.container1{
+        position: relative;
+        flex-direction: column;
+        width:100vw;
+        justify-self: center;
+        height:auto;
+        
+    }
+    .container1 h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-style: italic;
+        top: 0px;
+    }
+    .card0{
+        position: relative;
+        width: 25vw;
+        height: auto;
+        margin-left: 20px;
+        flex: auto;
+        top: 0px;
+        text-align: center;
+        overflow-wrap: break-word;
+        background-color: white;
+        border: 1px solid transparent;
+        border-radius: 20px;
+    }
+    .card0:hover{
+        position: relative;
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+        cursor: pointer;
+    }
+    .card1 img{
+        position: relative;
+        width: 20vw;
+        height: 20vh;
+        top: 5px;
+        border-radius: 10px;
+    }
+    .card2{
+        position: absolute;
+        justify-self: center;
+        width: 25vw;
+        height: auto;
+        background-color: white;
+        border: 1px solid transparent;
+        bottom: 0px;
+        border-radius: 20px;
+        text-align: center;
+    }
+    .cd1 img{
+        position: relative;
+        width: 20vw;
+        height: 20vh;
+        top: 5px;
+        border-radius: 20px;
+    }
+    .card3{
+        position: absolute;
+        width: 25vw;
+        height: auto;
+        background-color: white;
+        border-radius: 20px;
+        border: 1px solid transparent;
+        bottom: 0px;
+        justify-self: right;
+        margin-right: 20px;
+        text-align: center;
+    }
+    .cd2 img{
+        position: relative;
+        width: 20vw;
+        height: 20vh;
+        top: 5px;
+        border-radius: 20px;
+    }
+    #works.container2{
+        position: relative;
+        background-color: rgb(79, 79, 82);
+        color: white;
+        top: 50px;
+        width: 100vw;
+        justify-self: center;
+        height: auto;
+    }
+    .container2 h1{
+        position: relative;
+        margin-left: 20px;
+        font: bold;
+        font-weight: 900;
+        font-style: italic;
+        top: 20px;
+    }
+    .logos{
+        position: relative;
+        width: 30vw;
+        height: auto;
+        justify-self: left;
+        text-align: center;
+        background-color: transparent;
+    }
+    .lg img{
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+        margin-left: 10px;
+        top: 50px;
+    }
+    .lg img:hover{
+        position: relative;
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+        cursor: pointer;
+    }
+    .dropdown{
+        position: absolute;
+        justify-self: right;
+        text-align: center;
+        width: 20vw;
+        bottom: 90px;
+        height: auto;
+    }
+    .drop{
+        display: grid;
+        gap: 5px;
+    }
+    .drop a{
+        position: relative;
+        text-decoration: none;
+        color: wheat;
+        text-align: center;
+        flex: auto;
+        flex-direction: row;
+        cursor: pointer;
+    }
+    .drop a:hover{
+        position: relative;
+        color: white;
+        transition: all ease 0.3s;
+        cursor: pointer;
+        transform: translateY(4px);
+    }
+    .image{
+        position: relative;
+        width: 35vw;
+        height: auto;
+        justify-self: center;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: white;
+    }
+    .image input{
+        position: relative;
+        width: 30vw;
+        height: 6vh;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid indigo;
+    }
+    .image input::placeholder{
+        position: relative;
+        font: medium bold;
+        color: black;
+        font-weight: 900;
+        font-style: italic;
+        text-align: center;
+    }
+    .image input:hover{
+        position: relative;
+        border: 1px solid blue;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .image button{
+        position: relative;
+        width: 20vw;
+        height: 6vh;
+        border-radius: 10px;
+        border: 1px solid indigo;
+        cursor: pointer;
+        background-color: #4ca34c;
+        overflow-wrap: break-word;
+    }
+    .image button:hover{
+        position: relative;
+        background-color: blue;
+        color: white;
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+    }
+    #about.container3{
+        position: relative;
+        width: 100vw;
+        justify-self: center;
+        height: auto;
+        background-color: rgb(32, 124, 131);
+        top: 50px;
+    }
+    .container3 h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-style: italic;
+        top: 20px;
+    }
+    .container3 p{
+        position: relative;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        top: 30px;
+    }
+    .btn{
+        position: relative;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        font: 20px bold;
+        overflow-wrap: break-word;
+        border: none;
+        justify-self: center;
+        text-align: center;
+        cursor: pointer;
+    }
+    .btn button:hover{
+        position: relative;
+        transition: all 0.3s ease;
+        font-weight: 900;
+        border-radius: 25px;
+        border-bottom-right-radius:3px solid blue;
+        background:linear-gradient(to right,blue,purple,cyan);
+        color: white;
+        border: none;
+        text-shadow: 10px 10px 10px white;
+    }
+    .btn button{
+        position: relative;
+        width: 25vw;
+        height: 8vh;
+        margin-left: 10px;
+        font: 20px bold;
+    }
+    .btn0{
+        position: relative;
+        flex-direction: row;
+        gap: 20px;
+        overflow-wrap: break-word;
+        top: 20px;
+        width: 80vw;
+        height: auto;
+        justify-self: center;
+        background-color: wheat;
+        margin-left: 10px;
+        border-radius: 20px;
+        border: 5px solid white;
+    }
+    .btn0 h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        color: lab(54.78% 14.58 -66.41);
+        font-style: italic;
+        top: 0px;
+    }
+    .btn0 ul{
+        position: relative;
+        text-align: left;
+        font: 20px bold;
+        color: #3b3a3a;
+        overflow-wrap: break-word;
+        margin-left: 20px;
+        top: 10px;
+    }
+    .btn1{
+        position: relative;
+        flex: auto;
+        text-align: center;
+        overflow-wrap: break-word;
+        font: 20px bold;
+        color: #3b3a3a;
+    }
+    .btn2{
+        position: relative;
+        width: 80vw;
+        height: auto;
+        background-color: whitesmoke;
+        border: 5px solid white;
+        border-radius: 20px;
+        justify-self: center;
+        text-align: center;
+        top: 30px;
+    }
+    .btn2 h4{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-size: 20px;
+        color: hwb(290 2% 3%);
+        font-style: italic;
+        top: 0px;
+    }
+    .btn2 ul{
+        position: relative;
+        text-align: left;
+        font: 20px bold;
+        color: #3b3a3a;
+        overflow-wrap: break-word;
+        margin-left: 20px;
+        top: 10px;
+    }
+    .btn3{
+        position: relative;
+        width: 80vw;
+        height: auto;
+        background-color: whitesmoke;
+        border: 5px solid white;
+        border-radius: 20px;
+        justify-self: center;
+        text-align: center;
+        top: 50px;
+    }
+    .btn3 h5{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-size: 20px;
+        color: lab(85.72% -78.29 56.8);
+        font-style: italic;
+        top: 0px;
+    }
+    .btn3 ul{
+        position: relative;
+        text-align: left;
+        font: 20px bold;
+        color: #3b3a3a;
+        overflow-wrap: break-word;
+        margin-left: 20px;
+        top: 10px;
+    }
+    .btn4{
+        position: relative;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        font: 20px bold;
+        overflow-wrap: break-word;
+        border: none;
+        justify-self: center;
+        text-align: center;
+        top: 70px;
+    }
+    .btn4 h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-style: italic;
+        color: white;
+    }
+    .btn4 button{
+        position: relative;
+        width: 20vw;
+        height: 8vh;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        font: 20px bold;
+        margin-left: 50px;
+        overflow-wrap: break-word;
+        border: none;
+        cursor: pointer;
+    }
+    .btn4 button:hover{
+        position: relative;
+        transition: all 0.3s ease;          
+        font-weight: 900;
+        border-radius: 25px;
+        border-bottom-right-radius:3px solid blue;
+        background:linear-gradient(to right,blue,purple,cyan);
+        color: white;
+        text-shadow: 10px 10px 10px white;
+    } 
+    .conta{
+        position: relative;
+        width: 100vw;
+        height: auto;
+        justify-self: center;
+        text-align: center;
+        top: 90px;
+        background-color: rgb(6, 36, 31);
+    }
+    .conta h5{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-size: medium;
+        overflow-wrap: break-word;
+        font-style: italic;
+        color: white; 
+        top: 5px;
+    }      
+    .imag{
+        position: relative;
+        width: 80vw;
+        height: auto;
+        justify-self: center;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: transparent;
+    }
+    .imag img{
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        margin-left: 20px;
+        top: 20px;
+    }
+    .imag img:hover{
+        position: relative;
+        transition: all 0.3s ease;
+        transform: translateY(-4px);
+        cursor: pointer;
+         box-shadow: 10px 10px 10px 10px white;
+    }
+    .imag img:active{
+        position: relative;
+        transform: translateY(4px);
+    }
+    .imag img:focus{
+        position: relative;
+        border: 2px solid blue;
+    }
+    .imag img:visited{
+        position: relative;
+        border: 2px solid purple;
+    }
+    .imag img:link{
+        position: relative;
+        border: 2px solid cyan;
+    }
+    .imag img:checked{
+        position: relative;
+        border: 2px solid green;
+    }
+    .imag img:disabled{
+        position: relative;
+        border: 2px solid gray;
+    }   
+    .imag img:enabled{
+        position: relative;
+        border: 2px solid white;
+    }  
+    .imag b{
+        position: relative;
+        font: bold;
+        font-weight: 900;
+        color: white;
+        top: 30px;
+    }
+    .contact{
+        position: relative;
+        width: 30vw;
+        margin-left: 10px;
+        height: auto;
+        justify-self: left;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: #3b3a3a;
+        top: 0px;
+    }
+    .conta1 b{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        overflow-wrap: break-word;
+        font-style: italic;
+        color: white; 
+        top: 10px;
+    }
+    .contact input{
+        position: relative;
+        width: 25vw;
+        height: 6vh;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid indigo;
+    }
+    .contact input::placeholder{
+        position: relative;
+        font: medium bold;
+        color: black;
+        font-weight: 900;
+        font-style: italic;
+        text-align: center;
+    }
+    .contact input:hover{
+        position: relative;
+        border: 1px solid blue;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }   
+    .conta1{
+        position: absolute;
+        width: 30vw;
+        height: auto;
+        justify-self: center;
+        text-align: center;
+        bottom: 0px;
+        border-radius: 20px;
+        background-color: hwb(170 1% 78%);
+    }
+    .conta1 h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-style: italic;
+        color: white; 
+        top: 10px;
+    }
+    .conta1 input{
+        position: relative;
+        width: 25vw;
+        height: 6vh;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid indigo;
+    }       
+    .conta1 input::placeholder{
+        position: relative;
+        font: medium bold;
+        color: black;
+        font-weight: 900;
+        font-style: italic;
+        text-align: center;
+    }
+    .conta1 input:hover{
+        position: relative;
+        border: 1px solid blue;
+        transition: all 0.3s ease;  
+        cursor: pointer;
+    }   
+    .conta2{
+        position: absolute;
+        width: 30vw;
+        height: auto;
+        justify-self: right;
+        text-align: center;
+        bottom: 0px;
+        border-radius: 20px;
+        right: 10px;
+        background-color: hwb(290 2% 3%);
+    }
+    .conta2 h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-style: italic; 
+        color: white;
+        top: 10px;
+    }
+    .conta2 input{
+        position: relative;
+        width: 25vw;
+        height: 6vh;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid indigo;
+    }       
+    .conta2 input::placeholder{
+        position: relative;         
+        font: medium bold;
+        color: black;
+        font-weight: 900;
+        font-style: italic;
+        text-align: center;
+    }
+    .conta2 input:hover{
+        position: relative;
+        border: 1px solid blue;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }   
+    .footer{
+        position: relative;
+        width: 100vw;
+        height: 60vh;
+        justify-self: center;
+        top: 120px;
+        background-color: hwb(0 5% 95%);
+    }
+    .links{
+        position: relative;
+        width: 30vw;
+        height: auto;
+        justify-self: left;
+        text-align: center;
+        text-align: center;
+        top: 20px;
+        border-radius: 10px;
+        background-color: transparent;
+    }
+    .links h2{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-size: medium;
+        font-style: italic;
+        color: white; 
+        top: 5px;
+    }
+    .time{
+       display: grid;
+       gap: 5px;
+    }
+    .time a{
+        position: relative;
+        text-decoration: none;
+        color: wheat;
+        text-align: center;
+        flex: auto;
+        flex-direction: row;
+        cursor: pointer;
+    }   
+    .time a:hover{
+        position: relative;
+        color: white;
+        transition: all ease 0.3s;
+        cursor: pointer;
+    }
+    .java{
+        position: relative;
+        width: 30vw;
+        height: auto;
+        justify-self: center;
+        text-align: center;
+        border-radius: 10px;
+        background-color: transparent;
+        bottom: 250px;
+    }
+    .java h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-size: medium;
+        font-style: italic;
+        color: white; 
+        top: 0px;
+    }
+    .none{
+        position: relative;
+        text-align: center;
+    }
+    .date{
+        display: grid;
+        gap: 5px;
+    }
+    .date a{
+        position: relative;
+        text-decoration: none;
+        color: wheat;
+        text-align: center;
+        flex: auto;
+        flex-direction: row;
+        cursor: pointer;
+    }   
+    .date a:hover{
+        position: relative;
+        color: white;
+        transition: all ease 0.3s;      
+        cursor: pointer;
+    }
+    .date a:active{
+        position: relative;
+        transform: translateY(-4px);
+    }
+    .date a:focus{
+        position: relative;
+        border: 2px solid blue;
+    }
+    .social-links{
+        position: relative;
+        width: 30vw;
+        height: auto;
+        justify-self: right;
+        text-align: center;
+        border-radius: 10px;
+        background-color: transparent;
+        bottom: 535px;
+    }
+    .social-links h1{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-weight: 900;
+        font-size: medium;
+        font-style: italic;
+        color: white; 
+        top: 0px;  
+    }
+
+    .social{
+        display:grid;
+        gap: 5px;
+    }
+    .social a img{
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 40px;
+        overflow-wrap: break-word;
+        margin-left: 10px;
+        bottom: 5px;
+    }
+    .social a img:hover{
+        position: relative;
+        transition: all 0.3s ease;
+        transform: translateY(4px);
+        cursor: pointer;
+        box-shadow: 5px 5px 5px 5px white;
+    }
+    .social-links h3{
+        position: relative;
+        text-align: center;
+        font: bold;
+        font-size: 20px;
+        font-weight: 900;
+        font-style: italic;
+        color: white; 
+        top: 0px;  
+    }
+    .paragraph{
+        position: relative;
+        text-align: center;
+        bottom: 550px;
+    }
+    .paragraph p{
+        position: relative;
+        color: white;
+    }   
