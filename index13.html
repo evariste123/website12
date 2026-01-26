@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eva-Learning | Complete Computer Science Education Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #e63946;
+            --radius: 12px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dark-theme {
+            --primary: #7209b7;
+            --secondary: #560bad;
+            --accent: #f72585;
+            --light: #121212;
+            --dark: #f8f9fa;
+            --gray: #adb5bd;
+            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+            transition: var(--transition);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 2rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 2.2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            margin-left: 50px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: var(--transition);
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-link.active:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .language-selector {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--light);
+            color: var(--dark);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            min-width: 200px;
+            z-index: 1001;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .language-dropdown.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .language-option {
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .language-option:last-child {
+            border-bottom: none;
+        }
+
+        .language-option:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            margin-left: 10px;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        /* Hero Section with Robotics Scientist */
+        .hero {
+            padding: 120px 0;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1), rgba(58, 12, 163, 0.08));
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .hero-text {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: float 6s ease-in-out infinite;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin: 0 auto 40px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .hero-image {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 500px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 30px;
+        }
+
+        .hero-image-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-image-description {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Replace the placeholder with your actual robotics scientist image */
+        .hero-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 30px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .nav-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Registration Form Section */
+        .registration-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(58, 12, 163, 0.04));
+        }
+
+        .registration-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 60px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .form-header h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .form-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+        .form-header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 30px auto 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius);
+            font-size: 1.05rem;
+            transition: var(--transition);
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .checkbox-label:hover {
+            background: rgba(67, 97, 238, 0.1);
+            border-color: rgba(67, 97, 238, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .checkbox-label input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: var(--radius);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.4);
+        }
+
+        .submit-btn:hover:before {
+            left: 100%;
+        }
+
+        .submit-btn i {
+            font-size: 1.3rem;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--dark);
+            display: inline-block;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .course-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-card.locked {
+            opacity: 0.85;
+            position: relative;
+        }
+
+        .course-card.locked:after {
+            content: '🔒 Complete Registration to Unlock';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-align: center;
+            padding: 20px;
+            border-radius: var(--radius);
+            backdrop-filter: blur(5px);
+        }
+
+        .course-img {
+            height: 200px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-img:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        .course-content {
+            padding: 30px;
+        }
+
+        .course-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .course-content p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .course-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .topic-tag {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--success), var(--primary));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .course-level {
+            background: var(--primary);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .course-duration {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Video Tutorials Section */
+        .videos-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(58, 12, 163, 0.04));
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .video-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-thumbnail {
+            height: 200px;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumbnail i {
+            color: white;
+            font-size: 4rem;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .video-thumbnail i {
+            transform: scale(1.2);
+        }
+
+        .video-content {
+            padding: 25px;
+        }
+
+        .video-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .video-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Books Section */
+        .books-section {
+            padding: 100px 0;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .book-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .book-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .book-card .author {
+            color: var(--gray);
+            margin-bottom: 18px;
+            font-size: 1rem;
+            font-style: italic;
+        }
+
+        .book-card .description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 1rem;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .read-btn {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 28px;
+            border-radius: var(--radius);
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.05rem;
+        }
+
+        .read-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(10px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) rotate(10deg);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 30px;
+        }
+
+        .google-map {
+            margin-top: 30px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .google-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .map-placeholder {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .map-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Book Reading Page */
+        .book-page {
+            padding: 80px 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.03), rgba(58, 12, 163, 0.02));
+        }
+
+        .book-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 40px;
+            border-bottom: 3px solid rgba(67, 97, 238, 0.15);
+        }
+
+        .book-header h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .book-header .author {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .book-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 60px;
+            box-shadow: var(--shadow);
+            min-height: 800px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .book-content h2 {
+            color: var(--primary);
+            margin: 40px 0 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(67, 97, 238, 0.2);
+            font-size: 2rem;
+        }
+
+        .book-content p {
+            margin-bottom: 25px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .book-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 3px solid rgba(67, 97, 238, 0.15);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 30px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 5px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 50px;
+            background: rgba(76, 201, 240, 0.1);
+            border-radius: var(--radius);
+            margin-top: 40px;
+            animation: slideUp 0.6s ease;
+            border: 2px solid var(--success);
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: var(--success);
+            margin-bottom: 30px;
+            animation: bounce 1s ease infinite;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            padding: 20px 30px;
+            background: var(--success);
+            color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            font-size: 1.8rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(45deg) translateX(-100%); }
+            100% { transform: rotate(45deg) translateX(100%); }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            animation-delay: 1s;
+            animation-duration: 10s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: var(--light);
+            box-shadow: var(--shadow);
+            z-index: 999;
+            padding: 30px;
+            animation: slideDown 0.4s ease;
+            border-top: 2px solid rgba(67, 97, 238, 0.1);
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-nav .nav-link {
+            color: var(--dark);
+            padding: 18px 25px;
+            border-radius: var(--radius);
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .mobile-nav .nav-link:hover {
+            background: rgba(67, 97, 238, 0.1);
+            transform: translateX(10px);
+        }
+
+        /* Page Navigation Buttons */
+        .page-navigation {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .page-btn {
+            padding: 15px 40px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+
+        .page-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .page-btn.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .courses-grid, .videos-grid, .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                margin-left: auto;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 40px;
+            }
+            
+            .google-map {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+            
+            .form-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .registration-container {
+                padding: 40px;
+            }
+            
+            .courses-section, .videos-section, .books-section, .registration-section {
+                padding: 80px 0;
+            }
+            
+            .book-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .book-content {
+                padding: 40px;
+            }
+            
+            .notification {
+                min-width: 300px;
+                right: 20px;
+                top: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-button, .page-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            .cta-button, .submit-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .courses-grid, .videos-grid, .books-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .book-nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .notification {
+                min-width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+            
+            .google-map {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#home" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span class="logo-text">Eva-Learning</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#courses" class="nav-link">Courses</a>
+                <a href="#videos" class="nav-link">Video Tutorials</a>
+                <a href="#books" class="nav-link">Books</a>
+                <a href="#registration" class="nav-link">Register</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <div style="display: flex; align-items: center;">
+                <div class="language-selector">
+                    <button class="language-btn" id="languageBtn">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLanguage">English</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option" data-lang="en">
+                            <span>🇺🇸</span> English
+                        </div>
+                        <div class="language-option" data-lang="fr">
+                            <span>🇫🇷</span> Français
+                        </div>
+                        <div class="language-option" data-lang="sw">
+                            <span>🇹🇿</span> Kiswahili
+                        </div>
+                        <div class="language-option" data-lang="rn">
+                            <span>🇧🇮</span> Kirundi
+                        </div>
+                        <div class="language-option" data-lang="rw">
+                            <span>🇷🇼</span> Kinyarwanda
+                        </div>
+                        <div class="language-option" data-lang="es">
+                            <span>🇪🇸</span> Español
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#courses" class="nav-link">Courses</a>
+                <a href="#videos" class="nav-link">Video Tutorials</a>
+                <a href="#books" class="nav-link">Books</a>
+                <a href="#registration" class="nav-link">Register</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Robotics Scientist Image -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 id="heroTitle">Master Computer Science with Eva-Learning</h1>
+                    <p id="heroDescription">Comprehensive interactive courses in Full JavaScript, Web Design, UX/UI, Data Science, and more. Access video tutorials, read technical books, complete real-world projects, and launch your tech career with our complete learning platform.</p>
+                    
+                    <div class="nav-buttons">
+                        <a href="#registration" class="nav-button">
+                            <i class="fas fa-user-plus"></i> Register Now
+                        </a>
+                        <a href="#courses" class="nav-button secondary">
+                            <i class="fas fa-book"></i> View Courses
+                        </a>
+                        <a href="#videos" class="nav-button secondary">
+                            <i class="fas fa-play-circle"></i> Watch Tutorials
+                        </a>
+                        <a href="#books" class="nav-button secondary">
+                            <i class="fas fa-book-reader"></i> Read Books
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <!-- Replace this with your robotics scientist image -->
+                    <!-- <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Robotics Scientist"> -->
+                    <div style="text-align: center; padding: 40px;">
+                        <i class="fas fa-robot" style="font-size: 6rem; margin-bottom: 20px;"></i>
+                        <h2 style="margin-bottom: 10px;">Robotics Scientist</h2>
+                        <p>Innovating the future of AI and Robotics</p>
+                    </div>
+                    <div class="hero-image-overlay">
+                        <div class="hero-image-title">Mr,Evariste Bapfekurera</div>
+                        <div class="hero-image-description">AI & Robotics Researcher at MIT</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form Section -->
+    <section class="registration-section" id="registration">
+        <div class="container">
+            <div class="registration-container">
+                <div class="form-header">
+                    <h2 id="formTitle">Registration Form</h2>
+                    <p id="formDescription">Complete this form to unlock all courses, video tutorials, and resources. All fields are required.</p>
+                </div>
+                
+                <form id="registrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName" id="fullNameLabel">Full Name *</label>
+                            <input type="text" id="fullName" class="form-control" required placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" id="emailLabel">Email Address *</label>
+                            <input type="email" id="email" class="form-control" required placeholder="your.email@example.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone" id="phoneLabel">Phone Number *</label>
+                            <input type="tel" id="phone" class="form-control" required placeholder="e.g., +250 785 786 547">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country" id="countryLabel">Country *</label>
+                            <select id="country" class="form-control" required>
+                                <option value="">Select your country</option>
+                                <option value="Rwanda">Rwanda</option>
+                                <option value="Burundi">Burundi</option>
+                                <option value="Tanzania">Tanzania</option>
+                                <option value="Kenya">Kenya</option>
+                                <option value="Uganda">Uganda</option>
+                                <option value="DR Congo">DR Congo</option>
+                                <option value="Other">Other African Country</option>
+                                <option value="International">International</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="education" id="educationLabel">Education Level *</label>
+                            <select id="education" class="form-control" required>
+                                <option value="">Select education level</option>
+                                <option value="High School">High School Student</option>
+                                <option value="College">College Student</option>
+                                <option value="Bachelor">Bachelor's Degree</option>
+                                <option value="Master">Master's Degree</option>
+                                <option value="PhD">PhD</option>
+                                <option value="Professional">Working Professional</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience" id="experienceLabel">Programming Experience *</label>
+                            <select id="experience" class="form-control" required>
+                                <option value="">Select experience level</option>
+                                <option value="Beginner">Beginner (0-6 months)</option>
+                                <option value="Intermediate">Intermediate (6 months - 2 years)</option>
+                                <option value="Advanced">Advanced (2+ years)</option>
+                                <option value="Expert">Expert (5+ years)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label id="interestLabel">Areas of Interest * (Select at least one)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="Web Development"> Full Stack Web Development
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="JavaScript"> JavaScript Mastery
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="UX/UI Design"> UX/UI Design
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="Data Science"> Data Science & Analytics
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="Mobile Development"> Mobile App Development
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="Cybersecurity"> Cybersecurity
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="AI/ML"> AI & Machine Learning
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interest" value="Cloud Computing"> Cloud Computing & DevOps
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="goal" id="goalLabel">Learning Goals *</label>
+                        <textarea id="goal" class="form-control" rows="4" required placeholder="What do you hope to achieve with Eva-Learning? Describe your career goals and learning objectives..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-lock-open"></i>
+                        <span id="submitBtnText">Submit & Unlock All Content</span>
+                    </button>
+                    
+                    <div class="success-message" id="successMessage">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 id="successTitle">Registration Successful!</h3>
+                        <p id="successMessageText">All courses, video tutorials, and books have been unlocked. You can now access all learning materials and start your journey!</p>
+                        
+                        <div class="nav-buttons" style="justify-content: center; margin-top: 30px;">
+                            <a href="#courses" class="nav-button">
+                                <i class="fas fa-book"></i> Explore Courses
+                            </a>
+                            <a href="#videos" class="nav-button secondary">
+                                <i class="fas fa-play-circle"></i> Watch Tutorials
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses-section" id="courses">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="coursesTitle">Comprehensive Courses</h2>
+                <p id="coursesSubtitle" style="color: var(--gray); margin-top: 25px; font-size: 1.2rem;">Complete the registration form to unlock all premium courses</p>
+            </div>
+            
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Courses will be dynamically added here -->
+            </div>
+            
+            <div class="page-navigation">
+                <a href="#home" class="page-btn secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <a href="#videos" class="page-btn">
+                    Next: Video Tutorials <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Tutorials Section -->
+    <section class="videos-section" id="videos">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="videosTitle">Video Tutorials</h2>
+                <p id="videosSubtitle" style="color: var(--gray); margin-top: 25px; font-size: 1.2rem;">Learn through engaging video content and practical demonstrations</p>
+            </div>
+            
+            <div class="videos-grid" id="videosGrid">
+                <!-- Videos will be dynamically added here -->
+            </div>
+            
+            <div class="page-navigation">
+                <a href="#courses" class="page-btn secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Courses
+                </a>
+                <a href="#books" class="page-btn">
+                    Next: Technical Books <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="books-section" id="books">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="booksTitle">Recommended Technical Books</h2>
+                <p id="booksSubtitle" style="color: var(--gray); margin-top: 25px; font-size: 1.2rem;">Click on any book to start reading and enhance your knowledge</p>
+            </div>
+            
+            <div class="books-grid" id="booksGrid">
+                <!-- Books will be dynamically added here -->
+            </div>
+            
+            <div class="page-navigation">
+                <a href="#videos" class="page-btn secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Videos
+                </a>
+                <a href="#contact" class="page-btn">
+                    Contact Us <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Reading Page (Hidden by default) -->
+    <div id="bookPageContainer" style="display: none;">
+        <div class="book-page">
+            <div class="container">
+                <div class="book-header">
+                    <h1 id="bookPageTitle">Book Title</h1>
+                    <div class="author" id="bookPageAuthor">Author Name</div>
+                    <a href="#books" class="back-btn" id="backToBooks">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Books Library
+                    </a>
+                </div>
+                
+                <div class="book-content" id="bookContent">
+                    <!-- Book content will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 id="footerAboutTitle">Eva-Learning</h3>
+                    <p id="footerAboutText" style="color: rgba(255,255,255,0.85); margin-bottom: 25px; line-height: 1.8;">A comprehensive computer science education platform offering interactive courses, video tutorials, and technical books for aspiring developers and tech professionals across Africa and beyond.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="footerLinksTitle">Quick Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home" id="footerHome">Home</a></li>
+                        <li><a href="#courses" id="footerCourses">All Courses</a></li>
+                        <li><a href="#videos" id="footerVideos">Video Tutorials</a></li>
+                        <li><a href="#books" id="footerBooks">Technical Books</a></li>
+                        <li><a href="#registration" id="footerRegister">Registration</a></li>
+                        <li><a href="#contact" id="footerContact">Contact Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="footerContactTitle">Contact Information</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email:</strong><br>
+                                <span>contact@eva-learning.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Phone:</strong><br>
+                                <span id="footerPhone">+250 785 786 547</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Location:</strong><br>
+                                <span id="footerAddress">Kigali, Rwanda | Online Platform</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="google-map">
+                        <!-- Google Maps Integration -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.490284318844!2d30.05937887480138!3d-1.9537559980585267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4258ed8e797%3A0x4c2e16c3b4d0c6e1!2sKigali%2C%20Rwanda!5e0!3m2!1sen!2sus!4v1633020637823!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p id="copyrightText">&copy; 2023 Eva-Learning Platform. All rights reserved. | Empowering African Tech Talent</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Registration successful! All content unlocked.</span>
+    </div>
+
+    <script>
+        // Enhanced Language translations
+        const translations = {
+            en: {
+                // Header
+                currentLanguage: "English",
+                // Hero
+                heroTitle: "Master Computer Science with Eva-Learning",
+                heroDescription: "Comprehensive interactive courses in Full JavaScript, Web Design, UX/UI, Data Science, and more. Access video tutorials, read technical books, complete real-world projects, and launch your tech career with our complete learning platform.",
+                // Form
+                formTitle: "Registration Form",
+                formDescription: "Complete this form to unlock all courses, video tutorials, and resources. All fields are required.",
+                fullNameLabel: "Full Name *",
+                emailLabel: "Email Address *",
+                phoneLabel: "Phone Number *",
+                countryLabel: "Country *",
+                educationLabel: "Education Level *",
+                experienceLabel: "Programming Experience *",
+                interestLabel: "Areas of Interest * (Select at least one)",
+                goalLabel: "Learning Goals *",
+                submitBtnText: "Submit & Unlock All Content",
+                successTitle: "Registration Successful!",
+                successMessageText: "All courses, video tutorials, and books have been unlocked. You can now access all learning materials and start your journey!",
+                // Courses
+                coursesTitle: "Comprehensive Courses",
+                coursesSubtitle: "Complete the registration form to unlock all premium courses",
+                // Videos
+                videosTitle: "Video Tutorials",
+                videosSubtitle: "Learn through engaging video content and practical demonstrations",
+                // Books
+                booksTitle: "Recommended Technical Books",
+                booksSubtitle: "Click on any book to start reading and enhance your knowledge",
+                // Footer
+                footerAboutTitle: "Eva-Learning",
+                footerAboutText: "A comprehensive computer science education platform offering interactive courses, video tutorials, and technical books for aspiring developers and tech professionals across Africa and beyond.",
+                footerLinksTitle: "Quick Navigation",
+                footerHome: "Home",
+                footerCourses: "All Courses",
+                footerVideos: "Video Tutorials",
+                footerBooks: "Technical Books",
+                footerRegister: "Registration",
+                footerContact: "Contact Support",
+                footerContactTitle: "Contact Information",
+                footerAddress: "Kigali, Rwanda | Online Platform",
+                copyrightText: "© 2023 Eva-Learning Platform. All rights reserved. | Empowering African Tech Talent"
+            },
+            fr: {
+                currentLanguage: "Français",
+                heroTitle: "Maîtrisez l'Informatique avec Eva-Learning",
+                heroDescription: "Cours interactifs complets en JavaScript complet, conception web, UX/UI, science des données, et plus encore. Accédez aux tutoriels vidéo, lisez des livres techniques, complétez des projets réels et lancez votre carrière technologique avec notre plateforme d'apprentissage complète.",
+                formTitle: "Formulaire d'Inscription",
+                formDescription: "Complétez ce formulaire pour débloquer tous les cours, tutoriels vidéo et ressources. Tous les champs sont obligatoires.",
+                fullNameLabel: "Nom Complet *",
+                emailLabel: "Adresse Email *",
+                phoneLabel: "Numéro de Téléphone *",
+                countryLabel: "Pays *",
+                educationLabel: "Niveau d'Éducation *",
+                experienceLabel: "Expérience en Programmation *",
+                interestLabel: "Domaines d'Intérêt * (Sélectionnez au moins un)",
+                goalLabel: "Objectifs d'Apprentissage *",
+                submitBtnText: "Soumettre & Débloquer Tout le Contenu",
+                successTitle: "Inscription Réussie !",
+                successMessageText: "Tous les cours, tutoriels vidéo et livres ont été débloqués. Vous pouvez maintenant accéder à tous les matériels d'apprentissage et commencer votre parcours !",
+                coursesTitle: "Cours Complets",
+                coursesSubtitle: "Complétez le formulaire d'inscription pour débloquer tous les cours premium",
+                videosTitle: "Tutoriels Vidéo",
+                videosSubtitle: "Apprenez grâce à du contenu vidéo captivant et des démonstrations pratiques",
+                booksTitle: "Livres Techniques Recommandés",
+                booksSubtitle: "Cliquez sur un livre pour commencer à lire et améliorer vos connaissances",
+                footerAboutTitle: "Eva-Learning",
+                footerAboutText: "Une plateforme complète d'éducation en informatique proposant des cours interactifs, des tutoriels vidéo et des livres techniques pour les développeurs en herbe et les professionnels de la technologie à travers l'Afrique et au-delà.",
+                footerLinksTitle: "Navigation Rapide",
+                footerHome: "Accueil",
+                footerCourses: "Tous les Cours",
+                footerVideos: "Tutoriels Vidéo",
+                footerBooks: "Livres Techniques",
+                footerRegister: "Inscription",
+                footerContact: "Support Client",
+                footerContactTitle: "Informations de Contact",
+                footerAddress: "Kigali, Rwanda | Plateforme en Ligne",
+                copyrightText: "© 2023 Plateforme Eva-Learning. Tous droits réservés. | Autonomiser les Talents Technologiques Africains"
+            },
+            sw: {
+                currentLanguage: "Kiswahili",
+                heroTitle: "Jua Sayansi ya Kompyuta kwa Eva-Learning",
+                heroDescription: "Kozi kamili za kushirikisha katika JavaScript Kamili, Ubunifu wa Tovuti, UX/UI, Sayansi ya Data, na zaidi. Pata mafunzo ya video, soma vitabu vya kiufundi, kamilisha miradi ya ulimwengu wa kweli, na uzindue taaluma yako ya teknolojia na jukwaa letu kamili la kujifunza.",
+                formTitle: "Fomu ya Usajili",
+                formDescription: "Kamilisha fomu hii kufungua kozi zote, mafunzo ya video, na rasilimali. Sehemu zote zinahitajika.",
+                fullNameLabel: "Jina Kamili *",
+                emailLabel: "Anwani ya Barua Pepe *",
+                phoneLabel: "Nambari ya Simu *",
+                countryLabel: "Nchi *",
+                educationLabel: "Kiwango cha Elimu *",
+                experienceLabel: "Uzoefu wa Programu *",
+                interestLabel: "Maeneo ya Kupendeza * (Chagua angalau moja)",
+                goalLabel: "Malengo ya Kujifunza *",
+                submitBtnText: "Wasilisha & Fungua Yote",
+                successTitle: "Usajili Umefanikiwa!",
+                successMessageText: "Kozi zote, mafunzo ya video, na vitabu vimefunguliwa. Sasa unaweza kufikia nyenzo zote za kujifunza na kuanza safari yako!",
+                coursesTitle: "Kozi Kamili",
+                coursesSubtitle: "Kamilisha fomu ya usajili kufungua kozi zote za premium",
+                videosTitle: "Mafunzo ya Video",
+                videosSubtitle: "Jifunze kupitia maudhui ya video ya kuvutia na maonyesho ya vitendo",
+                booksTitle: "Vitabu vya Kiufundi Vilivyopendekezwa",
+                booksSubtitle: "Bonyeza kitabu chochote kuanza kusoma na kuongeza ujuzi wako",
+                footerAboutTitle: "Eva-Learning",
+                footerAboutText: "Jukwaa kamili la elimu ya sayansi ya kompyuta linalotoa kozi za kushirikisha, mafunzo ya video, na vitabu vya kiufundi kwa watangulizi wa watengenezaji na wataalamu wa teknolojia barani Afrika na zaidi.",
+                footerLinksTitle: "Urambazaji wa Haraka",
+                footerHome: "Nyumbani",
+                footerCourses: "Kozi Zote",
+                footerVideos: "Mafunzo ya Video",
+                footerBooks: "Vitabu vya Kiufundi",
+                footerRegister: "Usajili",
+                footerContact: "Msaada wa Mawasiliano",
+                footerContactTitle: "Maelezo ya Mawasiliano",
+                footerAddress: "Kigali, Rwanda | Jukwaa la Mtandaoni",
+                copyrightText: "© 2023 Jukwaa la Eva-Learning. Haki zote zimehifadhiwa. | Kuwezesha Talanta za Teknolojia za Kiafrika"
+            }
+        };
+
+        // Enhanced Course Data with Detailed Descriptions
+        const courses = [
+            {
+                id: 1,
+                title: "Complete JavaScript Mastery",
+                description: "Master JavaScript from fundamentals to advanced concepts including ES6+, modern frameworks, async programming, and building real-world applications. This comprehensive course covers everything from basic syntax to advanced patterns.",
+                icon: "fab fa-js-square",
+                level: "Advanced",
+                duration: "14 Weeks",
+                topics: ["ES6+ Features", "Async/Await", "Promises", "React & Vue.js", "Node.js", "Testing", "Design Patterns", "Performance Optimization"],
+                locked: true
+            },
+            {
+                id: 2,
+                title: "Full Stack Web Development",
+                description: "Learn complete web development with HTML5, CSS3, JavaScript, React, Node.js, and databases. Build responsive, accessible websites and web applications with modern development practices.",
+                icon: "fas fa-code",
+                level: "Intermediate",
+                duration: "16 Weeks",
+                topics: ["HTML5/CSS3", "JavaScript", "React.js", "Node.js", "Express", "MongoDB", "REST APIs", "Deployment"],
+                locked: true
+            },
+            {
+                id: 3,
+                title: "UX/UI Design & Prototyping",
+                description: "Master user experience and interface design principles, wireframing, prototyping, and user research. Learn to create beautiful, functional designs using Figma and Adobe XD.",
+                icon: "fas fa-paint-brush",
+                level: "Intermediate",
+                duration: "12 Weeks",
+                topics: ["Design Thinking", "Wireframing", "Prototyping", "User Research", "Figma", "Adobe XD", "Design Systems", "Usability Testing"],
+                locked: true
+            },
+            {
+                id: 4,
+                title: "Advanced CSS & Animations",
+                description: "Create stunning animations, transitions, and advanced CSS effects for modern web interfaces. Master CSS Grid, Flexbox, Sass, and cutting-edge CSS techniques.",
+                icon: "fas fa-film",
+                level: "Intermediate",
+                duration: "8 Weeks",
+                topics: ["CSS Grid", "Flexbox", "Animations", "Transitions", "Sass/SCSS", "CSS Variables", "Responsive Design", "Performance"],
+                locked: true
+            },
+            {
+                id: 5,
+                title: "Python for Data Science",
+                description: "Learn Python programming for data analysis, visualization, and machine learning. Work with libraries like NumPy, Pandas, Matplotlib, and Scikit-learn for real data projects.",
+                icon: "fab fa-python",
+                level: "Intermediate",
+                duration: "15 Weeks",
+                topics: ["Python Basics", "NumPy", "Pandas", "Matplotlib", "Scikit-learn", "Data Analysis", "Machine Learning", "Data Visualization"],
+                locked: true
+            },
+            {
+                id: 6,
+                title: "Mobile App Development",
+                description: "Build cross-platform mobile applications using React Native and Flutter. Learn to create native-feeling apps for iOS and Android with modern development tools.",
+                icon: "fas fa-mobile-alt",
+                level: "Advanced",
+                duration: "18 Weeks",
+                topics: ["React Native", "Flutter", "Firebase", "API Integration", "App Store", "Google Play", "State Management", "Native Modules"],
+                locked: true
+            },
+            {
+                id: 7,
+                title: "Cybersecurity Fundamentals",
+                description: "Learn essential cybersecurity principles, ethical hacking, network security, and security best practices. Protect systems and data from modern threats.",
+                icon: "fas fa-shield-alt",
+                level: "Beginner",
+                duration: "10 Weeks",
+                topics: ["Network Security", "Cryptography", "Ethical Hacking", "Security Tools", "Threat Analysis", "Risk Management", "Security Policies", "Incident Response"],
+                locked: true
+            },
+            {
+                id: 8,
+                title: "Database Management & Design",
+                description: "Master SQL, NoSQL databases, database design, optimization, and administration. Learn to work with MySQL, PostgreSQL, MongoDB, and Redis.",
+                icon: "fas fa-database",
+                level: "Intermediate",
+                duration: "12 Weeks",
+                topics: ["SQL Fundamentals", "MySQL/PostgreSQL", "MongoDB", "Database Design", "Query Optimization", "Indexing", "Backup/Recovery", "Database Security"],
+                locked: true
+            }
+        ];
+
+        // Video Tutorials Data
+        const videoTutorials = [
+            {
+                id: 1,
+                title: "JavaScript Fundamentals Crash Course",
+                description: "Learn JavaScript basics in 2 hours. Perfect for beginners starting their programming journey.",
+                duration: "2:15:30",
+                level: "Beginner",
+                icon: "fas fa-play-circle"
+            },
+            {
+                id: 2,
+                title: "Building Your First React App",
+                description: "Step-by-step guide to creating a React application from scratch with best practices.",
+                duration: "1:45:20",
+                level: "Intermediate",
+                icon: "fab fa-react"
+            },
+            {
+                id: 3,
+                title: "CSS Grid Layout Masterclass",
+                description: "Complete guide to mastering CSS Grid for responsive web design layouts.",
+                duration: "1:30:45",
+                level: "Intermediate",
+                icon: "fas fa-th"
+            },
+            {
+                id: 4,
+                title: "Python Data Analysis Tutorial",
+                description: "Learn to analyze and visualize data using Python's powerful data science libraries.",
+                duration: "2:30:10",
+                level: "Intermediate",
+                icon: "fab fa-python"
+            },
+            {
+                id: 5,
+                title: "Mobile App UI/UX Design",
+                description: "Design beautiful mobile interfaces following modern UI/UX principles.",
+                duration: "1:55:40",
+                level: "Beginner",
+                icon: "fas fa-paint-brush"
+            },
+            {
+                id: 6,
+                title: "Database Optimization Techniques",
+                description: "Advanced techniques for optimizing database performance and queries.",
+                duration: "2:10:25",
+                level: "Advanced",
+                icon: "fas fa-database"
+            }
+        ];
+
+        // Enhanced Book Data with Full Content
+        const books = [
+            {
+                id: 1,
+                title: "Eloquent JavaScript, 3rd Edition",
+                author: "Marijn Haverbeke",
+                description: "A modern introduction to programming with JavaScript. This book dives deep into JavaScript's core concepts with practical examples.",
+                icon: "fas fa-book",
+                content: `
+                    <h2>Introduction to JavaScript</h2>
+                    <p>JavaScript is a high-level, dynamic, untyped, and interpreted programming language. It has been standardized in the ECMAScript language specification. Alongside HTML and CSS, it is one of the three core technologies of World Wide Web content production.</p>
+                    
+                    <h2>Values, Types, and Operators</h2>
+                    <p>Inside the computer's world, there is only data. You can read data, modify data, create new data—but that which isn't data cannot be mentioned. All this data is stored as long sequences of bits and is thus fundamentally alike.</p>
+                    
+                    <h2>Program Structure</h2>
+                    <p>In this chapter, we will start to do things that can actually be called programming. We will expand our command of the JavaScript language beyond the nouns and sentence fragments we've seen so far, to the point where we can express meaningful prose.</p>
+                    
+                    <h2>Functions</h2>
+                    <p>Functions are the bread and butter of JavaScript programming. The concept of wrapping a piece of program in a value has many uses. It gives us a way to structure larger programs, to reduce repetition, to associate names with subprograms, and to isolate these subprograms from each other.</p>
+                    
+                    <h2>Data Structures: Objects and Arrays</h2>
+                    <p>Numbers, Booleans, and strings are the atoms that data structures are built from. Many types of information require more than one atom, though. Objects allow us to group values—including other objects—to build more complex structures.</p>
+                    
+                    <h2>Higher-Order Functions</h2>
+                    <p>Functions that operate on other functions, either by taking them as arguments or by returning them, are called higher-order functions. Since we have already seen that functions are regular values, there is nothing particularly remarkable about the fact that such functions exist.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Clean Code: A Handbook of Agile Software Craftsmanship",
+                author: "Robert C. Martin",
+                description: "Even bad code can function. But if code isn't clean, it can bring a development organization to its knees.",
+                icon: "fas fa-book",
+                content: `
+                    <h2>Clean Code</h2>
+                    <p>Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.</p>
+                    
+                    <h2>Meaningful Names</h2>
+                    <p>Names are everywhere in software. We name our variables, our functions, our arguments, classes, and packages. We name our source files and the directories that contain them. We name our jar files and war files and ear files. We name and name and name.</p>
+                    
+                    <h2>Functions</h2>
+                    <p>The first rule of functions is that they should be small. The second rule of functions is that they should be smaller than that. Functions should do one thing. They should do it well. They should do it only.</p>
+                    
+                    <h2>Comments</h2>
+                    <p>Comments are at best a necessary evil. If our programming languages were expressive enough, or if we had the talent to subtly wield those languages to express our intent, we would not need comments very much—perhaps not at all.</p>
+                    
+                    <h2>Formatting</h2>
+                    <p>Code formatting is important. It is too important to ignore and it is too important to treat religiously. Code formatting is about communication, and communication is the professional developer's first order of business.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "You Don't Know JS Yet: Get Started",
+                author: "Kyle Simpson",
+                description: "This is a series of books diving deep into the core mechanisms of the JavaScript language.",
+                icon: "fas fa-book",
+                content: `
+                    <h2>Into Programming</h2>
+                    <p>Welcome to the You Don't Know JS (YDKJS) series. Up & Going is an introduction to several basic concepts of programming—of course we lean toward JavaScript (often abbreviated JS) specifically—and how to approach and understand the rest of the titles in this series.</p>
+                    
+                    <h2>Into JavaScript</h2>
+                    <p>In the previous chapter, I introduced the basic building blocks of programming, such as variables, loops, conditionals, and functions. Of course, all the code shown has been in JavaScript. But in this chapter, we want to focus specifically on things you need to know about JavaScript to get up and going as a JS developer.</p>
+                    
+                    <h2>Scope & Closures</h2>
+                    <p>One of the most fundamental paradigms of nearly all programming languages is the ability to store values in variables, and later retrieve or modify those values. In fact, the ability to store values and pull values out of variables is what gives a program state.</p>
+                    
+                    <h2>this & Object Prototypes</h2>
+                    <p>If there's one thing we learn well in JavaScript, it's that nothing is ever simple. So it should come as no surprise that one of the most powerful and often misunderstood concepts, this, is no exception.</p>
+                `
+            }
+        ];
+
+        // State Management
+        let currentLanguage = 'en';
+        let isDarkTheme = false;
+        let isFormSubmitted = false;
+        let currentPage = 'home';
+
+        // DOM Elements
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        const currentLanguageSpan = document.getElementById('currentLanguage');
+        const themeToggle = document.getElementById('themeToggle');
+        const registrationForm = document.getElementById('registrationForm');
+        const coursesGrid = document.getElementById('coursesGrid');
+        const videosGrid = document.getElementById('videosGrid');
+        const booksGrid = document.getElementById('booksGrid');
+        const bookPageContainer = document.getElementById('bookPageContainer');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const notification = document.getElementById('notification');
+        const successMessage = document.getElementById('successMessage');
+
+        // Initialize Application
+        function init() {
+            // Load saved preferences
+            const savedLanguage = localStorage.getItem('eva-language') || 'en';
+            const savedTheme = localStorage.getItem('eva-theme') || 'light';
+            const savedForm = localStorage.getItem('eva-form-submitted') || 'false';
+            
+            currentLanguage = savedLanguage;
+            isDarkTheme = savedTheme === 'dark';
+            isFormSubmitted = savedForm === 'true';
+            
+            // Apply preferences
+            applyLanguage(currentLanguage);
+            applyTheme(isDarkTheme);
+            
+            // Render content
+            renderCourses();
+            renderVideos();
+            renderBooks();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Initialize animations
+            initAnimations();
+            
+            // Setup navigation
+            setupSmoothScrolling();
+            
+            // Check if form was submitted
+            if (isFormSubmitted) {
+                successMessage.classList.add('show');
+                document.getElementById('submitBtn').style.display = 'none';
+            }
+        }
+
+        // Apply Language Translations
+        function applyLanguage(lang) {
+            currentLanguage = lang;
+            const translation = translations[lang];
+            
+            // Update all translatable elements
+            Object.keys(translation).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = translation[key];
+                }
+            });
+            
+            // Update current language display
+            currentLanguageSpan.textContent = translation.currentLanguage;
+            
+            // Save preference
+            localStorage.setItem('eva-language', lang);
+        }
+
+        // Apply Theme
+        function applyTheme(isDark) {
+            isDarkTheme = isDark;
+            
+            if (isDark) {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+            
+            localStorage.setItem('eva-theme', isDark ? 'dark' : 'light');
+        }
+
+        // Render Courses
+        function renderCourses() {
+            coursesGrid.innerHTML = '';
+            
+            courses.forEach(course => {
+                const courseCard = document.createElement('div');
+                courseCard.className = `course-card ${!isFormSubmitted && course.locked ? 'locked' : ''}`;
+                
+                const topicsHTML = course.topics.map(topic => 
+                    `<span class="topic-tag">${topic}</span>`
+                ).join('');
+                
+                courseCard.innerHTML = `
+                    <div class="course-img">
+                        <i class="${course.icon}"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>${course.title}</h3>
+                        <p>${course.description}</p>
+                        <div class="course-topics">
+                            ${topicsHTML}
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: ${isFormSubmitted ? Math.floor(Math.random() * 60) + 30 : 0}%"></div>
+                        </div>
+                        <div class="course-meta">
+                            <span class="course-level">${course.level}</span>
+                            <span class="course-duration">${course.duration}</span>
+                        </div>
+                    </div>
+                `;
+                
+                coursesGrid.appendChild(courseCard);
+            });
+        }
+
+        // Render Videos
+        function renderVideos() {
+            videosGrid.innerHTML = '';
+            
+            videoTutorials.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                
+                videoCard.innerHTML = `
+                    <div class="video-thumbnail">
+                        <i class="${video.icon}"></i>
+                    </div>
+                    <div class="video-content">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                        <div class="video-meta">
+                            <span><i class="fas fa-clock"></i> ${video.duration}</span>
+                            <span><i class="fas fa-signal"></i> ${video.level}</span>
+                        </div>
+                    </div>
+                `;
+                
+                videosGrid.appendChild(videoCard);
+            });
+        }
+
+        // Render Books
+        function renderBooks() {
+            booksGrid.innerHTML = '';
+            
+            books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                
+                bookCard.innerHTML = `
+                    <div class="book-icon">
+                        <i class="${book.icon}"></i>
+                    </div>
+                    <h3>${book.title}</h3>
+                    <p class="author">${book.author}</p>
+                    <p class="description">${book.description}</p>
+                    <a href="#" class="read-btn" data-book-id="${book.id}">Read Online</a>
+                `;
+                
+                booksGrid.appendChild(bookCard);
+            });
+        }
+
+        // Show Book Reading Page
+        function showBookPage(bookId) {
+            const book = books.find(b => b.id == bookId);
+            if (!book) return;
+            
+            // Hide main content
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.querySelector('footer').style.display = 'none';
+            
+            // Show book page
+            bookPageContainer.style.display = 'block';
+            document.getElementById('bookPageTitle').textContent = book.title;
+            document.getElementById('bookPageAuthor').textContent = `By ${book.author}`;
+            document.getElementById('bookContent').innerHTML = book.content;
+            
+            currentPage = 'book';
+            
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show Main Content
+        function showMainContent() {
+            // Show all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'block';
+            });
+            document.querySelector('footer').style.display = 'block';
+            
+            // Hide book page
+            bookPageContainer.style.display = 'none';
+            
+            currentPage = 'home';
+            
+            // Smooth scroll to books section
+            document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Show Notification
+        function showNotification(message) {
+            document.getElementById('notificationText').textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Language selector
+            languageBtn.addEventListener('click', () => {
+                languageDropdown.classList.toggle('show');
+            });
+            
+            // Language options
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const lang = option.getAttribute('data-lang');
+                    applyLanguage(lang);
+                    languageDropdown.classList.remove('show');
+                });
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', () => {
+                applyTheme(!isDarkTheme);
+            });
+            
+            // Mobile menu
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('show');
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileMenu.classList.remove('show');
+                }
+            });
+            
+            // Form submission
+            registrationForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = {
+                    fullName: document.getElementById('fullName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    country: document.getElementById('country').value,
+                    education: document.getElementById('education').value,
+                    experience: document.getElementById('experience').value,
+                    interests: Array.from(document.querySelectorAll('input[name="interest"]:checked')).map(cb => cb.value),
+                    goal: document.getElementById('goal').value
+                };
+                
+                // Validate interests
+                if (formData.interests.length === 0) {
+                    showNotification('Please select at least one area of interest');
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = document.getElementById('submitBtn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<div class="loading"></div>';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Log form data
+                console.log('Registration submitted:', formData);
+                
+                // Update state
+                isFormSubmitted = true;
+                localStorage.setItem('eva-form-submitted', 'true');
+                
+                // Show success message
+                successMessage.classList.add('show');
+                submitBtn.style.display = 'none';
+                
+                // Unlock courses
+                renderCourses();
+                
+                // Show notification
+                showNotification('Registration successful! All content is now unlocked.');
+                
+                // Smooth scroll to courses
+                setTimeout(() => {
+                    document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            });
+            
+            // Read book buttons
+            booksGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('read-btn')) {
+                    e.preventDefault();
+                    const bookId = e.target.getAttribute('data-book-id');
+                    showBookPage(bookId);
+                }
+            });
+            
+            // Back to books button
+            document.getElementById('backToBooks').addEventListener('click', (e) => {
+                e.preventDefault();
+                showMainContent();
+            });
+            
+            // All navigation buttons
+            document.querySelectorAll('.nav-button, .page-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    if (button.getAttribute('href') && button.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = button.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            // Update active nav link
+                            document.querySelectorAll('.nav-link').forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            
+                            // Find corresponding nav link
+                            const navLink = document.querySelector(`.nav-link[href="${targetId}"]`);
+                            if (navLink) navLink.classList.add('active');
+                            
+                            // Close mobile menu
+                            mobileMenu.classList.remove('show');
+                            
+                            // Scroll to target
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        }
+
+        // Setup Smooth Scrolling
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Update active nav link
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        
+                        // Close mobile menu
+                        mobileMenu.classList.remove('show');
+                        
+                        // Scroll to target
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Update active nav on scroll
+            window.addEventListener('scroll', () => {
+                if (currentPage === 'book') return;
+                
+                const sections = document.querySelectorAll('section');
+                const scrollPos = window.scrollY + 150;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize Animations
+        function initAnimations() {
+            // GSAP animations
+            gsap.from('.logo', { duration: 1, y: -50, opacity: 0, ease: 'power3.out' });
+            gsap.from('.hero-text', { duration: 1.5, x: -60, opacity: 0, delay: 0.3, ease: 'power3.out' });
+            gsap.from('.hero-image', { duration: 1.5, x: 60, opacity: 0, delay: 0.5, ease: 'power3.out' });
+            
+            // Registration form animation
+            gsap.from('.registration-container', {
+                scrollTrigger: {
+                    trigger: '.registration-section',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                duration: 1.2,
+                y: 60,
+                opacity: 0,
+                ease: 'power3.out'
+            });
+            
+            // Course cards animations
+            gsap.utils.toArray('.course-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    duration: 1,
+                    y: 60,
+                    opacity: 0,
+                    delay: i * 0.15,
+                    ease: 'power3.out'
+                });
+            });
+            
+            // Video cards animations
+            gsap.utils.toArray('.video-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    duration: 1,
+                    y: 40,
+                    opacity: 0,
+                    delay: i * 0.1,
+                    ease: 'power3.out'
+                });
+            });
+            
+            // Book cards animations
+            gsap.utils.toArray('.book-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    },
+                    duration: 1,
+                    y: 40,
+                    opacity: 0,
+                    delay: i * 0.1,
+                    ease: 'power3.out'
+                });
+            });
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
