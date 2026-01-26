@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Code Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1e1e1e;
+            --secondary: #252526;
+            --accent: #007acc;
+            --light: #f3f3f3;
+            --dark: #333;
+            --success: #4CAF50;
+            --error: #f44336;
+            --code-bg: #1e1e1e;
+            --output-bg: #ffffff;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--primary);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .run-btn {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .run-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .clear-btn:hover {
+            background-color: #f57c00;
+        }
+
+        .theme-btn {
+            background-color: #673ab7;
+            color: white;
+        }
+
+        .theme-btn:hover {
+            background-color: #5e35b1;
+        }
+
+        .fullscreen-btn {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #1976d2;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+            padding: 15px;
+            gap: 15px;
+            height: calc(100vh - 100px);
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+            }
+        }
+
+        .editor-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--primary);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-height: 300px;
+        }
+
+        .editor-header {
+            background-color: var(--secondary);
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+        }
+
+        .editor-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .code-icon {
+            color: var(--accent);
+        }
+
+        .editor-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        #codeEditor {
+            width: 100%;
+            height: 100%;
+            background-color: var(--code-bg);
+            color: #d4d4d4;
+            border: none;
+            padding: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: none;
+            outline: none;
+            tab-size: 4;
+        }
+
+        .output-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--output-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-height: 300px;
+        }
+
+        .output-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .output-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .output-icon {
+            color: #4CAF50;
+        }
+
+        #output {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: white;
+            color: #333;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .footer {
+            background-color: var(--primary);
+            padding: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 15px;
+            background-color: var(--secondary);
+            color: #aaa;
+            font-size: 13px;
+            border-top: 1px solid #444;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .examples {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .example-btn {
+            padding: 5px 10px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .example-btn:hover {
+            background-color: var(--accent);
+        }
+
+        /* Syntax highlighting styles */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+        .function { color: #dcdcaa; }
+        .operator { color: #d4d4d4; }
+        .builtin { color: #4ec9b0; }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            button {
+                flex: 1;
+                justify-content: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 15px;
+            }
+            
+            .logo h1 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 10px;
+            }
+            
+            .editor-header, .output-header {
+                padding: 10px;
+            }
+            
+            #codeEditor, #output {
+                padding: 12px;
+                font-size: 13px;
+            }
+            
+            .status-bar {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+        }
+
+        /* Fullscreen styles */
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            padding: 0;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        /* Dark theme */
+        body.dark-theme {
+            --primary: #121212;
+            --secondary: #1f1f1f;
+            --accent: #bb86fc;
+            --light: #e0e0e0;
+            --code-bg: #121212;
+            --output-bg: #1e1e1e;
+        }
+
+        body.dark-theme #output {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #2d2d2d;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Console message styles */
+        .log { color: #333; }
+        .error { color: #f44336; }
+        .warn { color: #ff9800; }
+        .info { color: #2196f3; }
+        .success { color: #4CAF50; }
+        
+        body.dark-theme .log { color: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">💻</div>
+            <h1>Simple Code Editor</h1>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <div class="controls" id="controls">
+            <button class="run-btn" id="runBtn">
+                <span>▶</span> Run Code
+            </button>
+            <button class="clear-btn" id="clearBtn">
+                <span>🗑️</span> Clear
+            </button>
+            <button class="theme-btn" id="themeBtn">
+                <span>🌙</span> Theme
+            </button>
+            <button class="fullscreen-btn" id="fullscreenBtn">
+                <span>⛶</span> Fullscreen
+            </button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="editor-section">
+            <div class="editor-header">
+                <div class="editor-title">
+                    <span class="code-icon">📝</span>
+                    <span>Editor (JavaScript)</span>
+                </div>
+                <div class="examples">
+                    <button class="example-btn" data-example="hello">Hello World</button>
+                    <button class="example-btn" data-example="function">Functions</button>
+                    <button class="example-btn" data-example="dom">DOM Manipulation</button>
+                    <button class="example-btn" data-example="array">Arrays</button>
+                </div>
+            </div>
+            <div class="editor-wrapper">
+                <textarea id="codeEditor" spellcheck="false">// Welcome to Simple Code Editor!
+// Write your JavaScript code here and click "Run Code"
+
+console.log("Hello, World!");
+
+// Simple function example
+function greet(name) {
+    return `Hello, ${name}! Welcome to the code editor.`;
+}
+
+console.log(greet("Developer"));
+
+// Array operations
+const numbers = [1, 2, 3, 4, 5];
+const squares = numbers.map(n => n * n);
+console.log("Numbers:", numbers);
+console.log("Squares:", squares);
+
+// Try writing your own code below
+const currentDate = new Date();
+console.log("Current date:", currentDate.toLocaleDateString());
+console.log("Current time:", currentDate.toLocaleTimeString());</textarea>
+            </div>
+            <div class="status-bar">
+                <div id="lineCount">Lines: 1</div>
+                <div id="charCount">Characters: 0</div>
+            </div>
+        </div>
+
+        <div class="output-section">
+            <div class="output-header">
+                <div class="output-title">
+                    <span class="output-icon">📊</span>
+                    <span>Output Console</span>
+                </div>
+                <button class="clear-btn" id="clearOutputBtn" style="padding: 5px 10px; font-size: 13px;">
+                    <span>🗑️</span> Clear
+                </button>
+            </div>
+            <pre id="output">// Output will appear here after running your code
+// Click "Run Code" to execute the JavaScript code</pre>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Simple Code Editor • Runs JavaScript in your browser • No server required</p>
+    </div>
+
+    <script>
+        // DOM Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const output = document.getElementById('output');
+        const runBtn = document.getElementById('runBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const clearOutputBtn = document.getElementById('clearOutputBtn');
+        const themeBtn = document.getElementById('themeBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const controls = document.getElementById('controls');
+        const lineCount = document.getElementById('lineCount');
+        const charCount = document.getElementById('charCount');
+        const exampleBtns = document.querySelectorAll('.example-btn');
+
+        // Initialize
+        updateStats();
+        applySyntaxHighlighting();
+
+        // Event Listeners
+        codeEditor.addEventListener('input', function() {
+            updateStats();
+            applySyntaxHighlighting();
+        });
+
+        codeEditor.addEventListener('keydown', function(e) {
+            // Tab key support
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                
+                // Insert tab character
+                this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                
+                // Move cursor position
+                this.selectionStart = this.selectionEnd = start + 4;
+            }
+            
+            // Ctrl+Enter to run code
+            if (e.ctrlKey && e.key === 'Enter') {
+                runCode();
+            }
+        });
+
+        runBtn.addEventListener('click', runCode);
+        clearBtn.addEventListener('click', clearCode);
+        clearOutputBtn.addEventListener('click', clearOutput);
+        
+        themeBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            this.innerHTML = document.body.classList.contains('dark-theme') 
+                ? '<span>☀️</span> Light' 
+                : '<span>🌙</span> Dark';
+        });
+
+        fullscreenBtn.addEventListener('click', function() {
+            const editorSection = document.querySelector('.editor-section');
+            
+            if (!document.fullscreenElement) {
+                if (editorSection.requestFullscreen) {
+                    editorSection.requestFullscreen();
+                }
+                this.innerHTML = '<span>❌</span> Exit';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                this.innerHTML = '<span>⛶</span> Fullscreen';
+            }
+        });
+
+        mobileMenuBtn.addEventListener('click', function() {
+            controls.classList.toggle('mobile-visible');
+            this.innerHTML = controls.classList.contains('mobile-visible') ? '✕' : '☰';
+        });
+
+        // Example buttons
+        exampleBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const example = this.getAttribute('data-example');
+                loadExample(example);
+            });
+        });
+
+        // Functions
+        function updateStats() {
+            const text = codeEditor.value;
+            const lines = text.split('\n').length;
+            const chars = text.length;
+            
+            lineCount.textContent = `Lines: ${lines}`;
+            charCount.textContent = `Characters: ${chars}`;
+        }
+
+        function applySyntaxHighlighting() {
+            // Simple syntax highlighting
+            const code = codeEditor.value;
+            let highlighted = code;
+            
+            // Keywords
+            const keywords = ['function', 'const', 'let', 'var', 'if', 'else', 'for', 'while', 'return', 'console', 'log', 'true', 'false', 'null', 'undefined'];
+            keywords.forEach(keyword => {
+                const regex = new RegExp(`\\b${keyword}\\b`, 'g');
+                highlighted = highlighted.replace(regex, `<span class="keyword">${keyword}</span>`);
+            });
+            
+            // Strings
+            highlighted = highlighted.replace(/(".*?"|'.*?'|`.*?`)/g, '<span class="string">$1</span>');
+            
+            // Comments
+            highlighted = highlighted.replace(/\/\/.*/g, '<span class="comment">$&</span>');
+            highlighted = highlighted.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+            
+            // Numbers
+            highlighted = highlighted.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
+            
+            // Functions
+            highlighted = highlighted.replace(/\b([a-zA-Z_$][a-zA-Z0-9_$]*)\s*\(/g, '<span class="function">$1</span>(');
+            
+            // Update editor with highlighted HTML (for display purposes only)
+            // Note: This is a simplified approach. In a real implementation, 
+            // you'd use a proper syntax highlighter library or more complex logic.
+            
+            // For now, we'll just update a visual representation
+            // We can't directly set HTML in textarea, so we'll update a hidden div
+            // or use contenteditable div instead. For simplicity, we'll keep it basic.
+        }
+
+        function runCode() {
+            // Clear output
+            output.innerHTML = '';
+            
+            // Capture console methods
+            const originalConsole = {
+                log: console.log,
+                error: console.error,
+                warn: console.warn,
+                info: console.info
+            };
+            
+            // Override console methods to capture output
+            console.log = function(...args) {
+                const formatted = args.map(arg => formatOutput(arg)).join(' ');
+                appendOutput(formatted, 'log');
+                originalConsole.log.apply(console, args);
+            };
+            
+            console.error = function(...args) {
+                const formatted = args.map(arg => formatOutput(arg)).join(' ');
+                appendOutput(`Error: ${formatted}`, 'error');
+                originalConsole.error.apply(console, args);
+            };
+            
+            console.warn = function(...args) {
+                const formatted = args.map(arg => formatOutput(arg)).join(' ');
+                appendOutput(`Warning: ${formatted}`, 'warn');
+                originalConsole.warn.apply(console, args);
+            };
+            
+            console.info = function(...args) {
+                const formatted = args.map(arg => formatOutput(arg)).join(' ');
+                appendOutput(`Info: ${formatted}`, 'info');
+                originalConsole.info.apply(console, args);
+            };
+            
+            // Try to execute the code
+            try {
+                // Wrap code in a try-catch to handle errors
+                const userCode = codeEditor.value;
+                
+                // Add some security by wrapping in a function
+                const codeToExecute = `
+                    try {
+                        ${userCode}
+                    } catch(err) {
+                        console.error(err.message);
+                    }
+                `;
+                
+                // Execute the code
+                eval(codeToExecute);
+                
+                // If no console output was generated, show a success message
+                if (output.innerHTML.trim() === '') {
+                    appendOutput('Code executed successfully! (No console output)', 'success');
+                }
+            } catch (error) {
+                appendOutput(`Execution Error: ${error.message}`, 'error');
+            } finally {
+                // Restore original console methods
+                console.log = originalConsole.log;
+                console.error = originalConsole.error;
+                console.warn = originalConsole.warn;
+                console.info = originalConsole.info;
+            }
+        }
+
+        function formatOutput(arg) {
+            if (typeof arg === 'object') {
+                try {
+                    return JSON.stringify(arg, null, 2);
+                } catch {
+                    return String(arg);
+                }
+            }
+            return String(arg);
+        }
+
+        function appendOutput(text, type = 'log') {
+            const line = document.createElement('div');
+            line.textContent = text;
+            line.className = type;
+            output.appendChild(line);
+            
+            // Auto-scroll to bottom
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function clearCode() {
+            if (confirm('Clear the editor? Your code will be lost.')) {
+                codeEditor.value = '// Start coding here...\nconsole.log("Hello, Simple Code Editor!");';
+                updateStats();
+                applySyntaxHighlighting();
+            }
+        }
+
+        function clearOutput() {
+            output.innerHTML = '// Output cleared\n// Run code to see new output';
+        }
+
+        function loadExample(example) {
+            let code = '';
+            
+            switch(example) {
+                case 'hello':
+                    code = `// Hello World Example
+console.log("Hello, World!");
+console.log("Welcome to Simple Code Editor!");
+
+// Variables
+let name = "JavaScript Developer";
+const version = "1.0";
+console.log(\`Hello, \${name}!\`);
+console.log(\`Editor version: \${version}\`);`;
+                    break;
+                    
+                case 'function':
+                    code = `// Function Examples
+// Basic function
+function add(a, b) {
+    return a + b;
+}
+
+// Arrow function
+const multiply = (a, b) => a * b;
+
+// Function with default parameters
+function greet(name = "Guest") {
+    return \`Hello, \${name}!\`;
+}
+
+// Higher-order function
+function createMultiplier(factor) {
+    return function(number) {
+        return number * factor;
+    }
+}
+
+// Test the functions
+console.log("add(5, 3) =", add(5, 3));
+console.log("multiply(4, 6) =", multiply(4, 6));
+console.log("greet('Alice') =", greet('Alice'));
+console.log("greet() =", greet());
+
+const double = createMultiplier(2);
+console.log("double(10) =", double(10));`;
+                    break;
+                    
+                case 'dom':
+                    code = `// DOM Manipulation Example
+// Note: This runs in the console, not on the page
+
+// Create a simple HTML structure
+const html = \`
+<div id="demo">
+    <h1>DOM Example</h1>
+    <button id="demoBtn">Click Me</button>
+    <p id="demoText">Initial text</p>
+</div>
+\`;
+
+console.log("Created HTML:", html);
+
+// Simulate DOM manipulation
+const demoElement = {
+    id: 'demo',
+    children: [
+        { tagName: 'H1', textContent: 'DOM Example' },
+        { tagName: 'BUTTON', id: 'demoBtn', textContent: 'Click Me' },
+        { tagName: 'P', id: 'demoText', textContent: 'Initial text' }
+    ]
+};
+
+console.log("Element structure:", JSON.stringify(demoElement, null, 2));
+
+// Event simulation
+console.log("Simulating button click...");
+setTimeout(() => {
+    console.log("Button clicked! Text changed.");
+    demoElement.children[2].textContent = "Text changed on click!";
+    console.log("Updated element:", JSON.stringify(demoElement, null, 2));
+}, 1000);`;
+                    break;
+                    
+                case 'array':
+                    code = `// Array Operations Example
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log("Original array:", numbers);
+
+// Map - transform each element
+const squares = numbers.map(n => n * n);
+console.log("Squares:", squares);
+
+// Filter - keep only even numbers
+const evens = numbers.filter(n => n % 2 === 0);
+console.log("Even numbers:", evens);
+
+// Reduce - sum all numbers
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log("Sum of all numbers:", sum);
+
+// Find - find first number > 5
+const firstLarge = numbers.find(n => n > 5);
+console.log("First number > 5:", firstLarge);
+
+// Some - check if any number is > 8
+const hasLarge = numbers.some(n => n > 8);
+console.log("Has number > 8:", hasLarge);
+
+// Every - check if all numbers are positive
+const allPositive = numbers.every(n => n > 0);
+console.log("All numbers positive:", allPositive);
+
+// Sort - sort in descending order
+const sorted = [...numbers].sort((a, b) => b - a);
+console.log("Sorted descending:", sorted);
+
+// Chaining methods
+const result = numbers
+    .filter(n => n % 2 === 0)  // Keep even numbers
+    .map(n => n * 2)           // Double them
+    .reduce((sum, n) => sum + n, 0); // Sum them
+    
+console.log("Sum of doubled even numbers:", result);`;
+                    break;
+            }
+            
+            codeEditor.value = code;
+            updateStats();
+            applySyntaxHighlighting();
+            appendOutput(`Loaded "${example}" example`, 'info');
+        }
+
+        // Initialize with example output
+        setTimeout(() => {
+            appendOutput('Ready! Write JavaScript code and click "Run Code"', 'success');
+        }, 500);
+    </script>
+</body>
+</html>
