@@ -1,0 +1,3810 @@
+<!DOCTYPE html>
+<html lang="en" id="main-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eva-Africa-Tech: Vacation Booking & Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #ff6b6b;
+            --success-color: #4CAF50;
+            --warning-color: #ff9800;
+            --info-color: #2196F3;
+            --light-color: #f5f7fa;
+            --dark-color: #333;
+            --text-color: #333;
+            --bg-color: #f5f7fa;
+            --card-bg: white;
+            --shadow: 0 8px 16px rgba(0,0,0,0.1);
+            --shadow-hover: 0 12px 24px rgba(0,0,0,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 16px;
+            --gradient-primary: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --gradient-accent: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+        }
+        
+        .dark-theme {
+            --primary-color: #3a6bc7;
+            --secondary-color: #4a7bd4;
+            --accent-color: #ff8e8e;
+            --success-color: #66bb6a;
+            --warning-color: #ffb74d;
+            --info-color: #42a5f5;
+            --light-color: #1a1a2e;
+            --dark-color: #f0f0f0;
+            --text-color: #f0f0f0;
+            --bg-color: #16213e;
+            --card-bg: #0f3460;
+            --shadow: 0 8px 16px rgba(0,0,0,0.3);
+            --shadow-hover: 0 12px 24px rgba(0,0,0,0.4);
+            --gradient-primary: linear-gradient(135deg, #3a6bc7 0%, #4a7bd4 100%);
+            --gradient-accent: linear-gradient(135deg, #ff8e8e 0%, #ffa8a8 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            max-width: 100vw;
+            margin: 0 auto;
+            transition: var(--transition);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1.2s linear infinite;
+            margin-bottom: 25px;
+        }
+        
+        .loading-dots {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .loading-dots span {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Control Panel */
+        .control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            background: var(--card-bg);
+            padding: 12px 18px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .control-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .control-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.1);
+            top: 0;
+            left: -100%;
+            transition: var(--transition);
+        }
+        
+        .control-btn:hover::after {
+            left: 100%;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .control-btn.active {
+            background: var(--gradient-accent);
+        }
+        
+        /* Language Dropdown */
+        .language-dropdown {
+            position: fixed;
+            top: 85px;
+            right: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            width: 200px;
+            overflow: hidden;
+        }
+        
+        .language-dropdown.active {
+            display: flex;
+        }
+        
+        .language-option {
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+        
+        .language-option:hover {
+            background: var(--light-color);
+        }
+        
+        .language-option.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        /* Main Container */
+        .main-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 100px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><path fill="rgba(255,255,255,0.1)" d="M0,100 C150,200 350,0 500,100 C650,200 850,0 1000,100 L1000,0 L0,0 Z"/></svg>');
+            background-size: 1000px 100px;
+            background-position: bottom;
+            background-repeat: repeat-x;
+            animation: wave 20s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1000px; }
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        .tagline {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-btn {
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .nav-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .nav-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-btn i {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav-btn:hover {
+            color: white;
+            border-color: transparent;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .nav-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Page Content */
+        .page-content {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Destination Details Page */
+        .destination-details-container {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+        }
+        
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid var(--accent-color);
+        }
+        
+        .destination-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .destination-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 200px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Itinerary Section */
+        .itinerary-container {
+            background: var(--light-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin: 40px 0;
+        }
+        
+        .itinerary-day {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* Google Maps Container */
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Booking Form */
+        .booking-form-container {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .booking-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            transform: translate(100px, -100px);
+            opacity: 0.1;
+        }
+        
+        .form-title {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(255,107,107,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .submit-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 20px 45px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .submit-btn:hover::after {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        /* AI Chat Container */
+        .chat-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 420px;
+            height: 650px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(100px) scale(0.9);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .chat-container.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .chat-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .chat-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+        }
+        
+        .chat-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+        }
+        
+        .close-chat {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-chat:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .message {
+            max-width: 85%;
+            padding: 18px;
+            border-radius: 18px;
+            line-height: 1.6;
+            animation: messageIn 0.4s ease;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .message.user {
+            background: var(--gradient-primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.ai {
+            background: var(--bg-color);
+            color: var(--text-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .chat-input-container {
+            padding: 25px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .chat-input-group {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 18px;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.1);
+        }
+        
+        .chat-send-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            width: 55px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .chat-send-btn:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-2px);
+        }
+        
+        /* Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(30, 60, 114, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(30, 60, 114, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(30, 60, 114, 0); }
+        }
+        
+        .chat-button:hover {
+            transform: scale(1.1) rotate(15deg);
+            background: var(--gradient-accent);
+            animation: none;
+        }
+        
+        /* Booking Confirmation */
+        .booking-confirmation {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        .confirmation-icon {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+            margin: 0 auto 40px;
+            animation: bounceIn 1s ease;
+        }
+        
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% {
+                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            }
+            0% {
+                opacity: 0;
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+            20% {
+                transform: scale3d(1.1, 1.1, 1.1);
+            }
+            40% {
+                transform: scale3d(0.9, 0.9, 0.9);
+            }
+            60% {
+                opacity: 1;
+                transform: scale3d(1.03, 1.03, 1.03);
+            }
+            80% {
+                transform: scale3d(0.97, 0.97, 0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: scale3d(1, 1, 1);
+            }
+        }
+        
+        .confirmation-details {
+            background: var(--bg-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            margin: 40px 0;
+            text-align: left;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .confirmation-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .confirmation-row:hover {
+            background: rgba(0,0,0,0.02);
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        .confirmation-row:last-child {
+            border-bottom: none;
+        }
+        
+        /* Vacation Spots Grid */
+        .vacation-spots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+        
+        .vacation-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .vacation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+        
+        .vacation-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .vacation-image {
+            height: 280px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .vacation-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .vacation-card:hover .vacation-image img {
+            transform: scale(1.15);
+        }
+        
+        .vacation-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-accent);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .vacation-info {
+            padding: 30px;
+        }
+        
+        .vacation-title {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .vacation-location {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vacation-price {
+            color: var(--success-color);
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .book-now-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .book-now-btn:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* View Details Button */
+        .view-details-btn {
+            background: var(--info-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .view-details-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: var(--border-radius);
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 1;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .toast {
+            padding: 20px 25px;
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            min-width: 300px;
+            max-width: 400px;
+            border-left: 5px solid;
+        }
+        
+        .toast.success {
+            background: var(--success-color);
+            border-left-color: #2e7d32;
+        }
+        
+        .toast.error {
+            background: var(--accent-color);
+            border-left-color: #c62828;
+        }
+        
+        .toast.info {
+            background: var(--info-color);
+            border-left-color: #1565c0;
+        }
+        
+        .toast.warning {
+            background: var(--warning-color);
+            border-left-color: #ef6c00;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            padding-top: 60px;
+            border-top: 3px solid var(--primary-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0 40px;
+        }
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .social-icon:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-8px) rotate(15deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1002;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-accent);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            z-index: 999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .vacation-spots-grid {
+                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            }
+            
+            .chat-container {
+                width: 380px;
+                height: 600px;
+            }
+            
+            .destination-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .main-container {
+                padding: 15px;
+                padding-top: 120px;
+            }
+            
+            .header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .header p {
+                font-size: 1.2rem;
+            }
+            
+            .booking-form-container,
+            .destination-details-container {
+                padding: 40px;
+            }
+            
+            .vacation-spots-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navigation {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 15px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .control-panel {
+                flex-direction: row;
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            
+            .chat-container {
+                width: 90%;
+                right: 5%;
+                height: 550px;
+            }
+            
+            .modal-content {
+                padding: 30px;
+            }
+            
+            .vacation-spots-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .tagline {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .chat-container {
+                width: 95%;
+                right: 2.5%;
+                height: 500px;
+            }
+            
+            .booking-form-container,
+            .destination-details-container {
+                padding: 30px 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .back-to-top {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+                bottom: 100px;
+                right: 20px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+        
+        /* Print Styles */
+        @media print {
+            .control-panel,
+            .chat-container,
+            .chat-button,
+            .back-to-top,
+            .social-icons,
+            .book-now-btn,
+            .submit-btn,
+            .view-details-btn,
+            .map-container {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .booking-confirmation {
+                box-shadow: none !important;
+                border: 2px solid #333 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <h2 style="color: white; margin-top: 20px;" id="loadingText">Loading Eva-Africa-Tech Platform...</h2>
+        <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <button class="control-btn" id="themeToggle" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="control-btn" id="soundToggle" title="Toggle Sound">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="control-btn" id="notificationToggle" title="Toggle Notifications">
+            <i class="fas fa-bell"></i>
+        </button>
+        <button class="control-btn" id="helpToggle" title="Get Help">
+            <i class="fas fa-question-circle"></i>
+        </button>
+        <button class="control-btn" id="languageToggle" title="Change Language">
+            <i class="fas fa-globe"></i>
+        </button>
+    </div>
+    
+    <!-- Language Dropdown -->
+    <div class="language-dropdown" id="languageDropdown">
+        <button class="language-option active" data-lang="en">
+            <i class="fas fa-language"></i>
+            <span>English</span>
+        </button>
+        <button class="language-option" data-lang="fr">
+            <i class="fas fa-language"></i>
+            <span>Français</span>
+        </button>
+        <button class="language-option" data-lang="es">
+            <i class="fas fa-language"></i>
+            <span>Español</span>
+        </button>
+        <button class="language-option" data-lang="de">
+            <i class="fas fa-language"></i>
+            <span>Deutsch</span>
+        </button>
+        <button class="language-option" data-lang="zh">
+            <i class="fas fa-language"></i>
+            <span>中文</span>
+        </button>
+        <button class="language-option" data-lang="ar">
+            <i class="fas fa-language"></i>
+            <span>العربية</span>
+        </button>
+        <button class="language-option" data-lang="sw">
+            <i class="fas fa-language"></i>
+            <span>Kiswahili</span>
+        </button>
+        <button class="language-option" data-lang="ru">
+            <i class="fas fa-language"></i>
+            <span>Русский</span>
+        </button>
+        <button class="language-option" data-lang="ja">
+            <i class="fas fa-language"></i>
+            <span>日本語</span>
+        </button>
+        <button class="language-option" data-lang="pt">
+            <i class="fas fa-language"></i>
+            <span>Português</span>
+        </button>
+    </div>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1 id="mainTitle" class="animate__animated animate__fadeInDown">Eva-Africa-Tech</h1>
+            <p id="mainDescription" class="animate__animated animate__fadeInUp animate__delay-1s">Your gateway to amazing vacations across Africa combined with tech learning opportunities!</p>
+            <div class="tagline animate__animated animate__pulse animate__delay-2s" id="tagline">Book • Learn • Explore</div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn active" data-page="home">
+                <i class="fas fa-home"></i> <span id="navHome">Home</span>
+            </button>
+            <button class="nav-btn" data-page="book">
+                <i class="fas fa-ticket-alt"></i> <span id="navBook">Book Vacation</span>
+            </button>
+            <button class="nav-btn" data-page="destinations">
+                <i class="fas fa-map-marked-alt"></i> <span id="navDestinations">Destinations</span>
+            </button>
+            <button class="nav-btn" data-page="mybookings">
+                <i class="fas fa-calendar-check"></i> <span id="navMyBookings">My Bookings</span>
+            </button>
+            <button class="nav-btn" data-page="courses">
+                <i class="fas fa-graduation-cap"></i> <span id="navCourses">Tech Courses</span>
+            </button>
+        </div>
+        
+        <!-- Home Page -->
+        <div id="homePage" class="page-content active">
+            <div class="booking-form-container">
+                <h2 class="form-title">
+                    <i class="fas fa-plane-departure"></i>
+                    <span id="bookTitle">Start Your African Adventure</span>
+                </h2>
+                <form id="bookingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName"><i class="fas fa-user"></i> <span id="fullNameLabel">Full Name</span></label>
+                            <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> <span id="emailLabel">Email Address</span></label>
+                            <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="destination"><i class="fas fa-map-marker-alt"></i> <span id="destinationLabel">Destination</span></label>
+                            <select id="destination" class="form-control" required>
+                                <option value="">Select Destination</option>
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelDate"><i class="fas fa-calendar-alt"></i> <span id="travelDateLabel">Travel Date</span></label>
+                            <input type="date" id="travelDate" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration"><i class="fas fa-clock"></i> <span id="durationLabel">Duration (Days)</span></label>
+                            <input type="number" id="duration" class="form-control" min="1" max="30" value="7" required>
+                            <div class="duration-slider" style="margin-top: 10px;">
+                                <input type="range" min="1" max="30" value="7" class="form-control" id="durationSlider" style="padding: 0;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="travelers"><i class="fas fa-users"></i> <span id="travelersLabel">Number of Travelers</span></label>
+                            <input type="number" id="travelers" class="form-control" min="1" max="10" value="1" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="courseSelection"><i class="fas fa-graduation-cap"></i> <span id="courseSelectionLabel">Select Tech Course (Optional)</span></label>
+                        <select id="courseSelection" class="form-control">
+                            <option value="">No course selected</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests"><i class="fas fa-comment-alt"></i> <span id="specialRequestsLabel">Special Requests</span></label>
+                        <textarea id="specialRequests" class="form-control" rows="3" placeholder="Any special requirements or preferences..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="termsAgreement" required style="width: auto;">
+                            <span id="termsLabel">I agree to the <a href="#" style="color: var(--accent-color); text-decoration: none;" onclick="showTerms()">Terms and Conditions</a></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span id="submitBtnText">Book Your Vacation Now</span>
+                    </button>
+                </form>
+            </div>
+            
+            <div class="vacation-spots-grid" id="featuredDestinations">
+                <!-- Featured destinations will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Destination Details Page -->
+        <div id="destinationDetailsPage" class="page-content">
+            <div class="destination-details-container" id="destinationDetailsContent">
+                <!-- Destination details will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Destinations Page -->
+        <div id="destinationsPage" class="page-content">
+            <div class="vacation-spots-grid" id="allDestinations">
+                <!-- All destinations will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- My Bookings Page -->
+        <div id="mybookingsPage" class="page-content">
+            <div class="booking-form-container">
+                <h2 class="form-title">
+                    <i class="fas fa-calendar-check"></i>
+                    <span id="myBookingsTitle">My Bookings</span>
+                </h2>
+                <div id="bookingsList">
+                    <!-- Bookings will be displayed here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Courses Page -->
+        <div id="coursesPage" class="page-content">
+            <div class="booking-form-container">
+                <h2 class="form-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span id="coursesTitle">Available Tech Courses</span>
+                </h2>
+                <div id="coursesList">
+                    <!-- Courses will be displayed here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Booking Confirmation -->
+        <div id="bookingConfirmation" class="booking-confirmation">
+            <div class="confirmation-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2 id="confirmationTitle" style="font-size: 2.5rem; margin-bottom: 20px;">Booking Confirmed!</h2>
+            <p id="confirmationMessage" style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 30px;">Your vacation package has been successfully booked. Confirmation details have been sent to your email.</p>
+            
+            <div class="confirmation-details" id="confirmationDetails">
+                <!-- Booking details will be inserted here -->
+            </div>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 40px;">
+                <button class="submit-btn" id="printConfirmation" style="width: auto; padding: 18px 40px;">
+                    <i class="fas fa-print"></i>
+                    <span id="printBtn">Print Confirmation</span>
+                </button>
+                
+                <button class="submit-btn" id="downloadConfirmation" style="width: auto; padding: 18px 40px; background: var(--info-color);">
+                    <i class="fas fa-download"></i>
+                    <span id="downloadBtn">Download PDF</span>
+                </button>
+                
+                <button class="submit-btn" id="newBooking" style="width: auto; padding: 18px 40px; background: var(--accent-color);">
+                    <i class="fas fa-plus"></i>
+                    <span id="newBookingBtn">Make Another Booking</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AI Chat Interface -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <h3><i class="fas fa-robot"></i> <span id="chatTitle">Eva Assistant</span></h3>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai" id="chatWelcome">
+                Hello! I'm Eva, your AI assistant. How can I help you with your vacation planning or tech courses today?
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <div class="chat-input-group">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message here...">
+                <button class="chat-send-btn" id="chatSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chat Button -->
+    <div class="chat-button" id="chatButton">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 id="footerAboutTitle">About Eva-Africa-Tech</h3>
+                <p id="footerAboutText">We combine the best of African tourism with technology education, offering transformative travel experiences that build valuable skills for the future.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 id="footerContactTitle">Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> <strong id="footerAddressLabel">Address:</strong> Kigali Heights, KG 7 Ave, Kigali, Rwanda</p>
+                <p><i class="fas fa-phone"></i> <strong id="footerPhoneLabel">Phone:</strong> +250 788 123 456</p>
+                <p><i class="fas fa-envelope"></i> <strong id="footerEmailLabel">Email:</strong> support@eva-africa-tech.org</p>
+                <p><i class="fas fa-clock"></i> <strong id="footerHoursLabel">Hours:</strong> 24/7 Support Available</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 id="footerMapTitle">Visit Our Office</h3>
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="social-icons">
+            <div class="social-icon" onclick="socialLink('facebook')">
+                <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="social-icon" onclick="socialLink('twitter')">
+                <i class="fab fa-twitter"></i>
+            </div>
+            <div class="social-icon" onclick="socialLink('instagram')">
+                <i class="fab fa-instagram"></i>
+            </div>
+            <div class="social-icon" onclick="socialLink('whatsapp')">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="social-icon" onclick="socialLink('linkedin')">
+                <i class="fab fa-linkedin-in"></i>
+            </div>
+        </div>
+        
+        <p id="footerText1" style="font-size: 1.2rem; font-weight: 600; margin-bottom: 10px;">Eva-Africa-Tech Vacation Platform | Book Your Learning Vacation Today</p>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap;">
+            <a href="#" onclick="showTerms()" style="color: var(--accent-color); text-decoration: none;" id="footerTermsLink">Terms & Conditions</a>
+            <a href="#" onclick="showPrivacy()" style="color: var(--accent-color); text-decoration: none;" id="footerPrivacyLink">Privacy Policy</a>
+            <a href="#" onclick="showAbout()" style="color: var(--accent-color); text-decoration: none;" id="footerAboutLink">About Us</a>
+            <a href="#" onclick="showContact()" style="color: var(--accent-color); text-decoration: none;" id="footerContactLink">Contact</a>
+        </div>
+        <p style="margin-top: 40px; font-size: 0.9rem; opacity: 0.8;">© 2024 Eva-Africa-Tech. <span id="footerRights">All rights reserved.</span></p>
+    </div>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5iNlVQ6mzXr5K6z5YQ5TQ5YQ5YQ5YQ5Y&callback=initMap" async defer></script>
+
+    <script>
+        // Enhanced JavaScript with complete multi-language support, Google Maps, and detailed navigation
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            simulateLoadingProgress();
+            
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    initializeApp();
+                    loadFeaturedDestinations();
+                    initializeChat();
+                    setupScrollProgress();
+                    setupBackToTop();
+                    setupAnimations();
+                }, 500);
+            }, 2000);
+        });
+        
+        // Multi-language translations
+        const translations = {
+            en: {
+                // Loading
+                loading: "Loading Eva-Africa-Tech Platform...",
+                
+                // Header
+                mainTitle: "Eva-Africa-Tech",
+                mainDescription: "Your gateway to amazing vacations across Africa combined with tech learning opportunities!",
+                tagline: "Book • Learn • Explore",
+                
+                // Navigation
+                navHome: "Home",
+                navBook: "Book Vacation",
+                navDestinations: "Destinations",
+                navMyBookings: "My Bookings",
+                navCourses: "Tech Courses",
+                
+                // Booking Form
+                bookTitle: "Start Your African Adventure",
+                fullNameLabel: "Full Name",
+                emailLabel: "Email Address",
+                destinationLabel: "Destination",
+                travelDateLabel: "Travel Date",
+                durationLabel: "Duration (Days)",
+                travelersLabel: "Number of Travelers",
+                courseSelectionLabel: "Select Tech Course (Optional)",
+                specialRequestsLabel: "Special Requests",
+                termsLabel: "I agree to the Terms and Conditions",
+                submitBtnText: "Book Your Vacation Now",
+                
+                // Course Options
+                noCourse: "No course selected",
+                webDev: "Web Development Basics",
+                ai: "Introduction to AI",
+                mobile: "Mobile App Development",
+                dataScience: "Data Science Fundamentals",
+                design: "UI/UX Design",
+                blockchain: "Blockchain Technology",
+                cybersecurity: "Cybersecurity Basics",
+                
+                // Destination Options
+                selectDestination: "Select Destination",
+                burundi: "Burundi - Lake Tanganyika",
+                uganda: "Uganda - Lake Victoria",
+                kenya: "Kenya - Indian Ocean Coast",
+                tanzania: "Tanzania - Zanzibar",
+                rwanda: "Rwanda - Lake Kivu",
+                congo: "Congo - Congo River",
+                
+                // Buttons
+                bookNow: "Book Now",
+                viewDetails: "View Details",
+                printBtn: "Print Confirmation",
+                downloadBtn: "Download PDF",
+                newBookingBtn: "Make Another Booking",
+                
+                // Confirmation
+                confirmationTitle: "Booking Confirmed!",
+                confirmationMessage: "Your vacation package has been successfully booked. Confirmation details have been sent to your email.",
+                
+                // Pages
+                myBookingsTitle: "My Bookings",
+                coursesTitle: "Available Tech Courses",
+                noBookingsText: "No Bookings Yet",
+                noBookingsDesc: "You haven't made any bookings yet. Start planning your African adventure!",
+                bookFirstVacation: "Book Your First Vacation",
+                
+                // Chat
+                chatTitle: "Eva Assistant",
+                chatWelcome: "Hello! I'm Eva, your AI assistant. How can I help you with your vacation planning or tech courses today?",
+                
+                // Footer
+                footerAboutTitle: "About Eva-Africa-Tech",
+                footerAboutText: "We combine the best of African tourism with technology education, offering transformative travel experiences that build valuable skills for the future.",
+                footerContactTitle: "Contact Information",
+                footerAddressLabel: "Address:",
+                footerPhoneLabel: "Phone:",
+                footerEmailLabel: "Email:",
+                footerHoursLabel: "Hours:",
+                footerMapTitle: "Visit Our Office",
+                footerText1: "Eva-Africa-Tech Vacation Platform | Book Your Learning Vacation Today",
+                footerTermsLink: "Terms & Conditions",
+                footerPrivacyLink: "Privacy Policy",
+                footerAboutLink: "About Us",
+                footerContactLink: "Contact",
+                footerRights: "All rights reserved.",
+                
+                // Toast Messages
+                toastBookingSuccess: "Booking confirmed successfully!",
+                toastLanguageChanged: "Language changed to English",
+                toastDestinationSelected: "Destination selected!",
+                toastCancelled: "Booking cancelled successfully",
+                toastEnrolled: "Successfully enrolled in course!",
+                
+                // Modal Titles
+                modalTerms: "Terms and Conditions",
+                modalPrivacy: "Privacy Policy",
+                modalAbout: "About Eva-Africa-Tech",
+                modalContact: "Contact Us"
+            },
+            fr: {
+                loading: "Chargement de la plateforme Eva-Africa-Tech...",
+                mainTitle: "Eva-Africa-Tech",
+                mainDescription: "Votre porte d'entrée vers des vacances incroyables en Afrique combinées à des opportunités d'apprentissage technologique !",
+                tagline: "Réservez • Apprenez • Explorez",
+                navHome: "Accueil",
+                navBook: "Réserver des Vacances",
+                navDestinations: "Destinations",
+                navMyBookings: "Mes Réservations",
+                navCourses: "Cours de Technologie",
+                bookTitle: "Commencez votre aventure africaine",
+                fullNameLabel: "Nom Complet",
+                emailLabel: "Adresse Email",
+                destinationLabel: "Destination",
+                travelDateLabel: "Date de Voyage",
+                durationLabel: "Durée (Jours)",
+                travelersLabel: "Nombre de Voyageurs",
+                courseSelectionLabel: "Sélectionner un cours de technologie (Optionnel)",
+                specialRequestsLabel: "Demandes Spéciales",
+                termsLabel: "J'accepte les conditions générales",
+                submitBtnText: "Réservez vos vacances maintenant",
+                noCourse: "Aucun cours sélectionné",
+                webDev: "Bases du développement web",
+                ai: "Introduction à l'IA",
+                mobile: "Développement d'applications mobiles",
+                dataScience: "Fondamentaux de la science des données",
+                design: "Design UI/UX",
+                blockchain: "Technologie Blockchain",
+                cybersecurity: "Bases de la cybersécurité",
+                selectDestination: "Sélectionner une destination",
+                burundi: "Burundi - Lac Tanganyika",
+                uganda: "Ouganda - Lac Victoria",
+                kenya: "Kenya - Côte de l'océan Indien",
+                tanzania: "Tanzanie - Zanzibar",
+                rwanda: "Rwanda - Lac Kivu",
+                congo: "Congo - Fleuve Congo",
+                bookNow: "Réserver maintenant",
+                viewDetails: "Voir les détails",
+                printBtn: "Imprimer la confirmation",
+                downloadBtn: "Télécharger PDF",
+                newBookingBtn: "Faire une autre réservation",
+                confirmationTitle: "Réservation confirmée !",
+                confirmationMessage: "Votre forfait vacances a été réservé avec succès. Les détails de confirmation ont été envoyés à votre email.",
+                myBookingsTitle: "Mes Réservations",
+                coursesTitle: "Cours de technologie disponibles",
+                noBookingsText: "Aucune réservation",
+                noBookingsDesc: "Vous n'avez pas encore fait de réservation. Commencez à planifier votre aventure africaine !",
+                bookFirstVacation: "Réservez vos premières vacances",
+                chatTitle: "Assistant Eva",
+                chatWelcome: "Bonjour ! Je suis Eva, votre assistant IA. Comment puis-je vous aider avec votre planification de vacances ou vos cours de technologie aujourd'hui ?",
+                footerAboutTitle: "À propos d'Eva-Africa-Tech",
+                footerAboutText: "Nous combinons le meilleur du tourisme africain avec l'éducation technologique, offrant des expériences de voyage transformatrices qui développent des compétences précieuses pour l'avenir.",
+                footerContactTitle: "Coordonnées",
+                footerAddressLabel: "Adresse :",
+                footerPhoneLabel: "Téléphone :",
+                footerEmailLabel: "Email :",
+                footerHoursLabel: "Horaires :",
+                footerMapTitle: "Visitez notre bureau",
+                footerText1: "Plateforme de vacances Eva-Africa-Tech | Réservez vos vacances d'apprentissage dès aujourd'hui",
+                footerTermsLink: "Conditions générales",
+                footerPrivacyLink: "Politique de confidentialité",
+                footerAboutLink: "À propos",
+                footerContactLink: "Contact",
+                footerRights: "Tous droits réservés.",
+                toastBookingSuccess: "Réservation confirmée avec succès !",
+                toastLanguageChanged: "Langue changée en français",
+                toastDestinationSelected: "Destination sélectionnée !",
+                toastCancelled: "Réservation annulée avec succès",
+                toastEnrolled: "Inscription au cours réussie !",
+                modalTerms: "Conditions générales",
+                modalPrivacy: "Politique de confidentialité",
+                modalAbout: "À propos d'Eva-Africa-Tech",
+                modalContact: "Contactez-nous"
+            },
+            es: {
+                loading: "Cargando la plataforma Eva-Africa-Tech...",
+                mainTitle: "Eva-Africa-Tech",
+                mainDescription: "¡Tu puerta de entrada a vacaciones increíbles en África combinadas con oportunidades de aprendizaje tecnológico!",
+                tagline: "Reserva • Aprende • Explora",
+                navHome: "Inicio",
+                navBook: "Reservar Vacaciones",
+                navDestinations: "Destinos",
+                navMyBookings: "Mis Reservas",
+                navCourses: "Cursos de Tecnología",
+                bookTitle: "Comienza tu aventura africana",
+                fullNameLabel: "Nombre Completo",
+                emailLabel: "Correo Electrónico",
+                destinationLabel: "Destino",
+                travelDateLabel: "Fecha de Viaje",
+                durationLabel: "Duración (Días)",
+                travelersLabel: "Número de Viajeros",
+                courseSelectionLabel: "Seleccionar curso de tecnología (Opcional)",
+                specialRequestsLabel: "Solicitudes Especiales",
+                termsLabel: "Acepto los Términos y Condiciones",
+                submitBtnText: "Reserva tus vacaciones ahora",
+                noCourse: "Ningún curso seleccionado",
+                webDev: "Conceptos básicos de desarrollo web",
+                ai: "Introducción a la IA",
+                mobile: "Desarrollo de aplicaciones móviles",
+                dataScience: "Fundamentos de ciencia de datos",
+                design: "Diseño UI/UX",
+                blockchain: "Tecnología Blockchain",
+                cybersecurity: "Conceptos básicos de ciberseguridad",
+                selectDestination: "Seleccionar destino",
+                burundi: "Burundi - Lago Tanganica",
+                uganda: "Uganda - Lago Victoria",
+                kenya: "Kenia - Costa del Océano Índico",
+                tanzania: "Tanzania - Zanzíbar",
+                rwanda: "Ruanda - Lago Kivu",
+                congo: "Congo - Río Congo",
+                bookNow: "Reservar ahora",
+                viewDetails: "Ver detalles",
+                printBtn: "Imprimir confirmación",
+                downloadBtn: "Descargar PDF",
+                newBookingBtn: "Hacer otra reserva",
+                confirmationTitle: "¡Reserva confirmada!",
+                confirmationMessage: "Tu paquete de vacaciones ha sido reservado exitosamente. Los detalles de confirmación han sido enviados a tu email.",
+                myBookingsTitle: "Mis Reservas",
+                coursesTitle: "Cursos de tecnología disponibles",
+                noBookingsText: "Sin reservas",
+                noBookingsDesc: "Aún no has hecho ninguna reserva. ¡Comienza a planificar tu aventura africana!",
+                bookFirstVacation: "Reserva tus primeras vacaciones",
+                chatTitle: "Asistente Eva",
+                chatWelcome: "¡Hola! Soy Eva, tu asistente de IA. ¿Cómo puedo ayudarte con la planificación de tus vacaciones o cursos de tecnología hoy?",
+                footerAboutTitle: "Acerca de Eva-Africa-Tech",
+                footerAboutText: "Combinamos lo mejor del turismo africano con la educación tecnológica, ofreciendo experiencias de viaje transformadoras que desarrollan habilidades valiosas para el futuro.",
+                footerContactTitle: "Información de contacto",
+                footerAddressLabel: "Dirección:",
+                footerPhoneLabel: "Teléfono:",
+                footerEmailLabel: "Email:",
+                footerHoursLabel: "Horario:",
+                footerMapTitle: "Visita nuestra oficina",
+                footerText1: "Plataforma de vacaciones Eva-Africa-Tech | Reserva tus vacaciones de aprendizaje hoy",
+                footerTermsLink: "Términos y condiciones",
+                footerPrivacyLink: "Política de privacidad",
+                footerAboutLink: "Acerca de",
+                footerContactLink: "Contacto",
+                footerRights: "Todos los derechos reservados.",
+                toastBookingSuccess: "¡Reserva confirmada exitosamente!",
+                toastLanguageChanged: "Idioma cambiado a español",
+                toastDestinationSelected: "¡Destino seleccionado!",
+                toastCancelled: "Reserva cancelada exitosamente",
+                toastEnrolled: "¡Inscripción al curso exitosa!",
+                modalTerms: "Términos y condiciones",
+                modalPrivacy: "Política de privacidad",
+                modalAbout: "Acerca de Eva-Africa-Tech",
+                modalContact: "Contáctanos"
+            },
+            // Additional languages follow the same pattern...
+            de: {
+                loading: "Eva-Africa-Tech-Plattform wird geladen...",
+                mainTitle: "Eva-Africa-Tech",
+                mainDescription: "Ihr Tor zu erstaunlichen Urlauben in Afrika kombiniert mit Technologie-Lernmöglichkeiten!",
+                tagline: "Buchen • Lernen • Erkunden",
+                navHome: "Startseite",
+                navBook: "Urlaub buchen",
+                navDestinations: "Reiseziele",
+                navMyBookings: "Meine Buchungen",
+                navCourses: "Technologiekurse",
+                bookTitle: "Beginnen Sie Ihr afrikanisches Abenteuer",
+                fullNameLabel: "Vollständiger Name",
+                emailLabel: "E-Mail-Adresse",
+                destinationLabel: "Reiseziel",
+                travelDateLabel: "Reisedatum",
+                durationLabel: "Dauer (Tage)",
+                travelersLabel: "Anzahl der Reisenden",
+                courseSelectionLabel: "Technologiekurs auswählen (Optional)",
+                specialRequestsLabel: "Besondere Wünsche",
+                termsLabel: "Ich stimme den Allgemeinen Geschäftsbedingungen zu",
+                submitBtnText: "Buchen Sie jetzt Ihren Urlaub",
+                noCourse: "Kein Kurs ausgewählt",
+                webDev: "Webentwicklung Grundlagen",
+                ai: "Einführung in KI",
+                mobile: "Mobile App Entwicklung",
+                dataScience: "Data Science Grundlagen",
+                design: "UI/UX Design",
+                blockchain: "Blockchain Technologie",
+                cybersecurity: "Cybersicherheit Grundlagen",
+                selectDestination: "Reiseziel auswählen",
+                burundi: "Burundi - Tanganjikasee",
+                uganda: "Uganda - Viktoriasee",
+                kenya: "Kenia - Indischer Ozean Küste",
+                tanzania: "Tansania - Sansibar",
+                rwanda: "Ruanda - Kivusee",
+                congo: "Kongo - Kongofluss",
+                bookNow: "Jetzt buchen",
+                viewDetails: "Details anzeigen",
+                printBtn: "Bestätigung drucken",
+                downloadBtn: "PDF herunterladen",
+                newBookingBtn: "Weitere Buchung",
+                confirmationTitle: "Buchung bestätigt!",
+                confirmationMessage: "Ihr Urlaubspaket wurde erfolgreich gebucht. Bestätigungsdetails wurden an Ihre E-Mail gesendet.",
+                myBookingsTitle: "Meine Buchungen",
+                coursesTitle: "Verfügbare Technologiekurse",
+                noBookingsText: "Keine Buchungen",
+                noBookingsDesc: "Sie haben noch keine Buchungen vorgenommen. Beginnen Sie mit der Planung Ihres afrikanischen Abenteuers!",
+                bookFirstVacation: "Buchen Sie Ihren ersten Urlaub",
+                chatTitle: "Eva Assistent",
+                chatWelcome: "Hallo! Ich bin Eva, Ihr KI-Assistent. Wie kann ich Ihnen heute bei Ihrer Urlaubsplanung oder Technologiekursen helfen?",
+                footerAboutTitle: "Über Eva-Africa-Tech",
+                footerAboutText: "Wir kombinieren das Beste aus dem afrikanischen Tourismus mit Technologiebildung und bieten transformative Reiseerlebnisse, die wertvolle Fähigkeiten für die Zukunft aufbauen.",
+                footerContactTitle: "Kontaktinformationen",
+                footerAddressLabel: "Adresse:",
+                footerPhoneLabel: "Telefon:",
+                footerEmailLabel: "E-Mail:",
+                footerHoursLabel: "Öffnungszeiten:",
+                footerMapTitle: "Besuchen Sie unser Büro",
+                footerText1: "Eva-Africa-Tech Urlaubsplattform | Buchen Sie noch heute Ihren Lernurlaub",
+                footerTermsLink: "Allgemeine Geschäftsbedingungen",
+                footerPrivacyLink: "Datenschutzrichtlinie",
+                footerAboutLink: "Über uns",
+                footerContactLink: "Kontakt",
+                footerRights: "Alle Rechte vorbehalten.",
+                toastBookingSuccess: "Buchung erfolgreich bestätigt!",
+                toastLanguageChanged: "Sprache auf Deutsch geändert",
+                toastDestinationSelected: "Reiseziel ausgewählt!",
+                toastCancelled: "Buchung erfolgreich storniert",
+                toastEnrolled: "Erfolgreich in den Kurs eingeschrieben!",
+                modalTerms: "Allgemeine Geschäftsbedingungen",
+                modalPrivacy: "Datenschutzrichtlinie",
+                modalAbout: "Über Eva-Africa-Tech",
+                modalContact: "Kontaktieren Sie uns"
+            }
+        };
+        
+        // Enhanced Application State
+        const appState = {
+            currentPage: 'home',
+            bookings: JSON.parse(localStorage.getItem('evaBookings')) || [],
+            user: JSON.parse(localStorage.getItem('evaUser')) || null,
+            theme: localStorage.getItem('evaTheme') || 'light',
+            soundEnabled: localStorage.getItem('evaSound') !== 'false',
+            notificationsEnabled: localStorage.getItem('evaNotifications') !== 'false',
+            chatOpen: false,
+            language: localStorage.getItem('evaLanguage') || 'en',
+            currentDestination: null
+        };
+        
+        // Enhanced Vacation Destinations Data with detailed information
+        const destinations = [
+            {
+                id: 'burundi',
+                name: 'Lake Tanganyika Retreat',
+                location: 'Burundi',
+                description: 'Relax on the world\'s longest freshwater lake while learning web development. Perfect for coding by the water.',
+                detailedDescription: 'Experience the breathtaking beauty of Lake Tanganyika, the world\'s longest freshwater lake. This retreat combines luxury accommodation with comprehensive web development courses. Wake up to stunning lake views, enjoy fresh local cuisine, and spend your days coding in our state-of-the-art tech lab overlooking the water.',
+                price: 1299,
+                duration: '7 days',
+                image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                gallery: [
+                    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1552465011-b4e30bf7349d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                ],
+                rating: 4.8,
+                included: ['Luxury accommodation', 'Web Development Course', 'All meals included', 'Airport transfers', 'High-speed WiFi', 'Local cultural tours', 'Water activities'],
+                tags: ['Beach', 'Coding', 'Relaxation', 'Luxury'],
+                popularity: 95,
+                coordinates: { lat: -3.3731, lng: 29.9189 },
+                itinerary: [
+                    { day: 1, title: 'Arrival & Welcome', activities: ['Airport pickup', 'Resort check-in', 'Welcome dinner', 'Orientation session'] },
+                    { day: 2, title: 'Web Dev Basics', activities: ['HTML/CSS fundamentals', 'Responsive design', 'Lunch by the lake', 'Sunset coding session'] },
+                    { day: 3, title: 'JavaScript & APIs', activities: ['JavaScript essentials', 'API integration', 'Boat tour', 'Cultural evening'] },
+                    { day: 4, title: 'Project Day', activities: ['Group project work', 'Mentor guidance', 'Beach relaxation', 'Project presentations'] },
+                    { day: 5, title: 'Advanced Topics', activities: ['Frameworks introduction', 'Deployment strategies', 'Local market visit', 'Traditional dinner'] },
+                    { day: 6, title: 'Networking', activities: ['Tech meetup', 'Industry guest speakers', 'Networking dinner', 'Career workshop'] },
+                    { day: 7, title: 'Departure', activities: ['Final project showcase', 'Certificate ceremony', 'Farewell lunch', 'Airport transfer'] }
+                ]
+            },
+            {
+                id: 'uganda',
+                name: 'Lake Victoria Tech Camp',
+                location: 'Uganda',
+                description: 'Combine water activities with AI learning on Africa\'s largest lake. Networking events included.',
+                detailedDescription: 'Immerse yourself in the vibrant tech scene around Lake Victoria, Africa\'s largest lake. This camp offers intensive AI and machine learning courses while you enjoy water sports, cultural experiences, and networking with tech professionals from across Africa.',
+                price: 1499,
+                duration: '10 days',
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                gallery: [
+                    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1536152471326-642d746f90e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                ],
+                rating: 4.9,
+                included: ['Luxury lakeside lodge', 'AI & ML Course', 'All water activities', 'Local tours', 'Networking events', 'Professional mentorship'],
+                tags: ['Lake', 'AI', 'Networking', 'Adventure'],
+                popularity: 98,
+                coordinates: { lat: -0.6816, lng: 33.9825 },
+                itinerary: [
+                    { day: 1, title: 'Arrival & Settling In', activities: ['Airport transfer', 'Camp orientation', 'Welcome ceremony'] },
+                    { day: 2, title: 'AI Fundamentals', activities: ['Introduction to AI', 'Python basics', 'Lake cruise'] },
+                    { day: 3, title: 'Machine Learning', activities: ['ML algorithms', 'Data preprocessing', 'Team building'] },
+                    { day: 4, title: 'Deep Learning', activities: ['Neural networks', 'TensorFlow basics', 'Cultural visit'] },
+                    { day: 5, title: 'Project Work', activities: ['AI project development', 'Mentor sessions', 'Water sports'] },
+                    { day: 6, title: 'Networking Day', activities: ['Tech conference', 'Industry panels', 'Networking dinner'] },
+                    { day: 7, title: 'Advanced Topics', activities: ['Natural language processing', 'Computer vision', 'Island exploration'] },
+                    { day: 8, title: 'Integration', activities: ['Model deployment', 'Cloud integration', 'Local market visit'] },
+                    { day: 9, title: 'Presentations', activities: ['Project presentations', 'Career fair', 'Farewell party'] },
+                    { day: 10, title: 'Departure', activities: ['Certification', 'Final networking', 'Airport transfer'] }
+                ]
+            },
+            // Add other destinations with similar detailed structure...
+            {
+                id: 'kenya',
+                name: 'Indian Ocean Coding Retreat',
+                location: 'Kenya Coast',
+                description: 'Beach coding sessions and tech meetups along the beautiful Indian Ocean coastline.',
+                detailedDescription: 'Code with the sound of waves at our beachfront resort on Kenya\'s stunning Indian Ocean coast. Perfect for mobile app developers who want to combine learning with tropical paradise relaxation.',
+                price: 1799,
+                duration: '8 days',
+                image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                gallery: [
+                    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                    'https://images.unsplash.com/photo-1589552950456-75eeaf5c5a30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                ],
+                rating: 4.7,
+                included: ['Beachfront resort', 'Mobile Dev Course', 'Water sports', 'Cultural visits', 'Coworking space'],
+                tags: ['Ocean', 'Mobile Dev', 'Beach', 'Tropical'],
+                popularity: 92,
+                coordinates: { lat: -4.0435, lng: 39.6682 },
+                itinerary: []
+            }
+        ];
+        
+        // Enhanced Tech Courses Data
+        const courses = [
+            {
+                id: 'web',
+                name: 'Web Development Basics',
+                duration: '6 weeks',
+                level: 'Beginner',
+                price: 299,
+                description: 'Learn HTML, CSS, JavaScript to build responsive websites. Includes modern frameworks and deployment.',
+                detailedDescription: 'Master the fundamentals of web development with this comprehensive course. You\'ll learn HTML5, CSS3, JavaScript ES6+, responsive design principles, and modern frameworks like React. By the end, you\'ll be able to build and deploy professional websites.',
+                instructor: 'Dr. Sarah Johnson',
+                spots: 15,
+                icon: 'fas fa-code',
+                skills: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'React', 'Git', 'Deployment']
+            },
+            {
+                id: 'ai',
+                name: 'Introduction to AI',
+                duration: '8 weeks',
+                level: 'Intermediate',
+                price: 499,
+                description: 'Understand artificial intelligence and machine learning fundamentals with hands-on projects.',
+                detailedDescription: 'Dive into the world of artificial intelligence and machine learning. This course covers Python programming for AI, neural networks, natural language processing, and practical ML applications with real-world datasets.',
+                instructor: 'Prof. James Kariuki',
+                spots: 10,
+                icon: 'fas fa-brain',
+                skills: ['Python', 'TensorFlow', 'Neural Networks', 'NLP', 'Data Processing']
+            }
+            // Add other courses...
+        ];
+        
+        let googleMap;
+        
+        function simulateLoadingProgress() {
+            let progress = 0;
+            const progressFill = document.getElementById('progressFill');
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                }
+                progressFill.style.width = progress + '%';
+            }, 100);
+        }
+        
+        function initializeApp() {
+            // Set initial theme
+            if (appState.theme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('themeToggle').querySelector('i').className = 'fas fa-sun';
+            }
+            
+            // Initialize language
+            updateLanguage(appState.language);
+            
+            // Update control button states
+            updateControlButtonStates();
+            
+            // Event Listeners
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            document.getElementById('soundToggle').addEventListener('click', toggleSound);
+            document.getElementById('notificationToggle').addEventListener('click', toggleNotifications);
+            document.getElementById('helpToggle').addEventListener('click', () => {
+                openChat();
+                addMessage('ai', translations[appState.language].chatWelcome);
+            });
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguageDropdown);
+            
+            // Language dropdown listeners
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    updateLanguage(lang);
+                    closeLanguageDropdown();
+                });
+            });
+            
+            // Close language dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('#languageToggle') && !e.target.closest('#languageDropdown')) {
+                    closeLanguageDropdown();
+                }
+            });
+            
+            // Navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const page = this.getAttribute('data-page');
+                    navigateTo(page);
+                    showToast(`Navigated to ${page.charAt(0).toUpperCase() + page.slice(1)}`, 'info');
+                });
+            });
+            
+            // Booking Form
+            document.getElementById('bookingForm').addEventListener('submit', handleBookingSubmit);
+            
+            // Form interactions
+            setupFormInteractions();
+            
+            // Confirmation buttons
+            document.getElementById('printConfirmation').addEventListener('click', printConfirmation);
+            document.getElementById('downloadConfirmation').addEventListener('click', downloadConfirmation);
+            document.getElementById('newBooking').addEventListener('click', () => navigateTo('home'));
+            
+            // Set min date for travel date input
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('travelDate').min = tomorrow.toISOString().split('T')[0];
+            document.getElementById('travelDate').value = '';
+            
+            // Populate form dropdowns
+            populateFormDropdowns();
+            
+            // Load user bookings and courses
+            loadUserBookings();
+            loadCourses();
+            
+            // Initialize animations
+            initializeAnimations();
+        }
+        
+        function updateLanguage(lang) {
+            appState.language = lang;
+            localStorage.setItem('evaLanguage', lang);
+            
+            // Update UI text
+            const translation = translations[lang];
+            
+            // Update loading text if still visible
+            if (document.getElementById('loadingScreen').style.display !== 'none') {
+                document.getElementById('loadingText').textContent = translation.loading;
+            }
+            
+            // Update header
+            document.getElementById('mainTitle').textContent = translation.mainTitle;
+            document.getElementById('mainDescription').textContent = translation.mainDescription;
+            document.getElementById('tagline').textContent = translation.tagline;
+            
+            // Update navigation
+            document.getElementById('navHome').textContent = translation.navHome;
+            document.getElementById('navBook').textContent = translation.navBook;
+            document.getElementById('navDestinations').textContent = translation.navDestinations;
+            document.getElementById('navMyBookings').textContent = translation.navMyBookings;
+            document.getElementById('navCourses').textContent = translation.navCourses;
+            
+            // Update booking form
+            document.getElementById('bookTitle').textContent = translation.bookTitle;
+            document.getElementById('fullNameLabel').textContent = translation.fullNameLabel;
+            document.getElementById('emailLabel').textContent = translation.emailLabel;
+            document.getElementById('destinationLabel').textContent = translation.destinationLabel;
+            document.getElementById('travelDateLabel').textContent = translation.travelDateLabel;
+            document.getElementById('durationLabel').textContent = translation.durationLabel;
+            document.getElementById('travelersLabel').textContent = translation.travelersLabel;
+            document.getElementById('courseSelectionLabel').textContent = translation.courseSelectionLabel;
+            document.getElementById('specialRequestsLabel').textContent = translation.specialRequestsLabel;
+            document.getElementById('termsLabel').innerHTML = translation.termsLabel.replace('Terms and Conditions', '<a href="#" style="color: var(--accent-color); text-decoration: none;" onclick="showTerms()">Terms and Conditions</a>');
+            document.getElementById('submitBtnText').textContent = translation.submitBtnText;
+            
+            // Update form dropdowns
+            populateFormDropdowns();
+            
+            // Update confirmation page
+            document.getElementById('confirmationTitle').textContent = translation.confirmationTitle;
+            document.getElementById('confirmationMessage').textContent = translation.confirmationMessage;
+            document.getElementById('printBtn').textContent = translation.printBtn;
+            document.getElementById('downloadBtn').textContent = translation.downloadBtn;
+            document.getElementById('newBookingBtn').textContent = translation.newBookingBtn;
+            
+            // Update chat
+            document.getElementById('chatTitle').textContent = translation.chatTitle;
+            document.getElementById('chatWelcome').textContent = translation.chatWelcome;
+            
+            // Update footer
+            document.getElementById('footerAboutTitle').textContent = translation.footerAboutTitle;
+            document.getElementById('footerAboutText').textContent = translation.footerAboutText;
+            document.getElementById('footerContactTitle').textContent = translation.footerContactTitle;
+            document.getElementById('footerAddressLabel').textContent = translation.footerAddressLabel;
+            document.getElementById('footerPhoneLabel').textContent = translation.footerPhoneLabel;
+            document.getElementById('footerEmailLabel').textContent = translation.footerEmailLabel;
+            document.getElementById('footerHoursLabel').textContent = translation.footerHoursLabel;
+            document.getElementById('footerMapTitle').textContent = translation.footerMapTitle;
+            document.getElementById('footerText1').textContent = translation.footerText1;
+            document.getElementById('footerTermsLink').textContent = translation.footerTermsLink;
+            document.getElementById('footerPrivacyLink').textContent = translation.footerPrivacyLink;
+            document.getElementById('footerAboutLink').textContent = translation.footerAboutLink;
+            document.getElementById('footerContactLink').textContent = translation.footerContactLink;
+            document.getElementById('footerRights').textContent = translation.footerRights;
+            
+            // Update language dropdown active state
+            document.querySelectorAll('.language-option').forEach(option => {
+                if (option.getAttribute('data-lang') === lang) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+            
+            // Update existing content if needed
+            if (appState.currentPage === 'mybookings') {
+                loadUserBookings();
+            } else if (appState.currentPage === 'courses') {
+                loadCourses();
+            } else if (appState.currentPage === 'destinationDetails' && appState.currentDestination) {
+                showDestinationDetails(appState.currentDestination);
+            }
+            
+            showToast(translations[lang].toastLanguageChanged, 'success');
+        }
+        
+        function populateFormDropdowns() {
+            const translation = translations[appState.language];
+            
+            // Destination dropdown
+            const destinationSelect = document.getElementById('destination');
+            destinationSelect.innerHTML = `<option value="">${translation.selectDestination}</option>`;
+            destinations.forEach(dest => {
+                const option = document.createElement('option');
+                option.value = dest.id;
+                option.textContent = translation[dest.id] || dest.name;
+                destinationSelect.appendChild(option);
+            });
+            
+            // Course dropdown
+            const courseSelect = document.getElementById('courseSelection');
+            courseSelect.innerHTML = `<option value="">${translation.noCourse}</option>`;
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.id;
+                option.textContent = translation[course.id] || course.name;
+                courseSelect.appendChild(option);
+            });
+        }
+        
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        function closeLanguageDropdown() {
+            document.getElementById('languageDropdown').classList.remove('active');
+        }
+        
+        function updateControlButtonStates() {
+            const soundIcon = document.getElementById('soundToggle').querySelector('i');
+            const notificationIcon = document.getElementById('notificationToggle').querySelector('i');
+            
+            soundIcon.className = appState.soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+            notificationIcon.className = appState.notificationsEnabled ? 'fas fa-bell' : 'fas fa-bell-slash';
+        }
+        
+        function setupFormInteractions() {
+            // Duration slider sync
+            const durationInput = document.getElementById('duration');
+            const durationSlider = document.getElementById('durationSlider');
+            
+            if (durationInput && durationSlider) {
+                durationSlider.addEventListener('input', function() {
+                    durationInput.value = this.value;
+                });
+                
+                durationInput.addEventListener('input', function() {
+                    durationSlider.value = this.value;
+                });
+            }
+            
+            // Form validation
+            document.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener('blur', validateField);
+                input.addEventListener('input', validateField);
+            });
+        }
+        
+        function validateField(e) {
+            const field = e.target;
+            const value = field.value.trim();
+            
+            // Remove any existing error
+            field.classList.remove('error');
+            
+            // Check required fields
+            if (field.hasAttribute('required') && !value) {
+                field.classList.add('error');
+                return false;
+            }
+            
+            // Email validation
+            if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    field.classList.add('error');
+                    return false;
+                }
+            }
+            
+            // Date validation
+            if (field.type === 'date' && value) {
+                const selectedDate = new Date(value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (selectedDate <= today) {
+                    field.classList.add('error');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeToggle').querySelector('i');
+            
+            if (appState.theme === 'light') {
+                body.classList.add('dark-theme');
+                appState.theme = 'dark';
+                icon.className = 'fas fa-sun';
+                showToast('Dark theme activated', 'info');
+            } else {
+                body.classList.remove('dark-theme');
+                appState.theme = 'light';
+                icon.className = 'fas fa-moon';
+                showToast('Light theme activated', 'info');
+            }
+            
+            localStorage.setItem('evaTheme', appState.theme);
+        }
+        
+        function toggleSound() {
+            const icon = document.getElementById('soundToggle').querySelector('i');
+            appState.soundEnabled = !appState.soundEnabled;
+            
+            if (appState.soundEnabled) {
+                icon.className = 'fas fa-volume-up';
+                showToast('Sound enabled', 'success');
+            } else {
+                icon.className = 'fas fa-volume-mute';
+                showToast('Sound disabled', 'warning');
+            }
+            
+            localStorage.setItem('evaSound', appState.soundEnabled);
+        }
+        
+        function toggleNotifications() {
+            const icon = document.getElementById('notificationToggle').querySelector('i');
+            appState.notificationsEnabled = !appState.notificationsEnabled;
+            
+            if (appState.notificationsEnabled) {
+                icon.className = 'fas fa-bell';
+                showToast('Notifications enabled', 'success');
+            } else {
+                icon.className = 'fas fa-bell-slash';
+                showToast('Notifications disabled', 'warning');
+            }
+            
+            localStorage.setItem('evaNotifications', appState.notificationsEnabled);
+        }
+        
+        function navigateTo(page) {
+            // Update active navigation button
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-page') === page) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(page + 'Page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+                document.getElementById('bookingConfirmation').style.display = 'none';
+                
+                appState.currentPage = page;
+                
+                // Scroll to top with animation
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function showDestinationPage(destinationId) {
+            const destination = destinations.find(d => d.id === destinationId);
+            if (!destination) return;
+            
+            appState.currentDestination = destination;
+            
+            // Update navigation
+            navigateTo('destinationDetails');
+            
+            // Load destination details
+            showDestinationDetailsContent(destination);
+            
+            // Initialize map for this destination
+            setTimeout(() => {
+                initDestinationMap(destination.coordinates);
+            }, 500);
+        }
+        
+        function showDestinationDetailsContent(destination) {
+            const container = document.getElementById('destinationDetailsContent');
+            const translation = translations[appState.language];
+            
+            container.innerHTML = `
+                <div class="destination-header">
+                    <h2 style="color: var(--primary-color); font-size: 2.5rem;">${destination.name}</h2>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div style="background: var(--gradient-accent); color: white; padding: 10px 20px; border-radius: 25px; font-weight: bold;">
+                            $${destination.price}
+                        </div>
+                        <button class="book-now-btn" onclick="handleDestinationSelect('${destination.id}')">
+                            <i class="fas fa-ticket-alt"></i>
+                            ${translation.bookNow}
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="destination-info-grid">
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 20px;">${translation.destinationLabel}: ${destination.location}</h3>
+                        <div style="background: var(--light-color); padding: 25px; border-radius: var(--border-radius); margin-bottom: 25px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 15px;">${translation.detailedDescription || 'Detailed Description'}</h4>
+                            <p style="line-height: 1.8; margin-bottom: 20px;">${destination.detailedDescription || destination.description}</p>
+                        </div>
+                        
+                        <div style="background: var(--light-color); padding: 25px; border-radius: var(--border-radius);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 15px;">What's Included</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                ${destination.included.map(item => `
+                                    <li style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center;">
+                                        <i class="fas fa-check" style="color: var(--success-color); margin-right: 15px;"></i>
+                                        <span>${item}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div style="margin-bottom: 30px;">
+                            <img src="${destination.image}" alt="${destination.name}" style="width: 100%; border-radius: var(--border-radius); height: 300px; object-fit: cover;">
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px;">
+                            <div style="background: var(--light-color); padding: 20px; border-radius: var(--border-radius); text-align: center;">
+                                <div style="font-size: 2rem; color: var(--primary-color); font-weight: bold;">${destination.duration}</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Duration</div>
+                            </div>
+                            <div style="background: var(--light-color); padding: 20px; border-radius: var(--border-radius); text-align: center;">
+                                <div style="font-size: 2rem; color: var(--success-color); font-weight: bold;">${destination.rating}</div>
+                                <div style="font-size: 0.9rem; opacity: 0.8;">Rating</div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: var(--gradient-primary); padding: 25px; border-radius: var(--border-radius); color: white;">
+                            <h4 style="margin-bottom: 15px;">Quick Facts</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                ${destination.tags.map(tag => `
+                                    <span style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;">
+                                        ${tag}
+                                    </span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                ${destination.gallery && destination.gallery.length > 0 ? `
+                <div class="destination-gallery">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px; grid-column: 1 / -1;">Photo Gallery</h3>
+                    ${destination.gallery.map(img => `
+                        <div class="gallery-item">
+                            <img src="${img}" alt="${destination.name}">
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                ${destination.itinerary && destination.itinerary.length > 0 ? `
+                <div class="itinerary-container">
+                    <h3 style="color: var(--primary-color); margin-bottom: 30px;">Daily Itinerary</h3>
+                    ${destination.itinerary.map(day => `
+                        <div class="itinerary-day">
+                            <h4 style="color: var(--primary-color); margin-bottom: 10px;">Day ${day.day}: ${day.title}</h4>
+                            <ul style="padding-left: 20px;">
+                                ${day.activities.map(activity => `
+                                    <li style="margin-bottom: 8px;">${activity}</li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 50px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">Location Map</h3>
+                    <div class="map-container">
+                        <div id="destinationMap"></div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <button class="submit-btn" onclick="handleDestinationSelect('${destination.id}')" style="width: auto; padding: 20px 50px;">
+                        <i class="fas fa-ticket-alt"></i>
+                        Book This Destination Now
+                    </button>
+                </div>
+            `;
+        }
+        
+        function initDestinationMap(coordinates) {
+            const mapElement = document.getElementById('destinationMap');
+            if (!mapElement) return;
+            
+            const map = new google.maps.Map(mapElement, {
+                center: coordinates,
+                zoom: 12,
+                styles: [
+                    {
+                        featureType: "all",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#ffffff" }]
+                    },
+                    {
+                        featureType: "all",
+                        elementType: "labels.text.stroke",
+                        stylers: [{ color: "#000000" }, { visibility: "on" }]
+                    }
+                ]
+            });
+            
+            new google.maps.Marker({
+                position: coordinates,
+                map: map,
+                title: "Destination Location"
+            });
+        }
+        
+        function loadFeaturedDestinations() {
+            const container = document.getElementById('featuredDestinations');
+            container.innerHTML = '';
+            
+            // Sort by popularity and take top 3
+            const featured = [...destinations]
+                .sort((a, b) => b.popularity - a.popularity)
+                .slice(0, 3);
+            
+            featured.forEach(destination => {
+                const card = createDestinationCard(destination);
+                container.appendChild(card);
+            });
+            
+            loadAllDestinations();
+        }
+        
+        function loadAllDestinations() {
+            const container = document.getElementById('allDestinations');
+            container.innerHTML = '';
+            
+            destinations.forEach(destination => {
+                const card = createDestinationCard(destination);
+                container.appendChild(card);
+            });
+        }
+        
+        function createDestinationCard(destination) {
+            const card = document.createElement('div');
+            card.className = 'vacation-card';
+            
+            const translation = translations[appState.language];
+            
+            card.innerHTML = `
+                <div class="vacation-image">
+                    <img src="${destination.image}" alt="${destination.name}" loading="lazy">
+                    <div class="vacation-badge">${destination.popularity}% Popular</div>
+                </div>
+                <div class="vacation-info">
+                    <h3 class="vacation-title">${destination.name}</h3>
+                    <div class="vacation-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        ${destination.location}
+                    </div>
+                    <p style="margin: 15px 0; line-height: 1.6; color: var(--text-color); opacity: 0.9;">${destination.description}</p>
+                    
+                    <div style="margin: 20px 0;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+                            ${destination.tags.map(tag => `
+                                <span style="background: rgba(30, 60, 114, 0.1); color: var(--primary-color); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem;">
+                                    ${tag}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                        <div>
+                            <div class="vacation-price">
+                                $${destination.price}
+                                <span style="font-size: 1rem; opacity: 0.7;">/person</span>
+                            </div>
+                            <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;">
+                                <i class="fas fa-clock"></i> ${destination.duration}
+                            </div>
+                        </div>
+                        <div style="background: var(--warning-color); color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; display: flex; align-items: center; gap: 8px;">
+                            <i class="fas fa-star"></i> ${destination.rating}
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button class="book-now-btn" data-destination="${destination.id}">
+                            <i class="fas fa-ticket-alt"></i>
+                            ${translation.bookNow}
+                        </button>
+                        <button class="view-details-btn" onclick="showDestinationPage('${destination.id}')">
+                            <i class="fas fa-info-circle"></i>
+                            ${translation.viewDetails}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            card.querySelector('.book-now-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDestinationSelect(destination.id);
+            });
+            
+            return card;
+        }
+        
+        function handleDestinationSelect(destinationId) {
+            const destination = destinations.find(d => d.id === destinationId);
+            if (!destination) return;
+            
+            // Populate booking form with destination data
+            document.getElementById('destination').value = destinationId;
+            const duration = parseInt(destination.duration);
+            document.getElementById('duration').value = duration;
+            document.getElementById('durationSlider').value = duration;
+            
+            // Navigate to booking page
+            navigateTo('book');
+            
+            // Scroll to booking form
+            setTimeout(() => {
+                document.getElementById('bookingForm').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }, 500);
+            
+            showToast(translations[appState.language].toastDestinationSelected, 'success');
+        }
+        
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            
+            // Validate all fields
+            let isValid = true;
+            document.querySelectorAll('.form-control[required]').forEach(field => {
+                if (!validateField({ target: field })) {
+                    isValid = false;
+                }
+            });
+            
+            if (!document.getElementById('termsAgreement').checked) {
+                showToast('Please accept the terms and conditions', 'error');
+                return;
+            }
+            
+            if (!isValid) {
+                showToast('Please fill in all required fields correctly', 'error');
+                return;
+            }
+            
+            // Get form data
+            const bookingData = {
+                id: 'BK-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                fullName: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                destination: document.getElementById('destination').value,
+                travelDate: document.getElementById('travelDate').value,
+                duration: parseInt(document.getElementById('duration').value),
+                travelers: parseInt(document.getElementById('travelers').value),
+                course: document.getElementById('courseSelection').value,
+                specialRequests: document.getElementById('specialRequests').value.trim(),
+                timestamp: new Date().toISOString(),
+                status: 'confirmed',
+                paymentStatus: 'pending'
+            };
+            
+            // Show loading state
+            const submitBtn = e.target.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Save booking
+                appState.bookings.push(bookingData);
+                localStorage.setItem('evaBookings', JSON.stringify(appState.bookings));
+                
+                // Show confirmation
+                showBookingConfirmation(bookingData);
+                
+                // Reset form
+                e.target.reset();
+                
+                // Reset submit button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Update min date
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                document.getElementById('travelDate').min = tomorrow.toISOString().split('T')[0];
+                
+                // Show success toast
+                showToast(translations[appState.language].toastBookingSuccess, 'success');
+                
+            }, 1500);
+        }
+        
+        function showBookingConfirmation(bookingData) {
+            const destination = destinations.find(d => d.id === bookingData.destination);
+            const selectedCourse = bookingData.course ? courses.find(c => c.id === bookingData.course) : null;
+            
+            // Calculate total price
+            const basePrice = destination ? destination.price : 1000;
+            const coursePrice = selectedCourse ? selectedCourse.price : 0;
+            const totalPrice = Math.round((basePrice * bookingData.duration / 7) + coursePrice) * bookingData.travelers;
+            
+            // Format date
+            const travelDate = new Date(bookingData.travelDate);
+            const formattedDate = travelDate.toLocaleDateString(appState.language, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Build confirmation details
+            document.getElementById('confirmationDetails').innerHTML = `
+                <div class="confirmation-row">
+                    <span><i class="fas fa-ticket-alt"></i> Booking ID:</span>
+                    <strong style="color: var(--primary-color);">${bookingData.id}</strong>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-user"></i> Traveler Name:</span>
+                    <span>${bookingData.fullName}</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-envelope"></i> Email:</span>
+                    <span>${bookingData.email}</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-map-marker-alt"></i> Destination:</span>
+                    <span>${destination ? destination.name : bookingData.destination}</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-calendar"></i> Travel Date:</span>
+                    <span>${formattedDate}</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-clock"></i> Duration:</span>
+                    <span>${bookingData.duration} days</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-users"></i> Travelers:</span>
+                    <span>${bookingData.travelers} person(s)</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-graduation-cap"></i> Selected Course:</span>
+                    <span>${selectedCourse ? selectedCourse.name : 'None'}</span>
+                </div>
+                <div class="confirmation-row">
+                    <span><i class="fas fa-comment"></i> Special Requests:</span>
+                    <span>${bookingData.specialRequests || 'None'}</span>
+                </div>
+                <div class="confirmation-row" style="border-top: 3px solid var(--primary-color); padding-top: 25px; font-size: 1.3rem; font-weight: bold;">
+                    <span><i class="fas fa-dollar-sign"></i> Total Amount:</span>
+                    <strong style="color: var(--success-color); font-size: 1.8rem;">$${totalPrice.toFixed(2)}</strong>
+                </div>
+            `;
+            
+            // Show confirmation
+            document.getElementById('bookingConfirmation').style.display = 'block';
+            document.getElementById('homePage').classList.remove('active');
+            
+            // Add animation
+            document.getElementById('bookingConfirmation').classList.add('animate__animated', 'animate__fadeIn');
+            
+            // Scroll to confirmation
+            setTimeout(() => {
+                document.getElementById('bookingConfirmation').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+            
+            // Send confirmation email (simulated)
+            simulateEmailConfirmation(bookingData, totalPrice);
+            
+            // Update bookings list
+            loadUserBookings();
+        }
+        
+        function simulateEmailConfirmation(bookingData, totalPrice) {
+            if (appState.notificationsEnabled) {
+                setTimeout(() => {
+                    showToast('Confirmation email sent!', 'success');
+                }, 2000);
+            }
+        }
+        
+        function loadUserBookings() {
+            const container = document.getElementById('bookingsList');
+            if (!container) return;
+            
+            const translation = translations[appState.language];
+            
+            if (appState.bookings.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px;">
+                        <i class="fas fa-calendar-times" style="font-size: 4rem; color: var(--accent-color); margin-bottom: 25px;"></i>
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 2rem;">${translation.noBookingsText}</h3>
+                        <p style="margin-bottom: 40px; font-size: 1.1rem; opacity: 0.9;">${translation.noBookingsDesc}</p>
+                        <button class="submit-btn" onclick="navigateTo('home')" style="width: auto; padding: 18px 40px;">
+                            <i class="fas fa-plane"></i>
+                            ${translation.bookFirstVacation}
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            appState.bookings.forEach((booking) => {
+                const destination = destinations.find(d => d.id === booking.destination);
+                const bookingElement = document.createElement('div');
+                bookingElement.className = 'booking-item';
+                bookingElement.style.cssText = `
+                    background: var(--light-color);
+                    padding: 30px;
+                    border-radius: var(--border-radius);
+                    margin-bottom: 25px;
+                    border-left: 6px solid var(--success-color);
+                    transition: var(--transition);
+                `;
+                
+                bookingElement.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 20px; flex-wrap: wrap; gap: 20px;">
+                        <div style="flex: 1;">
+                            <h3 style="color: var(--primary-color); margin-bottom: 10px; font-size: 1.5rem;">${destination ? destination.name : booking.destination}</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 25px; font-size: 1rem; margin-top: 15px;">
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-calendar" style="color: var(--accent-color);"></i>
+                                    ${new Date(booking.travelDate).toLocaleDateString()}
+                                </span>
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-clock" style="color: var(--info-color);"></i>
+                                    ${booking.duration} days
+                                </span>
+                                <span style="display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-users" style="color: var(--success-color);"></i>
+                                    ${booking.travelers} traveler(s)
+                                </span>
+                            </div>
+                        </div>
+                        <div>
+                            <span style="background: var(--success-color); color: white; padding: 8px 20px; border-radius: 25px; font-weight: bold; font-size: 0.9rem; display: inline-block;">
+                                ${booking.status.toUpperCase()}
+                            </span>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <small style="color: var(--text-color); opacity: 0.7;">
+                                <i class="fas fa-hashtag"></i> Booking ID: ${booking.id}
+                            </small>
+                        </div>
+                        <div style="display: flex; gap: 15px;">
+                            <button class="book-now-btn" style="width: auto; padding: 12px 25px;" onclick="viewBookingDetails('${booking.id}')">
+                                <i class="fas fa-eye"></i>
+                                ${translation.viewDetails}
+                            </button>
+                            <button class="book-now-btn" style="width: auto; padding: 12px 25px; background: var(--warning-color);" onclick="cancelBooking('${booking.id}')">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                bookingElement.addEventListener('mouseenter', () => {
+                    bookingElement.style.transform = 'translateY(-5px)';
+                    bookingElement.style.boxShadow = 'var(--shadow-hover)';
+                });
+                
+                bookingElement.addEventListener('mouseleave', () => {
+                    bookingElement.style.transform = 'translateY(0)';
+                    bookingElement.style.boxShadow = 'none';
+                });
+                
+                container.appendChild(bookingElement);
+            });
+        }
+        
+        function loadCourses() {
+            const container = document.getElementById('coursesList');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            courses.forEach(course => {
+                const courseElement = document.createElement('div');
+                courseElement.className = 'course-item';
+                courseElement.style.cssText = `
+                    background: var(--light-color);
+                    padding: 35px;
+                    border-radius: var(--border-radius);
+                    margin-bottom: 25px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: var(--transition);
+                    border: 2px solid transparent;
+                `;
+                
+                courseElement.innerHTML = `
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                            <div style="background: var(--gradient-primary); width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="${course.icon}" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <div>
+                                <h3 style="color: var(--primary-color); margin-bottom: 5px; font-size: 1.6rem;">${course.name}</h3>
+                                <div style="display: flex; gap: 20px; font-size: 0.95rem;">
+                                    <span><i class="fas fa-signal"></i> ${course.level}</span>
+                                    <span><i class="fas fa-chalkboard-teacher"></i> ${course.instructor}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="margin-bottom: 20px; line-height: 1.7; color: var(--text-color); opacity: 0.9;">${course.description}</p>
+                        
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                            ${course.skills.map(skill => `
+                                <span style="background: rgba(30, 60, 114, 0.1); color: var(--primary-color); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem;">
+                                    ${skill}
+                                </span>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="display: flex; gap: 30px; font-size: 0.95rem; color: var(--text-color); opacity: 0.8;">
+                            <span><i class="fas fa-clock"></i> ${course.duration}</span>
+                            <span><i class="fas fa-user-friends"></i> ${course.spots} spots left</span>
+                            <span><i class="fas fa-star"></i> Certificate Included</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-left: 40px; min-width: 200px;">
+                        <div style="color: var(--success-color); font-size: 2.5rem; font-weight: 800; margin-bottom: 15px;">
+                            $${course.price}
+                        </div>
+                        <button class="book-now-btn" style="width: 100%; padding: 15px 30px;" onclick="enrollInCourse('${course.id}')">
+                            <i class="fas fa-graduation-cap"></i>
+                            Enroll Now
+                        </button>
+                    </div>
+                `;
+                
+                courseElement.addEventListener('mouseenter', () => {
+                    courseElement.style.transform = 'translateY(-8px)';
+                    courseElement.style.boxShadow = 'var(--shadow-hover)';
+                    courseElement.style.borderColor = 'var(--primary-color)';
+                });
+                
+                courseElement.addEventListener('mouseleave', () => {
+                    courseElement.style.transform = 'translateY(0)';
+                    courseElement.style.boxShadow = 'none';
+                    courseElement.style.borderColor = 'transparent';
+                });
+                
+                container.appendChild(courseElement);
+            });
+        }
+        
+        function viewBookingDetails(bookingId) {
+            const booking = appState.bookings.find(b => b.id === bookingId);
+            if (!booking) return;
+            
+            const translation = translations[appState.language];
+            
+            showModal('Booking Details', `
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 30px; text-align: center;">Booking #${booking.id}</h3>
+                    
+                    <div style="background: var(--bg-color); padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                        ${Object.entries(booking).map(([key, value]) => `
+                            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <span style="font-weight: 600; color: var(--primary-color);">${key.replace(/([A-Z])/g, ' $1').toUpperCase()}:</span>
+                                <span>${typeof value === 'object' ? JSON.stringify(value) : value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <button class="submit-btn" style="width: auto; padding: 15px 40px;" onclick="closeModal()">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `);
+        }
+        
+        function cancelBooking(bookingId) {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                appState.bookings = appState.bookings.filter(b => b.id !== bookingId);
+                localStorage.setItem('evaBookings', JSON.stringify(appState.bookings));
+                loadUserBookings();
+                showToast(translations[appState.language].toastCancelled, 'success');
+            }
+        }
+        
+        function enrollInCourse(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            if (!course) return;
+            
+            if (confirm(`Enroll in "${course.name}" for $${course.price}?\n\nThis course includes:\n• ${course.duration} duration\n• ${course.level} level\n• Certificate upon completion\n• ${course.spots} spots available`)) {
+                showToast(translations[appState.language].toastEnrolled, 'success');
+            }
+        }
+        
+        function printConfirmation() {
+            window.print();
+        }
+        
+        function downloadConfirmation() {
+            showToast('Downloading confirmation...', 'info');
+        }
+        
+        function showToast(message, type = 'info') {
+            if (!appState.notificationsEnabled) return;
+            
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${getToastIcon(type)}"></i>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    container.removeChild(toast);
+                }, 300);
+            }, 5000);
+        }
+        
+        function getToastIcon(type) {
+            switch(type) {
+                case 'success': return 'check-circle';
+                case 'error': return 'exclamation-circle';
+                case 'warning': return 'exclamation-triangle';
+                default: return 'info-circle';
+            }
+        }
+        
+        function setupScrollProgress() {
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('progressFill').style.width = scrolled + '%';
+            });
+        }
+        
+        function setupBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        function initializeAnimations() {
+            // Add scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements for animation
+            document.querySelectorAll('.vacation-card, .course-item, .booking-item').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        function showDestinationDetails(destination) {
+            const translation = translations[appState.language];
+            
+            showModal(destination.name, `
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                        <div>
+                            <img src="${destination.image}" alt="${destination.name}" style="width: 100%; border-radius: var(--border-radius); box-shadow: var(--shadow);">
+                        </div>
+                        <div>
+                            <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.8rem;">Package Details</h3>
+                            <p style="line-height: 1.8; margin-bottom: 25px; font-size: 1.1rem;">${destination.description}</p>
+                            
+                            <div style="background: var(--bg-color); padding: 25px; border-radius: 15px; margin-bottom: 25px;">
+                                <h4 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.2rem;">
+                                    <i class="fas fa-check-circle"></i> What's Included:
+                                </h4>
+                                <ul style="list-style: none; padding: 0;">
+                                    ${destination.included.map(item => `
+                                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center;">
+                                            <i class="fas fa-check" style="color: var(--success-color); margin-right: 15px; font-size: 1.1rem;"></i>
+                                            <span style="font-size: 1.05rem;">${item}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: var(--gradient-primary); padding: 30px; border-radius: var(--border-radius);">
+                        <div style="color: white;">
+                            <div style="font-size: 2.8rem; font-weight: 800;">$${destination.price}</div>
+                            <div style="font-size: 1.1rem; opacity: 0.9;">${destination.duration} • ${destination.rating} ⭐ Rating</div>
+                        </div>
+                        <button class="submit-btn" style="width: auto; padding: 18px 40px; background: white; color: var(--primary-color);" onclick="handleDestinationSelect('${destination.id}'); closeModal();">
+                            <i class="fas fa-ticket-alt"></i>
+                            ${translation.bookNow}
+                        </button>
+                    </div>
+                </div>
+            `);
+        }
+        
+        function showModal(title, content) {
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <button class="modal-close" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <h2 style="color: var(--primary-color); margin-bottom: 30px; font-size: 2rem;">${title}</h2>
+                    ${content}
+                </div>
+            `;
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            document.body.appendChild(modal);
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const modal = document.querySelector('.modal.active');
+            if (modal) {
+                modal.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(modal);
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+        
+        // AI Chat Functions
+        function initializeChat() {
+            const chatButton = document.getElementById('chatButton');
+            const chatContainer = document.getElementById('chatContainer');
+            const closeChat = document.getElementById('closeChat');
+            const chatSend = document.getElementById('chatSend');
+            const chatInput = document.getElementById('chatInput');
+            
+            chatButton.addEventListener('click', openChat);
+            closeChat.addEventListener('click', closeChatWindow);
+            
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+            
+            // Typing indicator
+            chatInput.addEventListener('input', () => {
+                if (chatInput.value.trim()) {
+                    chatSend.style.background = 'var(--gradient-accent)';
+                } else {
+                    chatSend.style.background = 'var(--gradient-primary)';
+                }
+            });
+        }
+        
+        function openChat() {
+            const chatContainer = document.getElementById('chatContainer');
+            const chatButton = document.getElementById('chatButton');
+            
+            chatContainer.classList.add('active');
+            chatButton.style.opacity = '0';
+            chatButton.style.pointerEvents = 'none';
+            
+            document.getElementById('chatInput').focus();
+            appState.chatOpen = true;
+            
+            // Add welcome message if empty
+            if (document.getElementById('chatMessages').children.length === 1) {
+                addMessage('ai', translations[appState.language].chatWelcome);
+            }
+        }
+        
+        function closeChatWindow() {
+            const chatContainer = document.getElementById('chatContainer');
+            const chatButton = document.getElementById('chatButton');
+            
+            chatContainer.classList.remove('active');
+            setTimeout(() => {
+                chatButton.style.opacity = '1';
+                chatButton.style.pointerEvents = 'all';
+            }, 300);
+            
+            appState.chatOpen = false;
+        }
+        
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+            document.getElementById('chatSend').style.background = 'var(--gradient-primary)';
+            
+            // Show typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'message ai';
+            typingIndicator.innerHTML = '<i class="fas fa-ellipsis-h"></i>';
+            typingIndicator.id = 'typingIndicator';
+            document.getElementById('chatMessages').appendChild(typingIndicator);
+            document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+            
+            // Generate AI response after delay
+            setTimeout(() => {
+                document.getElementById('typingIndicator')?.remove();
+                const response = generateAIResponse(message);
+                addMessage('ai', response);
+            }, 1000 + Math.random() * 1000);
+        }
+        
+        function addMessage(sender, text) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            // Format text with line breaks
+            const formattedText = text.replace(/\n/g, '<br>');
+            messageDiv.innerHTML = formattedText;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function generateAIResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            const responses = {
+                greetings: [
+                    "Hello! How can I assist you with your African vacation planning today? 😊",
+                    "Hi there! Ready to plan your next adventure? ✈️",
+                    "Welcome to Eva-Africa-Tech! How can I help you explore Africa while learning tech? 🌍💻"
+                ],
+                booking: [
+                    "I can help you book a vacation package. Which destination are you interested in? Popular choices: Burundi, Uganda, Kenya, Tanzania, Rwanda, or Congo.",
+                    "Great! Let's find the perfect vacation for you. What's your budget range? Our packages start from $1299.",
+                    "I'll guide you through the booking process. When would you like to travel? Remember to check available dates in the booking form."
+                ],
+                courses: [
+                    "We offer several tech courses during vacations: Web Development, AI, Mobile Apps, Data Science, UI/UX Design, Blockchain, and Cybersecurity. Which interests you?",
+                    "Our courses combine learning with vacation experiences. Each course includes hands-on projects and certification. What tech field are you passionate about?"
+                ],
+                destinations: [
+                    "We have amazing destinations across Africa! Lake Tanganyika in Burundi, Lake Victoria in Uganda, or the Indian Ocean coast in Kenya are very popular. 🏖️",
+                    "For a mountain experience, consider Rwanda's Lake Kivu. For beach lovers, Zanzibar in Tanzania is perfect! 🏔️🏝️"
+                ],
+                price: "Our vacation packages start from $1299 for 7 days, including accommodation and a tech course. The price varies based on destination, duration, and selected course. You can see detailed pricing when selecting a destination.",
+                contact: "You can contact our support team at +250 788 123 456 or email support@eva-africa-tech.org. We're available 24/7! 📞📧",
+                default: [
+                    "I'm here to help with vacation bookings, tech courses, and African destinations. What would you like to know? 🤔",
+                    "Feel free to ask about our packages, courses, or any specific destination in Africa! I'm here to help. 🌟"
+                ]
+            };
+            
+            if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+                return getRandomResponse(responses.greetings);
+            }
+            else if (message.includes('book') || message.includes('vacation') || message.includes('trip') || message.includes('package')) {
+                return getRandomResponse(responses.booking);
+            }
+            else if (message.includes('course') || message.includes('learn') || message.includes('tech') || message.includes('study')) {
+                return getRandomResponse(responses.courses);
+            }
+            else if (message.includes('where') || message.includes('destination') || message.includes('place') || message.includes('country')) {
+                return getRandomResponse(responses.destinations);
+            }
+            else if (message.includes('price') || message.includes('cost') || message.includes('how much')) {
+                return responses.price;
+            }
+            else if (message.includes('contact') || message.includes('help') || message.includes('support')) {
+                return responses.contact;
+            }
+            else {
+                return getRandomResponse(responses.default);
+            }
+        }
+        
+        function getRandomResponse(responses) {
+            return Array.isArray(responses) ? responses[Math.floor(Math.random() * responses.length)] : responses;
+        }
+        
+        // Google Maps Functions
+        function initMap() {
+            const kigali = { lat: -1.9441, lng: 30.0619 };
+            
+            googleMap = new google.maps.Map(document.getElementById('map'), {
+                center: kigali,
+                zoom: 14,
+                styles: [
+                    {
+                        featureType: "all",
+                        elementType: "geometry",
+                        stylers: [{ color: "#242f3e" }]
+                    },
+                    {
+                        featureType: "all",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#746855" }]
+                    }
+                ]
+            });
+            
+            const marker = new google.maps.Marker({
+                position: kigali,
+                map: googleMap,
+                title: "Eva-Africa-Tech Headquarters",
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                }
+            });
+            
+            const infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div style="color: black; padding: 10px;">
+                        <h3 style="margin: 0 0 10px 0; color: #1e3c72;">Eva-Africa-Tech HQ</h3>
+                        <p style="margin: 0;"><strong>Address:</strong> Kigali Heights, KG 7 Ave</p>
+                        <p style="margin: 0;"><strong>Hours:</strong> 24/7 Support</p>
+                        <p style="margin: 0;"><strong>Phone:</strong> +250 788 123 456</p>
+                    </div>
+                `
+            });
+            
+            marker.addListener('click', () => {
+                infoWindow.open(googleMap, marker);
+            });
+        }
+        
+        // Helper functions for footer links
+        function socialLink(platform) {
+            const urls = {
+                facebook: 'https://facebook.com',
+                twitter: 'https://twitter.com',
+                instagram: 'https://instagram.com',
+                whatsapp: 'https://wa.me',
+                linkedin: 'https://linkedin.com'
+            };
+            
+            if (urls[platform]) {
+                window.open(urls[platform], '_blank');
+            }
+        }
+        
+        function showTerms() {
+            const translation = translations[appState.language];
+            showModal(translation.modalTerms, `
+                <div style="max-height: 500px; overflow-y: auto; padding-right: 20px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">${translation.modalTerms}</h3>
+                    <p style="margin-bottom: 20px; line-height: 1.8;">Welcome to Eva-Africa-Tech! By using our platform, you agree to these terms and conditions...</p>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">1. Booking Terms</h4>
+                        <p style="line-height: 1.7;">All bookings are subject to availability and confirmation. Prices may vary based on season and demand.</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">2. Payment Terms</h4>
+                        <p style="line-height: 1.7;">Full payment is required at the time of booking. We accept major credit cards and bank transfers.</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">3. Cancellation Policy</h4>
+                        <p style="line-height: 1.7;">Cancellations made 30+ days before travel: Full refund. 15-30 days: 50% refund. Less than 15 days: No refund.</p>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 10px;">4. Tech Courses</h4>
+                        <p style="line-height: 1.7;">Course availability is subject to minimum enrollment. Certificates are awarded upon successful completion.</p>
+                    </div>
+                    
+                    <div style="background: var(--bg-color); padding: 20px; border-radius: 10px; margin-top: 30px;">
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Last updated: ${new Date().toLocaleDateString()}</p>
+                    </div>
+                </div>
+            `);
+        }
+        
+        function showPrivacy() {
+            const translation = translations[appState.language];
+            showModal(translation.modalPrivacy, `
+                <div style="max-height: 500px; overflow-y: auto; padding-right: 20px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">${translation.modalPrivacy}</h3>
+                    <p style="line-height: 1.8;">We are committed to protecting your privacy...</p>
+                </div>
+            `);
+        }
+        
+        function showAbout() {
+            const translation = translations[appState.language];
+            showModal(translation.modalAbout, `
+                <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 2rem;">${translation.modalAbout}</h3>
+                    <p style="line-height: 1.8; margin-bottom: 30px; font-size: 1.1rem;">
+                        Eva-Africa-Tech combines the best of African tourism with technology education. 
+                        We believe in transformative travel experiences that also build valuable skills for the future.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 40px 0;">
+                        <div style="text-align: center;">
+                            <div style="background: var(--gradient-primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-globe-africa" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h4 style="color: var(--primary-color); margin-bottom: 5px;">African Focus</h4>
+                            <p style="font-size: 0.9rem;">Showcasing Africa's beauty</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="background: var(--gradient-primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-laptop-code" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h4 style="color: var(--primary-color); margin-bottom: 5px;">Tech Education</h4>
+                            <p style="font-size: 0.9rem;">Learn while you travel</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="background: var(--gradient-primary); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-hands-helping" style="color: white; font-size: 1.8rem;"></i>
+                            </div>
+                            <h4 style="color: var(--primary-color); margin-bottom: 5px;">Community</h4>
+                            <p style="font-size: 0.9rem;">Connect with fellow learners</p>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+        
+        function showContact() {
+            const translation = translations[appState.language];
+            showModal(translation.modalContact, `
+                <div style="max-width: 600px; margin: 0 auto;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 30px; text-align: center;">${translation.modalContact}</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 40px;">
+                        <div style="text-align: center;">
+                            <div style="background: var(--gradient-primary); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-phone" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <h4 style="color: var(--primary-color); margin-bottom: 10px;">${translation.footerPhoneLabel.replace(':', '')}</h4>
+                            <p>+250 788 123 456</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">24/7 Support</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="background: var(--gradient-primary); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                                <i class="fas fa-envelope" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <h4 style="color: var(--primary-color); margin-bottom: 10px;">${translation.footerEmailLabel.replace(':', '')}</h4>
+                            <p>support@eva-africa-tech.org</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">Quick Response</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-color); padding: 30px; border-radius: var(--border-radius);">
+                        <h4 style="color: var(--primary-color); margin-bottom: 20px;">Send us a Message</h4>
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" class="form-control" id="contactName" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Email</label>
+                            <input type="email" class="form-control" id="contactEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" rows="4" id="contactMessage" placeholder="Your message..."></textarea>
+                        </div>
+                        <button class="submit-btn" onclick="sendContactMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            `);
+        }
+        
+        function sendContactMessage() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            if (!name || !email || !message) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+            
+            showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
+            closeModal();
+        }
+        
+        // Add missing CSS for animations
+        const missingStyles = document.createElement('style');
+        missingStyles.textContent = `
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100px); opacity: 0; }
+            }
+            
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            
+            input.error, select.error, textarea.error {
+                border-color: var(--accent-color) !important;
+                animation: shake 0.5s ease;
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(missingStyles);
+    </script>
+</body>
+</html>
