@@ -1,0 +1,2755 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eva-training Tech | Tech Courses Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #a78bfa;
+            --dark: #f8fafc;
+            --light: #1e293b;
+            --gray: #94a3b8;
+            --gray-light: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--gray-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn-login, .btn-join {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-join {
+            background-color: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-join:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Controls (Theme & Language) */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .lang-toggle {
+            background: var(--gray-light);
+            border: none;
+            border-radius: 50px;
+            width: 60px;
+            height: 30px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .theme-toggle::before, .lang-toggle::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--light);
+            left: 3px;
+            transition: transform 0.3s;
+        }
+
+        [data-theme="dark"] .theme-toggle::before {
+            transform: translateX(30px);
+            background: var(--dark);
+        }
+
+        .theme-toggle i, .lang-toggle i {
+            z-index: 1;
+            font-size: 0.9rem;
+        }
+
+        .theme-toggle .fa-sun {
+            color: #f59e0b;
+            margin-right: auto;
+        }
+
+        .theme-toggle .fa-moon {
+            color: #64748b;
+            margin-left: auto;
+        }
+
+        .lang-toggle .fa-globe {
+            color: var(--primary);
+            margin-right: auto;
+        }
+
+        .lang-toggle .fa-chevron-down {
+            color: var(--gray);
+            margin-left: auto;
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            padding: 0.5rem;
+            display: none;
+            min-width: 120px;
+            z-index: 100;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .lang-option {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-option:hover {
+            background-color: var(--gray-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            margin-bottom: 3rem;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.1)" d="M0,0 L100,0 L100,100 Z" /></svg>');
+            background-size: cover;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: slideUp 1s ease;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            animation: slideUp 1s ease 0.2s both;
+            position: relative;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            animation: slideUp 1s ease 0.4s both;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Courses Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        .course-card {
+            background-color: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 1px solid var(--gray-light);
+        }
+
+        .course-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .course-img {
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
+        }
+
+        .course-content {
+            padding: 2rem;
+        }
+
+        .course-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        .course-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .course-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--warning);
+        }
+
+        .course-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .course-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Course Details Page */
+        .course-details {
+            padding: 4rem 0;
+            display: none;
+        }
+
+        .back-btn {
+            background-color: var(--gray-light);
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--gray);
+            color: var(--light);
+            transform: translateX(-5px);
+        }
+
+        .course-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .course-header-img {
+            flex: 1;
+            min-width: 300px;
+            height: 350px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 7rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-header-content {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .course-header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .course-header-content p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .course-meta-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--gray-light);
+            border-radius: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .meta-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .meta-content h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .meta-content p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .enroll-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0da271 100%);
+            color: white;
+            border: none;
+            padding: 1.3rem 3rem;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .enroll-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Forms */
+        .form-section {
+            padding: 5rem 0;
+            display: none;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem;
+            color: var(--dark);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
+            background: var(--light);
+            color: var(--dark);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--gray);
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .form-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .switch-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .switch-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Africa Map Section */
+        .africa-map-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--light) 0%, var(--gray-light) 100%);
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        .africa-map {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .map-point {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+        }
+
+        .map-point:hover {
+            animation: none;
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .map-point::after {
+            content: 'Eva-training Tech';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--light);
+            color: var(--dark);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .map-point:hover::after {
+            opacity: 1;
+        }
+
+        .rwanda-point {
+            left: 58%;
+            top: 48%;
+        }
+
+        .map-label {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: var(--light);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            max-width: 300px;
+        }
+
+        .map-label h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .map-label p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            margin-top: auto;
+            padding-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.8rem;
+            font-size: 1.5rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .phone-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--gray);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+            
+            .course-header-img {
+                height: 300px;
+                font-size: 6rem;
+            }
+            
+            .course-header-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .auth-buttons {
+                order: 3;
+                margin-top: 1rem;
+            }
+            
+            .hero {
+                padding: 4rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-button {
+                padding: 1rem 2.5rem;
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .course-header {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .form-container {
+                padding: 2rem;
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            
+            .auth-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn-login, .btn-join {
+                flex: 1;
+                max-width: 150px;
+            }
+            
+            .lang-dropdown {
+                right: auto;
+                left: 0;
+            }
+            
+            .course-meta-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Active page indicator */
+        .active {
+            color: var(--primary) !important;
+        }
+
+        .active::after {
+            width: 100% !important;
+        }
+
+        /* Page transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--light);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 3000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger);
+        }
+
+        .toast i {
+            font-size: 1.5rem;
+        }
+
+        .toast.success i {
+            color: var(--success);
+        }
+
+        .toast.error i {
+            color: var(--danger);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray-light);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="./index5.html" class="logo" data-page="home">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>Eva-training Tech</span>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="#home" class="active" data-page="home">Home</a>
+                    <a href="#courses" data-page="courses">Browse Courses</a>
+                    <a href="#about" data-page="about">About Us</a>
+                    <a href="#contact" data-page="contact">Contact Support</a>
+                    <a href="#map" data-page="map">Our Location</a>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="btn-login" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <button class="btn-join" id="joinBtn">
+                        <i class="fas fa-user-plus"></i> Join Free
+                    </button>
+                </div>
+                
+                <div class="controls">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    
+                    <div class="lang-container">
+                        <button class="lang-toggle" id="langToggle" aria-label="Change language">
+                            <i class="fas fa-globe"></i>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="lang-dropdown" id="langDropdown">
+                            <div class="lang-option" data-lang="en">
+                                <i class="fas fa-language"></i>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" data-lang="fr">
+                                <i class="fas fa-language"></i>
+                                <span>Français</span>
+                            </div>
+                            <div class="lang-option" data-lang="es">
+                                <i class="fas fa-language"></i>
+                                <span>Español</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="container">
+                <h1 id="heroTitle">Master the Future with Cutting-Edge Tech Courses</h1>
+                <p id="heroText">Join Eva-training Tech to learn the most in-demand technology skills from industry experts. Start your journey today and transform your career!</p>
+                <a href="#courses" class="cta-button" id="ctaButton">
+                    <i class="fas fa-rocket"></i> Explore All Courses Now
+                </a>
+            </div>
+        </div>
+        
+        <div class="container">
+            <h2 class="section-title" id="courseSectionTitle">Our Premium Tech Courses</h2>
+            <div class="courses-grid" id="coursesGrid">
+                <!-- Courses will be dynamically added here -->
+            </div>
+            
+            <div class="text-center" style="margin-top: 4rem;">
+                <button class="cta-button" id="viewAllCourses" style="background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);">
+                    <i class="fas fa-eye"></i> View Complete Course Catalog
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Details Page -->
+    <section id="courseDetails" class="page course-details">
+        <div class="container">
+            <button class="back-btn" id="backBtn">
+                <i class="fas fa-arrow-left"></i>
+                <span id="backText">Return to All Courses</span>
+            </button>
+            
+            <div class="course-header">
+                <div class="course-header-img" id="courseDetailIcon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="course-header-content">
+                    <h1 id="courseDetailTitle">Web Development Fundamentals</h1>
+                    <p id="courseDetailDescription">Learn the basics of web development with HTML, CSS, and JavaScript. Build your first website from scratch.</p>
+                    
+                    <div class="course-meta-details">
+                        <div class="meta-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="meta-content">
+                                <h4>Duration</h4>
+                                <p id="courseDuration">8 Weeks</p>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-user-graduate"></i>
+                            <div class="meta-content">
+                                <h4>Level</h4>
+                                <p id="courseLevel">Beginner</p>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-star"></i>
+                            <div class="meta-content">
+                                <h4>Rating</h4>
+                                <p id="courseRating">4.8/5 (2,450 reviews)</p>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="meta-content">
+                                <h4>Price</h4>
+                                <p id="coursePrice">$299 <span style="color: var(--gray); font-size: 0.9rem;">or $99/month</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <p style="color: var(--gray); font-size: 0.9rem;">85% of students complete this course successfully</p>
+                    
+                    <button class="enroll-btn pulse" id="enrollBtn">
+                        <i class="fas fa-shopping-cart"></i> Enroll Now & Start Learning
+                    </button>
+                </div>
+            </div>
+            
+            <div class="course-curriculum">
+                <h2 id="curriculumTitle" style="font-size: 2.2rem; margin-bottom: 2rem;">Course Curriculum & Learning Path</h2>
+                <div id="curriculumContent">
+                    <!-- Curriculum will be dynamically added -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Form Section -->
+    <section id="loginForm" class="page form-section">
+        <div class="container">
+            <div class="form-container">
+                <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 2rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </button>
+                
+                <h2 class="form-title" id="loginTitle">Welcome Back to Eva-training Tech</h2>
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail" id="loginEmailLabel">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword" id="loginPasswordLabel">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <input type="checkbox" id="rememberMe">
+                            <label for="rememberMe" id="rememberMeLabel">Remember me</label>
+                        </div>
+                        <a href="#" id="forgotPasswordLink" style="color: var(--primary); text-decoration: none;">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="form-btn" id="loginSubmitBtn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In to Your Account
+                    </button>
+                </form>
+                
+                <div class="form-footer">
+                    <p id="loginFooterText">Don't have an account? <button class="switch-btn" onclick="showPage('joinForm')">Join Now for Free</button></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Form Section -->
+    <section id="joinForm" class="page form-section">
+        <div class="container">
+            <div class="form-container">
+                <button class="back-btn" onclick="showPage('home')" style="margin-bottom: 2rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </button>
+                
+                <h2 class="form-title" id="joinTitle">Start Your Tech Journey Today</h2>
+                <form id="joinFormElement">
+                    <div class="form-group">
+                        <label for="joinFullName" id="joinFullNameLabel">Full Name</label>
+                        <input type="text" id="joinFullName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="joinEmail" id="joinEmailLabel">Email Address</label>
+                        <input type="email" id="joinEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="joinPassword" id="joinPasswordLabel">Create Password</label>
+                        <input type="password" id="joinPassword" class="form-control" placeholder="Create a strong password" required>
+                        <small id="passwordHelp" style="color: var(--gray); margin-top: 5px; display: block;">Minimum 8 characters with letters and numbers</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="joinPhone" id="joinPhoneLabel">Phone Number (Optional)</label>
+                        <input type="tel" id="joinPhone" class="form-control" placeholder="+250 785 786 547">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="joinInterests" id="joinInterestsLabel">Tech Interests</label>
+                        <select id="joinInterests" class="form-control" multiple style="height: 120px;">
+                            <option value="web">Web Development</option>
+                            <option value="data">Data Science</option>
+                            <option value="mobile">Mobile Development</option>
+                            <option value="ai">AI & Machine Learning</option>
+                            <option value="cyber">Cybersecurity</option>
+                            <option value="cloud">Cloud Computing</option>
+                        </select>
+                        <small style="color: var(--gray); margin-top: 5px; display: block;">Hold Ctrl/Cmd to select multiple</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="checkbox" id="termsAgreement" required>
+                        <label for="termsAgreement" id="termsLabel">I agree to the <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a></label>
+                    </div>
+                    
+                    <button type="submit" class="form-btn" id="joinSubmitBtn">
+                        <i class="fas fa-user-plus"></i> Create Free Account
+                    </button>
+                </form>
+                
+                <div class="form-footer">
+                    <p id="joinFooterText">Already have an account? <button class="switch-btn" onclick="showPage('loginForm')">Sign In Here</button></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Africa Map Section -->
+    <section id="map" class="page africa-map-section">
+        <div class="container">
+            <h2 class="section-title" id="mapTitle">Our Location in Africa</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: var(--gray); max-width: 800px; margin-left: auto; margin-right: auto;" id="mapDescription">
+                Eva-training Tech is proudly based in Rwanda, East Africa - a growing tech hub in the heart of the continent.
+            </p>
+            
+            <div class="map-container">
+                <div class="africa-map">
+                    <!-- Africa outline will be created with CSS/JS -->
+                    <div class="map-point rwanda-point" id="rwandaPoint"></div>
+                    <div class="map-label">
+                        <h3>Eva-training Tech Headquarters</h3>
+                        <p>Located in Kigali, Rwanda - the heart of Africa's tech innovation</p>
+                        <p style="margin-top: 0.5rem; font-size: 0.8rem;">
+                            <i class="fas fa-phone"></i> +250 785 786 547<br>
+                            <i class="fas fa-envelope"></i> info@eva-training-tech.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 3rem; text-align: center;">
+                <button class="cta-button" onclick="showPage('contact')" style="background: linear-gradient(135deg, var(--accent) 0%, #7c3aed 100%);">
+                    <i class="fas fa-envelope"></i> Contact Our African Office
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page">
+        <div class="container">
+            <h2 class="section-title" id="contactTitle">Get In Touch With Us</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem;">
+                <div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;" id="contactFormTitle">Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" id="contactName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" id="contactEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Your Phone Number" id="contactPhone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <select class="form-control" id="contactSubject" required>
+                                <option value="">Select Subject</option>
+                                <option value="course">Course Inquiry</option>
+                                <option value="support">Technical Support</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" rows="5" id="contactMessage" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-btn">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;" id="contactInfoTitle">Contact Information</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4 style="color: var(--dark); margin-bottom: 5px;">Our Location</h4>
+                                <p id="contactAddress">Kigali Innovation City, Rwanda</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4 style="color: var(--dark); margin-bottom: 5px;">Phone Number</h4>
+                                <p class="phone-number">+250 785 786 547</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4 style="color: var(--dark); margin-bottom: 5px;">Email Address</h4>
+                                <p>info@eva-training-tech.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4 style="color: var(--dark); margin-bottom: 5px;">Business Hours</h4>
+                                <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                                <p>Saturday: 9:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: var(--dark); margin-bottom: 1rem;">Follow Us</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="page">
+        <div class="container">
+            <h2 class="section-title" id="aboutTitle">About Eva-training Tech</h2>
+            
+            <div style="max-width: 800px; margin: 0 auto 4rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; color: var(--gray); margin-bottom: 2rem;" id="aboutDescription">
+                    Eva-training Tech is a leading technology education platform based in Africa, dedicated to providing world-class tech training to students across the continent and beyond. Our mission is to bridge the digital skills gap and empower the next generation of African tech innovators.
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div style="text-align: center; padding: 2rem; background: var(--gray-light); border-radius: 15px;">
+                        <i class="fas fa-graduation-cap" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <h3 id="statsStudents">10,000+</h3>
+                        <p id="statsStudentsText">Students Trained</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 2rem; background: var(--gray-light); border-radius: 15px;">
+                        <i class="fas fa-chalkboard-teacher" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <h3 id="statsCourses">50+</h3>
+                        <p id="statsCoursesText">Courses Available</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 2rem; background: var(--gray-light); border-radius: 15px;">
+                        <i class="fas fa-user-tie" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <h3 id="statsInstructors">100+</h3>
+                        <p id="statsInstructorsText">Expert Instructors</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 2rem; background: var(--gray-light); border-radius: 15px;">
+                        <i class="fas fa-globe-africa" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                        <h3 id="statsCountries">40+</h3>
+                        <p id="statsCountriesText">Countries Reached</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Eva-training Tech</h3>
+                    <p id="footerAbout">Providing top-quality tech education to help you advance your career in the digital world. Based in Africa, serving the world.</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span class="phone-number">+250 785 786 547</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@eva-training-tech.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="footerAddress">Kigali Innovation City, Rwanda</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="quickLinksTitle">Quick Navigation</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#courses" data-page="courses"><i class="fas fa-book"></i> All Courses</a></li>
+                        <li><a href="#about" data-page="about"><i class="fas fa-info-circle"></i> About Us</a></li>
+                        <li><a href="#contact" data-page="contact"><i class="fas fa-headset"></i> Contact Support</a></li>
+                        <li><a href="#map" data-page="map"><i class="fas fa-map-marked-alt"></i> Our Location</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="popularCoursesTitle">Top Courses</h3>
+                    <ul class="footer-links" id="popularCourses">
+                        <!-- Popular courses will be dynamically added -->
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3 id="newsletterTitle">Newsletter</h3>
+                    <p style="color: var(--gray); margin-bottom: 1.5rem;" id="newsletterText">Subscribe to get updates on new courses and tech trends.</p>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <input type="email" class="form-control" placeholder="Your email address" id="newsletterEmail" style="background: var(--gray-light); border-color: var(--gray);">
+                    </div>
+                    <button class="form-btn" id="newsletterBtn" style="padding: 0.8rem; font-size: 1rem;">
+                        <i class="fas fa-paper-plane"></i> Subscribe
+                    </button>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear">2023</span> Eva-training Tech. <span id="rightsText">All rights reserved.</span> | <a href="#" style="color: var(--gray); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--gray); text-decoration: none;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Course Enrollment -->
+    <div class="modal" id="enrollmentModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h2 id="modalTitle">Enroll in Course</h2>
+            <div id="modalContent">
+                <!-- Dynamic content will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastNotification">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Action completed successfully!</span>
+    </div>
+
+    <script>
+        // Enhanced Language texts with new additions
+        const translations = {
+            en: {
+                heroTitle: "Master the Future with Cutting-Edge Tech Courses",
+                heroText: "Join Eva-training Tech to learn the most in-demand technology skills from industry experts. Start your journey today and transform your career!",
+                ctaButton: "Explore All Courses Now",
+                courseSectionTitle: "Our Premium Tech Courses",
+                backText: "Return to All Courses",
+                enrollBtn: "Enroll Now & Start Learning",
+                curriculumTitle: "Course Curriculum & Learning Path",
+                footerAbout: "Providing top-quality tech education to help you advance your career in the digital world. Based in Africa, serving the world.",
+                footerAddress: "Kigali Innovation City, Rwanda",
+                quickLinksTitle: "Quick Navigation",
+                popularCoursesTitle: "Top Courses",
+                locationTitle: "Our Location",
+                mapTitle: "Our Location in Africa",
+                mapDescription: "Eva-training Tech is proudly based in Rwanda, East Africa - a growing tech hub in the heart of the continent.",
+                contactTitle: "Get In Touch With Us",
+                contactFormTitle: "Send Us a Message",
+                contactInfoTitle: "Contact Information",
+                contactAddress: "Kigali Innovation City, Rwanda",
+                aboutTitle: "About Eva-training Tech",
+                aboutDescription: "Eva-training Tech is a leading technology education platform based in Africa, dedicated to providing world-class tech training to students across the continent and beyond. Our mission is to bridge the digital skills gap and empower the next generation of African tech innovators.",
+                statsStudents: "10,000+",
+                statsStudentsText: "Students Trained",
+                statsCourses: "50+",
+                statsCoursesText: "Courses Available",
+                statsInstructors: "100+",
+                statsInstructorsText: "Expert Instructors",
+                statsCountries: "40+",
+                statsCountriesText: "Countries Reached",
+                newsletterTitle: "Newsletter",
+                newsletterText: "Subscribe to get updates on new courses and tech trends.",
+                rightsText: "All rights reserved.",
+                
+                // Form translations
+                loginTitle: "Welcome Back to Eva-training Tech",
+                loginEmailLabel: "Email Address",
+                loginPasswordLabel: "Password",
+                rememberMeLabel: "Remember me",
+                forgotPasswordLink: "Forgot Password?",
+                loginSubmitBtn: "Sign In to Your Account",
+                loginFooterText: "Don't have an account?",
+                
+                joinTitle: "Start Your Tech Journey Today",
+                joinFullNameLabel: "Full Name",
+                joinEmailLabel: "Email Address",
+                joinPasswordLabel: "Create Password",
+                joinPhoneLabel: "Phone Number (Optional)",
+                joinInterestsLabel: "Tech Interests",
+                termsLabel: "I agree to the Terms of Service and Privacy Policy",
+                joinSubmitBtn: "Create Free Account",
+                joinFooterText: "Already have an account?",
+                
+                courseCategories: {
+                    web: "Web Development Mastery",
+                    data: "Data Science & Analytics",
+                    mobile: "Mobile App Development",
+                    ai: "AI & Machine Learning",
+                    cyber: "Cybersecurity Fundamentals",
+                    cloud: "Cloud Computing",
+                    devops: "DevOps Engineering",
+                    blockchain: "Blockchain Technology"
+                },
+                courseDescriptions: {
+                    web: "Learn to build modern, responsive websites and web applications with the latest frameworks.",
+                    data: "Master data analysis, visualization, and machine learning techniques for real-world applications.",
+                    mobile: "Develop native and cross-platform mobile applications for iOS and Android platforms.",
+                    ai: "Explore artificial intelligence and machine learning algorithms with hands-on projects.",
+                    cyber: "Learn to protect systems and networks from digital attacks and security threats.",
+                    cloud: "Master cloud platforms and deployment strategies for scalable applications.",
+                    devops: "Learn continuous integration and deployment practices for modern software development.",
+                    blockchain: "Understand blockchain technology and cryptocurrency development from the ground up."
+                },
+                buttonTexts: {
+                    viewDetails: "View Full Course Details",
+                    enrollNow: "Enroll in This Course",
+                    startLearning: "Start Learning Today",
+                    browseAll: "Browse All Available Courses",
+                    contactUs: "Contact Our Support Team",
+                    downloadSyllabus: "Download Course Syllabus",
+                    viewDemo: "Watch Course Demo"
+                }
+            },
+            fr: {
+                heroTitle: "Maîtrisez l'Avenir avec des Cours Tech de Pointe",
+                heroText: "Rejoignez Eva-training Tech pour apprendre les compétences technologiques les plus demandées auprès d'experts de l'industrie. Commencez votre voyage aujourd'hui et transformez votre carrière!",
+                ctaButton: "Explorer Tous les Cours Maintenant",
+                courseSectionTitle: "Nos Cours Tech Premium",
+                backText: "Retour à Tous les Cours",
+                enrollBtn: "S'inscrire et Commencer à Apprendre",
+                curriculumTitle: "Programme du Cours & Parcours d'Apprentissage",
+                footerAbout: "Fournir une éducation technologique de haute qualité pour vous aider à faire progresser votre carrière dans le monde numérique. Basé en Afrique, au service du monde.",
+                footerAddress: "Kigali Innovation City, Rwanda",
+                quickLinksTitle: "Navigation Rapide",
+                popularCoursesTitle: "Meilleurs Cours",
+                locationTitle: "Notre Emplacement",
+                mapTitle: "Notre Emplacement en Afrique",
+                mapDescription: "Eva-training Tech est fièrement basé au Rwanda, en Afrique de l'Est - un hub technologique en pleine croissance au cœur du continent.",
+                contactTitle: "Contactez-Nous",
+                contactFormTitle: "Envoyez-nous un Message",
+                contactInfoTitle: "Informations de Contact",
+                contactAddress: "Kigali Innovation City, Rwanda",
+                aboutTitle: "À Propos d'Eva-training Tech",
+                aboutDescription: "Eva-training Tech est une plateforme leader d'éducation technologique basée en Afrique, dédiée à fournir une formation tech de classe mondiale aux étudiants à travers le continent et au-delà. Notre mission est de combler le déficit de compétences numériques et d'autonomiser la prochaine génération d'innovateurs technologiques africains.",
+                statsStudents: "10 000+",
+                statsStudentsText: "Étudiants Formés",
+                statsCourses: "50+",
+                statsCoursesText: "Cours Disponibles",
+                statsInstructors: "100+",
+                statsInstructorsText: "Instructeurs Experts",
+                statsCountries: "40+",
+                statsCountriesText: "Pays Atteints",
+                newsletterTitle: "Newsletter",
+                newsletterText: "Abonnez-vous pour recevoir des mises à jour sur les nouveaux cours et les tendances tech.",
+                rightsText: "Tous droits réservés.",
+                
+                // Form translations
+                loginTitle: "Bienvenue sur Eva-training Tech",
+                loginEmailLabel: "Adresse Email",
+                loginPasswordLabel: "Mot de Passe",
+                rememberMeLabel: "Se souvenir de moi",
+                forgotPasswordLink: "Mot de passe oublié?",
+                loginSubmitBtn: "Se Connecter à Votre Compte",
+                loginFooterText: "Vous n'avez pas de compte?",
+                
+                joinTitle: "Commencez Votre Voyage Tech Aujourd'hui",
+                joinFullNameLabel: "Nom Complet",
+                joinEmailLabel: "Adresse Email",
+                joinPasswordLabel: "Créer un Mot de Passe",
+                joinPhoneLabel: "Numéro de Téléphone (Optionnel)",
+                joinInterestsLabel: "Intérêts Tech",
+                termsLabel: "J'accepte les Conditions d'Utilisation et la Politique de Confidentialité",
+                joinSubmitBtn: "Créer un Compte Gratuit",
+                joinFooterText: "Vous avez déjà un compte?",
+                
+                courseCategories: {
+                    web: "Maîtrise du Développement Web",
+                    data: "Science des Données & Analyse",
+                    mobile: "Développement d'Applications Mobiles",
+                    ai: "IA & Apprentissage Automatique",
+                    cyber: "Fondamentaux de la Cybersécurité",
+                    cloud: "Informatique en Cloud",
+                    devops: "Ingénierie DevOps",
+                    blockchain: "Technologie Blockchain"
+                },
+                courseDescriptions: {
+                    web: "Apprenez à créer des sites web et applications web modernes et responsives avec les derniers frameworks.",
+                    data: "Maîtrisez l'analyse de données, la visualisation et les techniques d'apprentissage automatique pour des applications réelles.",
+                    mobile: "Développez des applications mobiles natives et multiplateformes pour iOS et Android.",
+                    ai: "Explorez l'intelligence artificielle et les algorithmes d'apprentissage automatique avec des projets pratiques.",
+                    cyber: "Apprenez à protéger les systèmes et réseaux contre les attaques numériques et les menaces de sécurité.",
+                    cloud: "Maîtrisez les plateformes cloud et les stratégies de déploiement pour des applications évolutives.",
+                    devops: "Apprenez les pratiques d'intégration et de déploiement continus pour le développement logiciel moderne.",
+                    blockchain: "Comprenez la technologie blockchain et le développement de cryptomonnaies depuis la base."
+                },
+                buttonTexts: {
+                    viewDetails: "Voir les Détails Complets du Cours",
+                    enrollNow: "S'inscrire à Ce Cours",
+                    startLearning: "Commencez à Apprendre Aujourd'hui",
+                    browseAll: "Parcourir Tous les Cours Disponibles",
+                    contactUs: "Contactez Notre Équipe de Support",
+                    downloadSyllabus: "Télécharger le Syllabus du Cours",
+                    viewDemo: "Regarder la Démo du Cours"
+                }
+            },
+            es: {
+                heroTitle: "Domina el Futuro con Cursos Tech de Vanguardia",
+                heroText: "Únete a Eva-training Tech para aprender las habilidades tecnológicas más demandadas de expertos de la industria. ¡Comienza tu viaje hoy y transforma tu carrera!",
+                ctaButton: "Explorar Todos los Cursos Ahora",
+                courseSectionTitle: "Nuestros Cursos Tech Premium",
+                backText: "Volver a Todos los Cursos",
+                enrollBtn: "Inscribirse y Comenzar a Aprender",
+                curriculumTitle: "Plan de Estudios & Ruta de Aprendizaje",
+                footerAbout: "Proporcionando educación tecnológica de alta calidad para ayudarte a avanzar en tu carrera en el mundo digital. Con sede en África, sirviendo al mundo.",
+                footerAddress: "Kigali Innovation City, Ruanda",
+                quickLinksTitle: "Navegación Rápida",
+                popularCoursesTitle: "Cursos Top",
+                locationTitle: "Nuestra Ubicación",
+                mapTitle: "Nuestra Ubicación en África",
+                mapDescription: "Eva-training Tech tiene su sede con orgullo en Ruanda, África Oriental - un hub tecnológico en crecimiento en el corazón del continente.",
+                contactTitle: "Ponte en Contacto con Nosotros",
+                contactFormTitle: "Envíanos un Mensaje",
+                contactInfoTitle: "Información de Contacto",
+                contactAddress: "Kigali Innovation City, Ruanda",
+                aboutTitle: "Acerca de Eva-training Tech",
+                aboutDescription: "Eva-training Tech es una plataforma líder de educación tecnológica con sede en África, dedicada a proporcionar formación tech de clase mundial a estudiantes en todo el continente y más allá. Nuestra misión es cerrar la brecha de habilidades digitales y empoderar a la próxima generación de innovadores tecnológicos africanos.",
+                statsStudents: "10,000+",
+                statsStudentsText: "Estudiantes Capacitados",
+                statsCourses: "50+",
+                statsCoursesText: "Cursos Disponibles",
+                statsInstructors: "100+",
+                statsInstructorsText: "Instructores Expertos",
+                statsCountries: "40+",
+                statsCountriesText: "Países Alcanzados",
+                newsletterTitle: "Boletín",
+                newsletterText: "Suscríbete para recibir actualizaciones sobre nuevos cursos y tendencias tech.",
+                rightsText: "Todos los derechos reservados.",
+                
+                // Form translations
+                loginTitle: "Bienvenido a Eva-training Tech",
+                loginEmailLabel: "Correo Electrónico",
+                loginPasswordLabel: "Contraseña",
+                rememberMeLabel: "Recordarme",
+                forgotPasswordLink: "¿Olvidaste tu Contraseña?",
+                loginSubmitBtn: "Iniciar Sesión en Tu Cuenta",
+                loginFooterText: "¿No tienes una cuenta?",
+                
+                joinTitle: "Comienza tu Viaje Tech Hoy",
+                joinFullNameLabel: "Nombre Completo",
+                joinEmailLabel: "Correo Electrónico",
+                joinPasswordLabel: "Crear Contraseña",
+                joinPhoneLabel: "Número de Teléfono (Opcional)",
+                joinInterestsLabel: "Intereses Tech",
+                termsLabel: "Acepto los Términos de Servicio y la Política de Privacidad",
+                joinSubmitBtn: "Crear Cuenta Gratuita",
+                joinFooterText: "¿Ya tienes una cuenta?",
+                
+                courseCategories: {
+                    web: "Dominio del Desarrollo Web",
+                    data: "Ciencia de Datos & Análisis",
+                    mobile: "Desarrollo de Aplicaciones Móviles",
+                    ai: "IA & Aprendizaje Automático",
+                    cyber: "Fundamentos de Ciberseguridad",
+                    cloud: "Computación en la Nube",
+                    devops: "Ingeniería DevOps",
+                    blockchain: "Tecnología Blockchain"
+                },
+                courseDescriptions: {
+                    web: "Aprende a construir sitios web y aplicaciones web modernas y responsivas con los últimos frameworks.",
+                    data: "Domina el análisis de datos, visualización y técnicas de aprendizaje automático para aplicaciones del mundo real.",
+                    mobile: "Desarrolla aplicaciones móviles nativas y multiplataforma para iOS y Android.",
+                    ai: "Explora la inteligencia artificial y los algoritmos de aprendizaje automático con proyectos prácticos.",
+                    cyber: "Aprende a proteger sistemas y redes de ataques digitales y amenazas de seguridad.",
+                    cloud: "Domina las plataformas en la nube y estrategias de implementación para aplicaciones escalables.",
+                    devops: "Aprende prácticas de integración e implementación continua para el desarrollo de software moderno.",
+                    blockchain: "Comprende la tecnología blockchain y el desarrollo de criptomonedas desde cero."
+                },
+                buttonTexts: {
+                    viewDetails: "Ver Detalles Completos del Curso",
+                    enrollNow: "Inscribirse en Este Curso",
+                    startLearning: "Comienza a Aprender Hoy",
+                    browseAll: "Explorar Todos los Cursos Disponibles",
+                    contactUs: "Contactar a Nuestro Equipo de Soporte",
+                    downloadSyllabus: "Descargar el Sílabo del Curso",
+                    viewDemo: "Ver la Demostración del Curso"
+                }
+            }
+        };
+
+        // Enhanced Course data
+        const courses = [
+            { 
+                id: 1, 
+                category: 'web', 
+                icon: 'fas fa-code', 
+                duration: '8 Weeks', 
+                level: 'Beginner', 
+                rating: '4.8/5', 
+                price: '$299',
+                students: '2,450',
+                projects: 12,
+                videoHours: 48
+            },
+            { 
+                id: 2, 
+                category: 'data', 
+                icon: 'fas fa-chart-bar', 
+                duration: '12 Weeks', 
+                level: 'Intermediate', 
+                rating: '4.7/5', 
+                price: '$499',
+                students: '1,890',
+                projects: 15,
+                videoHours: 60
+            },
+            { 
+                id: 3, 
+                category: 'mobile', 
+                icon: 'fas fa-mobile-alt', 
+                duration: '10 Weeks', 
+                level: 'Intermediate', 
+                rating: '4.6/5', 
+                price: '$399',
+                students: '1,750',
+                projects: 10,
+                videoHours: 52
+            },
+            { 
+                id: 4, 
+                category: 'ai', 
+                icon: 'fas fa-robot', 
+                duration: '14 Weeks', 
+                level: 'Advanced', 
+                rating: '4.9/5', 
+                price: '$599',
+                students: '1,200',
+                projects: 18,
+                videoHours: 72
+            },
+            { 
+                id: 5, 
+                category: 'cyber', 
+                icon: 'fas fa-shield-alt', 
+                duration: '10 Weeks', 
+                level: 'Intermediate', 
+                rating: '4.7/5', 
+                price: '$449',
+                students: '1,650',
+                projects: 14,
+                videoHours: 50
+            },
+            { 
+                id: 6, 
+                category: 'cloud', 
+                icon: 'fas fa-cloud', 
+                duration: '9 Weeks', 
+                level: 'Intermediate', 
+                rating: '4.5/5', 
+                price: '$399',
+                students: '1,350',
+                projects: 11,
+                videoHours: 45
+            },
+            { 
+                id: 7, 
+                category: 'devops', 
+                icon: 'fas fa-cogs', 
+                duration: '11 Weeks', 
+                level: 'Advanced', 
+                rating: '4.8/5', 
+                price: '$549',
+                students: '1,100',
+                projects: 16,
+                videoHours: 58
+            },
+            { 
+                id: 8, 
+                category: 'blockchain', 
+                icon: 'fas fa-link', 
+                duration: '13 Weeks', 
+                level: 'Advanced', 
+                rating: '4.9/5', 
+                price: '$649',
+                students: '950',
+                projects: 20,
+                videoHours: 68
+            }
+        ];
+
+        // Current language and theme
+        let currentLang = 'en';
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        let currentUser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : null;
+
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const langToggle = document.getElementById('langToggle');
+        const langDropdown = document.getElementById('langDropdown');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const pages = document.querySelectorAll('.page');
+        const coursesGrid = document.getElementById('coursesGrid');
+        const courseDetails = document.getElementById('courseDetails');
+        const backBtn = document.getElementById('backBtn');
+        const homePage = document.getElementById('home');
+        const popularCoursesList = document.getElementById('popularCourses');
+        const currentYear = document.getElementById('currentYear');
+        const loginBtn = document.getElementById('loginBtn');
+        const joinBtn = document.getElementById('joinBtn');
+        const loginFormElement = document.getElementById('loginFormElement');
+        const joinFormElement = document.getElementById('joinFormElement');
+        const enrollmentModal = document.getElementById('enrollmentModal');
+        const modalClose = document.getElementById('modalClose');
+        const toastNotification = document.getElementById('toastNotification');
+        const newsletterBtn = document.getElementById('newsletterBtn');
+        const contactForm = document.getElementById('contactForm');
+        const viewAllCoursesBtn = document.getElementById('viewAllCourses');
+        const rwandaPoint = document.getElementById('rwandaPoint');
+
+        // Initialize
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        currentYear.textContent = new Date().getFullYear();
+
+        // Set initial language
+        updateLanguage(currentLang);
+        updateAuthButtons();
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+        });
+
+        // Language Toggle
+        langToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langDropdown.classList.toggle('show');
+        });
+
+        // Language Selection
+        document.querySelectorAll('.lang-option').forEach(option => {
+            option.addEventListener('click', () => {
+                currentLang = option.getAttribute('data-lang');
+                updateLanguage(currentLang);
+                langDropdown.classList.remove('show');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.lang-container')) {
+                langDropdown.classList.remove('show');
+            }
+        });
+
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                navigateToPage(pageId);
+            });
+        });
+
+        // Logo navigation
+        document.querySelector('.logo').addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateToPage('home');
+        });
+
+        // Back button from course details
+        backBtn.addEventListener('click', () => {
+            navigateToPage('home');
+        });
+
+        // Login button
+        loginBtn.addEventListener('click', () => {
+            if (currentUser) {
+                showToast('You are already logged in as ' + currentUser.name, 'success');
+                return;
+            }
+            showPage('loginForm');
+        });
+
+        // Join button
+        joinBtn.addEventListener('click', () => {
+            showPage('joinForm');
+        });
+
+        // View All Courses button
+        viewAllCoursesBtn.addEventListener('click', () => {
+            navigateToPage('courses');
+        });
+
+        // Map point interaction
+        if (rwandaPoint) {
+            rwandaPoint.addEventListener('click', () => {
+                showToast('Eva-training Tech is located in Kigali, Rwanda - the heart of African tech innovation!', 'success');
+            });
+        }
+
+        // Login form submission
+        loginFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Simple validation
+            if (!email || !password) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Mock login - in real app, this would be an API call
+            const mockUser = {
+                name: email.split('@')[0],
+                email: email,
+                joined: new Date().toISOString().split('T')[0]
+            };
+            
+            currentUser = mockUser;
+            localStorage.setItem('currentUser', JSON.stringify(mockUser));
+            
+            if (rememberMe) {
+                localStorage.setItem('rememberMe', 'true');
+            }
+            
+            showToast('Login successful! Welcome back ' + mockUser.name + '!', 'success');
+            updateAuthButtons();
+            showPage('home');
+        });
+
+        // Join form submission
+        joinFormElement.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('joinFullName').value;
+            const email = document.getElementById('joinEmail').value;
+            const password = document.getElementById('joinPassword').value;
+            const phone = document.getElementById('joinPhone').value;
+            const terms = document.getElementById('termsAgreement').checked;
+            
+            // Validation
+            if (!fullName || !email || !password) {
+                showToast('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            if (password.length < 8) {
+                showToast('Password must be at least 8 characters long', 'error');
+                return;
+            }
+            
+            if (!terms) {
+                showToast('Please agree to the terms and conditions', 'error');
+                return;
+            }
+            
+            // Mock registration
+            const newUser = {
+                name: fullName,
+                email: email,
+                phone: phone || '',
+                joined: new Date().toISOString().split('T')[0],
+                interests: Array.from(document.getElementById('joinInterests').selectedOptions).map(opt => opt.value)
+            };
+            
+            // Save user
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            showToast('Account created successfully! Welcome to Eva-training Tech!', 'success');
+            updateAuthButtons();
+            showPage('home');
+        });
+
+        // Newsletter subscription
+        newsletterBtn.addEventListener('click', () => {
+            const email = document.getElementById('newsletterEmail').value;
+            
+            if (!email || !email.includes('@')) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            const subscribers = JSON.parse(localStorage.getItem('newsletterSubscribers') || '[]');
+            subscribers.push({ email, date: new Date().toISOString() });
+            localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers));
+            
+            document.getElementById('newsletterEmail').value = '';
+            showToast('Thank you for subscribing to our newsletter!', 'success');
+        });
+
+        // Contact form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            if (!name || !email || !subject || !message) {
+                showToast('Please fill in all fields', 'error');
+                return;
+            }
+            
+            // Save contact message
+            const contacts = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+            contacts.push({ name, email, subject, message, date: new Date().toISOString() });
+            localStorage.setItem('contactMessages', JSON.stringify(contacts));
+            
+            // Clear form
+            contactForm.reset();
+            
+            showToast('Thank you for your message! We will get back to you soon.', 'success');
+        });
+
+        // Modal close
+        modalClose.addEventListener('click', () => {
+            enrollmentModal.classList.remove('active');
+        });
+
+        // Close modal on outside click
+        enrollmentModal.addEventListener('click', (e) => {
+            if (e.target === enrollmentModal) {
+                enrollmentModal.classList.remove('active');
+            }
+        });
+
+        // Enroll button in course details
+        document.getElementById('enrollBtn').addEventListener('click', () => {
+            const courseName = document.getElementById('courseDetailTitle').textContent;
+            const coursePrice = document.getElementById('coursePrice').textContent;
+            
+            if (!currentUser) {
+                showToast('Please login or create an account to enroll in courses', 'error');
+                showPage('loginForm');
+                return;
+            }
+            
+            showEnrollmentModal(courseName, coursePrice);
+        });
+
+        // Generate courses
+        function generateCourses() {
+            coursesGrid.innerHTML = '';
+            const langData = translations[currentLang];
+            
+            courses.forEach(course => {
+                const courseCard = document.createElement('div');
+                courseCard.className = 'course-card';
+                courseCard.setAttribute('data-course-id', course.id);
+                
+                courseCard.innerHTML = `
+                    <div class="course-img" style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);">
+                        <i class="${course.icon}"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>${langData.courseCategories[course.category]}</h3>
+                        <p>${langData.courseDescriptions[course.category]}</p>
+                        
+                        <div class="course-meta">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="color: var(--secondary); font-weight: 700;">${course.price}</span>
+                                <span style="color: var(--gray); font-size: 0.9rem;">${course.duration}</span>
+                            </div>
+                            <div class="course-rating">
+                                <i class="fas fa-star"></i>
+                                <span>${course.rating}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                            <span style="font-size: 0.9rem; color: var(--gray);">
+                                <i class="fas fa-users"></i> ${course.students} students
+                            </span>
+                            <span style="font-size: 0.9rem; color: var(--gray);">
+                                <i class="fas fa-project-diagram"></i> ${course.projects} projects
+                            </span>
+                        </div>
+                        
+                        <button class="course-btn" data-course-id="${course.id}">
+                            <i class="fas fa-info-circle"></i> ${langData.buttonTexts.viewDetails}
+                        </button>
+                        
+                        <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                            <button class="course-btn" style="background: var(--accent); font-size: 0.9rem; padding: 0.7rem;" data-course-id="${course.id}" data-action="demo">
+                                <i class="fas fa-play-circle"></i> ${langData.buttonTexts.viewDemo}
+                            </button>
+                            <button class="course-btn" style="background: var(--secondary); font-size: 0.9rem; padding: 0.7rem;" data-course-id="${course.id}" data-action="syllabus">
+                                <i class="fas fa-download"></i> ${langData.buttonTexts.downloadSyllabus}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                coursesGrid.appendChild(courseCard);
+                
+                // Add click events
+                const viewDetailsBtn = courseCard.querySelector('.course-btn[data-course-id]');
+                const demoBtn = courseCard.querySelector('[data-action="demo"]');
+                const syllabusBtn = courseCard.querySelector('[data-action="syllabus"]');
+                
+                viewDetailsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showCourseDetails(course.id);
+                });
+                
+                demoBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showToast('Course demo video is loading...', 'success');
+                });
+                
+                syllabusBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const courseName = langData.courseCategories[course.category];
+                    showToast(`Downloading syllabus for ${courseName}...`, 'success');
+                });
+                
+                // Card click
+                courseCard.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        showCourseDetails(course.id);
+                    }
+                });
+            });
+            
+            // Update popular courses in footer
+            updatePopularCourses();
+        }
+
+        // Show course details
+        function showCourseDetails(courseId) {
+            if (!courseId) {
+                navigateToPage('home');
+                return;
+            }
+            
+            const course = courses.find(c => c.id === courseId);
+            const langData = translations[currentLang];
+            
+            if (course) {
+                // Update course details
+                document.getElementById('courseDetailIcon').innerHTML = `<i class="${course.icon}"></i>`;
+                document.getElementById('courseDetailTitle').textContent = langData.courseCategories[course.category];
+                document.getElementById('courseDetailDescription').textContent = langData.courseDescriptions[course.category];
+                document.getElementById('courseDuration').textContent = course.duration;
+                document.getElementById('courseLevel').textContent = course.level;
+                document.getElementById('courseRating').textContent = course.rating + ' (' + course.students + ' reviews)';
+                document.getElementById('coursePrice').textContent = course.price + ' or $' + Math.round(parseInt(course.price.replace('$', '')) / 3) + '/month';
+                
+                // Generate curriculum
+                const curriculumContent = document.getElementById('curriculumContent');
+                curriculumContent.innerHTML = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                        <div style="background: var(--gray-light); padding: 1.5rem; border-radius: 15px;">
+                            <h3 style="margin-bottom: 1rem; color: var(--dark);">What You'll Learn:</h3>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i>
+                                    <span>Fundamentals of ${langData.courseCategories[course.category]}</span>
+                                </li>
+                                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i>
+                                    <span>Hands-on projects and real-world exercises</span>
+                                </li>
+                                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i>
+                                    <span>Industry best practices and modern tools</span>
+                                </li>
+                                <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i>
+                                    <span>Certificate of completion and portfolio projects</span>
+                                </li>
+                                <li style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <i class="fas fa-check-circle" style="color: var(--secondary); margin-top: 4px;"></i>
+                                    <span>Career support and job placement guidance</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: var(--gray-light); padding: 1.5rem; border-radius: 15px;">
+                            <h3 style="margin-bottom: 1rem; color: var(--dark);">Course Includes:</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div style="text-align: center; padding: 1rem; background: var(--light); border-radius: 10px;">
+                                    <i class="fas fa-video" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+                                    <div style="font-weight: 700;">${course.videoHours}+ Hours</div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">Video Content</div>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--light); border-radius: 10px;">
+                                    <i class="fas fa-project-diagram" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+                                    <div style="font-weight: 700;">${course.projects}+ Projects</div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">Hands-on Practice</div>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--light); border-radius: 10px;">
+                                    <i class="fas fa-file-certificate" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+                                    <div style="font-weight: 700;">Certificate</div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">Upon Completion</div>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--light); border-radius: 10px;">
+                                    <i class="fas fa-life-ring" style="font-size: 2rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+                                    <div style="font-weight: 700;">24/7 Support</div>
+                                    <div style="font-size: 0.9rem; color: var(--gray);">From Instructors</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Show course details page
+                showPage('courseDetails');
+            }
+        }
+
+        // Navigate to page
+        function navigateToPage(pageId) {
+            // Update active nav link
+            navLinks.forEach(nav => {
+                if (nav.getAttribute('data-page') === pageId) {
+                    nav.classList.add('active');
+                } else {
+                    nav.classList.remove('active');
+                }
+            });
+            
+            // Show selected page
+            if (pageId === 'courses') {
+                showPage('home');
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: document.querySelector('.courses-grid').offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }, 100);
+            } else {
+                showPage(pageId);
+            }
+        }
+
+        // Show page
+        function showPage(pageId) {
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                    page.style.display = 'block';
+                } else {
+                    page.classList.remove('active');
+                    page.style.display = 'none';
+                }
+            });
+        }
+
+        // Update language
+        function updateLanguage(lang) {
+            currentLang = lang;
+            const langData = translations[lang];
+            
+            // Update all translatable elements
+            document.querySelectorAll('[id]').forEach(element => {
+                const id = element.id;
+                if (langData[id]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = langData[id];
+                    } else {
+                        element.textContent = langData[id];
+                    }
+                }
+            });
+            
+            // Update button texts
+            document.querySelectorAll('.course-btn').forEach(btn => {
+                if (btn.textContent.includes('View Details')) {
+                    btn.innerHTML = `<i class="fas fa-info-circle"></i> ${langData.buttonTexts.viewDetails}`;
+                }
+            });
+            
+            // Regenerate courses with new language
+            generateCourses();
+        }
+
+        // Update auth buttons based on login state
+        function updateAuthButtons() {
+            if (currentUser) {
+                loginBtn.innerHTML = `<i class="fas fa-user"></i> ${currentUser.name}`;
+                joinBtn.innerHTML = `<i class="fas fa-sign-out-alt"></i> Logout`;
+                
+                // Change join button to logout
+                joinBtn.onclick = () => {
+                    currentUser = null;
+                    localStorage.removeItem('currentUser');
+                    showToast('Logged out successfully', 'success');
+                    updateAuthButtons();
+                };
+            } else {
+                loginBtn.innerHTML = `<i class="fas fa-sign-in-alt"></i> Login`;
+                joinBtn.innerHTML = `<i class="fas fa-user-plus"></i> Join Free`;
+                
+                // Reset join button to original function
+                joinBtn.onclick = () => {
+                    showPage('joinForm');
+                };
+            }
+        }
+
+        // Update popular courses in footer
+        function updatePopularCourses() {
+            if (!popularCoursesList) return;
+            
+            popularCoursesList.innerHTML = '';
+            const langData = translations[currentLang];
+            
+            // Show first 4 courses as popular
+            courses.slice(0, 4).forEach(course => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="#" data-course-id="${course.id}" class="footer-course-link"><i class="fas fa-graduation-cap"></i> ${langData.courseCategories[course.category]}</a>`;
+                popularCoursesList.appendChild(li);
+                
+                // Add click event
+                li.querySelector('a').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showCourseDetails(course.id);
+                });
+            });
+        }
+
+        // Show enrollment modal
+        function showEnrollmentModal(courseName, coursePrice) {
+            const modalContent = document.getElementById('modalContent');
+            const langData = translations[currentLang];
+            
+            modalContent.innerHTML = `
+                <p style="margin-bottom: 1.5rem; color: var(--gray);">You are about to enroll in:</p>
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">${courseName}</h3>
+                <p style="font-size: 1.5rem; color: var(--secondary); font-weight: 700; margin-bottom: 2rem;">${coursePrice}</p>
+                
+                <div style="background: var(--gray-light); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+                    <h4 style="margin-bottom: 1rem; color: var(--dark);">What's included:</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Lifetime access to course materials</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Certificate of completion</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> Instructor support</li>
+                        <li><i class="fas fa-check" style="color: var(--success); margin-right: 10px;"></i> 30-day money-back guarantee</li>
+                    </ul>
+                </div>
+                
+                <button class="form-btn" id="confirmEnrollBtn" style="background: linear-gradient(135deg, var(--secondary) 0%, #0da271 100%);">
+                    <i class="fas fa-lock"></i> Confirm Enrollment & Pay Securely
+                </button>
+                
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button class="switch-btn" onclick="enrollmentModal.classList.remove('active')">
+                        Cancel Enrollment
+                    </button>
+                </div>
+            `;
+            
+            // Add event listener to confirm button
+            setTimeout(() => {
+                document.getElementById('confirmEnrollBtn').addEventListener('click', () => {
+                    // Save enrollment
+                    const enrollments = JSON.parse(localStorage.getItem('courseEnrollments') || '[]');
+                    enrollments.push({
+                        course: courseName,
+                        user: currentUser.email,
+                        date: new Date().toISOString(),
+                        price: coursePrice
+                    });
+                    localStorage.setItem('courseEnrollments', JSON.stringify(enrollments));
+                    
+                    enrollmentModal.classList.remove('active');
+                    showToast(`Successfully enrolled in ${courseName}! Check your email for access details.`, 'success');
+                });
+            }, 100);
+            
+            // Update modal title
+            document.getElementById('modalTitle').textContent = langData.buttonTexts.enrollNow;
+            
+            enrollmentModal.classList.add('active');
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toastNotification');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.className = 'toast ' + type;
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize courses
+        generateCourses();
+
+        // Add animation to course cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('.course-card, .form-container, .map-container').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(element);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize Africa map
+        function initAfricaMap() {
+            // Create additional map points for visual effect
+            const africaMap = document.querySelector('.africa-map');
+            if (!africaMap) return;
+            
+            // Add some decorative points
+            const points = [
+                { left: '45%', top: '30%', label: 'North Africa' },
+                { left: '52%', top: '60%', label: 'East Africa' },
+                { left: '40%', top: '65%', label: 'West Africa' },
+                { left: '55%', top: '80%', label: 'Southern Africa' }
+            ];
+            
+            points.forEach(point => {
+                const pointEl = document.createElement('div');
+                pointEl.className = 'map-point';
+                pointEl.style.left = point.left;
+                pointEl.style.top = point.top;
+                pointEl.style.background = 'var(--primary)';
+                pointEl.style.width = '12px';
+                pointEl.style.height = '12px';
+                pointEl.style.animationDelay = Math.random() + 's';
+                pointEl.setAttribute('title', point.label);
+                africaMap.appendChild(pointEl);
+            });
+        }
+
+        // Initialize map when page loads
+        document.addEventListener('DOMContentLoaded', initAfricaMap);
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + L for login
+            if ((e.ctrlKey || e.metaKey) && e.key === 'l') {
+                e.preventDefault();
+                showPage('loginForm');
+            }
+            
+            // Ctrl/Cmd + J for join
+            if ((e.ctrlKey || e.metaKey) && e.key === 'j') {
+                e.preventDefault();
+                showPage('joinForm');
+            }
+            
+            // Escape to close modal
+            if (e.key === 'Escape') {
+                enrollmentModal.classList.remove('active');
+            }
+            
+            // F1 for help
+            if (e.key === 'F1') {
+                e.preventDefault();
+                showToast('Keyboard shortcuts: Ctrl+L (Login), Ctrl+J (Join), Esc (Close modals)', 'success');
+            }
+        });
+
+        // Add service worker registration for PWA (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

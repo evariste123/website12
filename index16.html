@@ -1,0 +1,3935 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eva-Codes Volunteers | Africa Tech Initiative</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Enhanced CSS with better responsiveness */
+        :root {
+            --primary-color: #4098E6;
+            --primary-dark: #2C3E50;
+            --primary-light: #5DADE2;
+            --secondary-color: #2C3E50;
+            --accent-color: #E74C3C;
+            --accent-dark: #C0392B;
+            --light-color: #F8F9FA;
+            --dark-color: #1A1A2E;
+            --success-color: #27AE60;
+            --warning-color: #F39C12;
+            --info-color: #3498DB;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 20px;
+            --border-radius-lg: 30px;
+            --border-radius-xl: 40px;
+        }
+
+        [data-theme="dark"] {
+            --light-color: #121212;
+            --dark-color: #FFFFFF;
+            --secondary-color: #B0BEC5;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.4);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            transition: var(--transition);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(64, 152, 230, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.05) 0%, transparent 20%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-container {
+            text-align: center;
+        }
+
+        .loader {
+            width: 70px;
+            height: 70px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            margin: 0 auto 20px;
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 1001;
+        }
+
+        .theme-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.6s;
+        }
+
+        .theme-btn:hover::before {
+            left: 100%;
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-3px) rotate(15deg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-btn .fa-moon,
+        .theme-btn .fa-sun {
+            position: absolute;
+            transition: var(--transition);
+        }
+
+        .theme-btn .fa-sun {
+            opacity: 0;
+            transform: rotate(180deg);
+        }
+
+        [data-theme="dark"] .theme-btn .fa-moon {
+            opacity: 0;
+            transform: rotate(-180deg);
+        }
+
+        [data-theme="dark"] .theme-btn .fa-sun {
+            opacity: 1;
+            transform: rotate(0);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(64, 152, 230, 0.1);
+            transform: translateY(-100%);
+            animation: slideDown 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.8s forwards;
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(26, 26, 46, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 800;
+            transform-style: preserve-3d;
+            animation: logoFloat 6s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        [data-theme="dark"] .nav-link {
+            color: var(--light-color);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(64, 152, 230, 0.1), transparent);
+            transition: 0.6s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            background: rgba(64, 152, 230, 0.08);
+        }
+
+        .nav-link.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 8px 20px rgba(64, 152, 230, 0.3);
+        }
+
+        .nav-link.active:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            background: var(--primary-color);
+            padding: 14px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .hamburger:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .bar {
+            width: 28px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1000px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(64, 152, 230, 0.1);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(64, 152, 230, 0.2);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease 0.2s both;
+            text-shadow: 0 10px 30px rgba(64, 152, 230, 0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 10px 30px rgba(64, 152, 230, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(64, 152, 230, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(64, 152, 230, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(64, 152, 230, 0.2);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 5rem;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .hero-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            opacity: 0.1;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 10%;
+            animation-delay: -5s;
+            animation-direction: reverse;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        /* Section Common Styles */
+        .section {
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+        }
+
+        .section-subtitle {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(64, 152, 230, 0.1);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .section-description {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 2rem auto 0;
+            line-height: 1.8;
+        }
+
+        /* Volunteers Section */
+        .volunteers-section {
+            background: linear-gradient(135deg, rgba(64, 152, 230, 0.03) 0%, rgba(231, 76, 60, 0.03) 100%);
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.9rem 2.2rem;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .filter-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .volunteers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .volunteer-card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        [data-theme="dark"] .volunteer-card {
+            background: #1E2A3A;
+        }
+
+        .volunteer-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .volunteer-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .volunteer-header {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .volunteer-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .volunteer-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        .volunteer-country {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: var(--shadow);
+        }
+
+        .volunteer-body {
+            padding: 2.5rem;
+        }
+
+        .volunteer-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
+        }
+
+        .volunteer-position {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: rgba(64, 152, 230, 0.1);
+            border-radius: var(--border-radius);
+        }
+
+        .volunteer-bio {
+            color: var(--secondary-color);
+            margin: 1.5rem 0;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .volunteer-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+
+        .skill-tag {
+            background: rgba(64, 152, 230, 0.1);
+            color: var(--primary-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(64, 152, 230, 0.3);
+        }
+
+        .volunteer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(64, 152, 230, 0.1);
+        }
+
+        .volunteer-location {
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-detail {
+            padding: 0.9rem 1.8rem;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-detail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: 0.6s;
+        }
+
+        .btn-detail:hover::before {
+            left: 0;
+        }
+
+        .btn-detail span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-detail:hover {
+            color: white;
+        }
+
+        /* Africa Map Section */
+        .africa-map-section {
+            background: linear-gradient(135deg, rgba(64, 152, 230, 0.05) 0%, rgba(231, 76, 60, 0.05) 100%);
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .map-visual {
+            width: 100%;
+            height: 700px;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .map-visual {
+            background: #1E2A3A;
+        }
+
+        .africa-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .map-country {
+            fill: rgba(64, 152, 230, 0.15);
+            stroke: var(--primary-color);
+            stroke-width: 1.5;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .map-country:hover {
+            fill: rgba(64, 152, 230, 0.3);
+            stroke-width: 2.5;
+            transform: scale(1.02);
+        }
+
+        .map-country.active {
+            fill: var(--primary-color);
+            stroke: var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+
+        .eva-hq-marker {
+            animation: bounce 3s ease infinite;
+        }
+
+        .hq-pulse {
+            fill: var(--accent-color);
+            stroke: white;
+            stroke-width: 3;
+            animation: pulse 2s ease infinite;
+            filter: drop-shadow(0 0 15px rgba(231, 76, 60, 0.5));
+        }
+
+        .hq-text {
+            fill: var(--dark-color);
+            font-size: 16px;
+            font-weight: 800;
+            text-anchor: middle;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .map-info {
+            height: 100%;
+        }
+
+        .info-card {
+            background: white;
+            padding: 3.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .info-card {
+            background: #1E2A3A;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .info-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .info-description {
+            color: var(--secondary-color);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            font-size: 1.15rem;
+        }
+
+        .country-details {
+            margin: 3rem 0;
+            padding: 2.5rem;
+            background: rgba(64, 152, 230, 0.08);
+            border-radius: var(--border-radius);
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .country-name {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .country-description {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .country-initiatives {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .country-initiatives li {
+            padding: 0.9rem 0;
+            color: var(--secondary-color);
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .country-initiatives li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .country-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .country-stat {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .country-stat {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .country-stat:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.8rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* About Section */
+        .about-section {
+            background: linear-gradient(135deg, rgba(64, 152, 230, 0.03) 0%, rgba(231, 76, 60, 0.03) 100%);
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 2rem;
+        }
+
+        .about-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+
+        .about-text h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .about-text p {
+            color: var(--secondary-color);
+            margin-bottom: 2.5rem;
+            line-height: 1.9;
+            font-size: 1.15rem;
+        }
+
+        .about-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .feature-item {
+            background: #1E2A3A;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
+        }
+
+        .feature-content p {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .about-stat {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .about-stat {
+            background: #1E2A3A;
+        }
+
+        .about-stat:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .about-stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .about-stat h3 {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .about-stat p {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(64, 152, 230, 0.05) 0%, rgba(231, 76, 60, 0.05) 100%);
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] .contact-card {
+            background: #1E2A3A;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .contact-card p {
+            color: var(--secondary-color);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .contact-form-container {
+            background: white;
+            padding: 4rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+        }
+
+        [data-theme="dark"] .contact-form-container {
+            background: #1E2A3A;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            border: 2px solid #E0E6ED;
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        [data-theme="dark"] .form-control {
+            border-color: #2D3748;
+            background: #2D3748;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(64, 152, 230, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1.4rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(64, 152, 230, 0.3);
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #0F172A 100%);
+            color: white;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 5rem;
+            margin-bottom: 5rem;
+        }
+
+        .footer-brand {
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+
+        .footer-logo-img {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .footer-logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: white;
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .social-link {
+            width: 55px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-column h4 {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            color: white;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .footer-links li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .footer-links li:hover::before {
+            transform: translateX(8px);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(12px);
+        }
+
+        .footer-contact {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-details h5 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .contact-details p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Language Selector in Footer */
+        .footer-language {
+            margin-top: 3rem;
+        }
+
+        .language-selector {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            background-size: 18px;
+            padding-right: 3.5rem;
+        }
+
+        .language-selector:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(64, 152, 230, 0.3);
+        }
+
+        .language-selector option {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .footer-legal a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        .footer-legal a:hover::after {
+            width: 100%;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 65px;
+            height: 65px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-8px) scale(1.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--light-color);
+            border-radius: var(--border-radius-xl);
+            padding: 4rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(40px) scale(0.9);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(64, 152, 230, 0.1);
+            transform: rotate(90deg);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--success-color);
+            color: white;
+            padding: 1.5rem 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xl);
+            z-index: 2001;
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .notification-icon {
+            font-size: 1.8rem;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .notification-message {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .notification-close:hover {
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.9; }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) rotate(3deg);
+            }
+            66% {
+                transform: translateY(15px) rotate(-3deg);
+            }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* RESPONSIVE DESIGN ENHANCEMENTS */
+        
+        /* Extra Large Screens (1400px and up) */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+
+        /* Large Screens (1200px - 1399px) */
+        @media (max-width: 1399.98px) {
+            html {
+                font-size: 15px;
+            }
+            
+            .hero-title {
+                font-size: 3.8rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+            }
+            
+            .volunteers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 2.5rem;
+            }
+            
+            .map-visual {
+                height: 600px;
+            }
+        }
+
+        /* Medium Screens (992px - 1199px) */
+        @media (max-width: 1199.98px) {
+            html {
+                font-size: 14px;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4rem;
+            }
+            
+            .map-container,
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .about-text {
+                padding-right: 0;
+            }
+            
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .section {
+                padding: 6rem 2rem;
+            }
+            
+            .volunteers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .map-visual {
+                height: 550px;
+            }
+            
+            .contact-form-container {
+                padding: 3rem;
+            }
+        }
+
+        /* Tablets (768px - 991px) */
+        @media (max-width: 991.98px) {
+            .section {
+                padding: 5rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .volunteers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-stats {
+                gap: 2.5rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-stat {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .about-stat h3 {
+                font-size: 3rem;
+            }
+            
+            .map-visual {
+                height: 500px;
+                padding: 2rem;
+            }
+            
+            .info-card {
+                padding: 2.5rem;
+            }
+        }
+
+        /* Mobile Navigation (768px and below) */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: var(--light-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                box-shadow: var(--shadow-xl);
+                padding: 2rem 0;
+                gap: 0;
+                z-index: 998;
+                height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+            
+            [data-theme="dark"] .nav-menu {
+                background: #1E2A3A;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-link {
+                padding: 1.5rem;
+                margin: 0.5rem 1.5rem;
+                border-radius: var(--border-radius);
+                display: block;
+                justify-content: center;
+                font-size: 1.1rem;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+            
+            .hero {
+                padding: 100px 1.5rem 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .volunteers-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .volunteer-card {
+                max-width: 100%;
+            }
+            
+            .hero-stats {
+                gap: 2rem;
+                flex-wrap: wrap;
+                margin-top: 3rem;
+            }
+            
+            .stat-item {
+                flex: 1 1 calc(50% - 2rem);
+                min-width: 120px;
+            }
+            
+            .footer {
+                padding: 4rem 1.5rem 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .footer-legal {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .theme-toggle {
+                top: 20px;
+                right: 20px;
+            }
+            
+            .theme-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .back-to-top {
+                width: 55px;
+                height: 55px;
+                bottom: 25px;
+                right: 25px;
+            }
+            
+            .modal-content {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        /* Small Mobile (576px and below) */
+        @media (max-width: 576px) {
+            html {
+                font-size: 13px;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .hero {
+                padding: 90px 1rem 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 1rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .filters {
+                gap: 0.5rem;
+                margin-bottom: 3rem;
+            }
+            
+            .filter-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .volunteer-card {
+                max-width: 100%;
+            }
+            
+            .volunteer-body {
+                padding: 1.5rem;
+            }
+            
+            .volunteer-name {
+                font-size: 1.5rem;
+            }
+            
+            .volunteer-skills {
+                gap: 0.5rem;
+            }
+            
+            .skill-tag {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .map-visual {
+                height: 400px;
+                padding: 1rem;
+            }
+            
+            .info-card {
+                padding: 1.5rem;
+            }
+            
+            .contact-form-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .contact-card {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 2rem 1rem;
+                width: 95%;
+            }
+            
+            .notification {
+                padding: 1rem 1.5rem;
+                width: 95%;
+                bottom: 20px;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .logo-img {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+            
+            .footer-logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .footer-logo-img {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+            
+            .country-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            
+            .feature-icon {
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 1rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Very Small Mobile (400px and below) */
+        @media (max-width: 400px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .stat-item {
+                flex: 1 1 100%;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-btn {
+                width: 100%;
+            }
+            
+            .volunteers-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-links li {
+                margin-bottom: 1rem;
+                padding-left: 1.2rem;
+            }
+            
+            .footer-links a {
+                font-size: 1rem;
+            }
+        }
+
+        /* Landscape Mode */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero {
+                min-height: 700px;
+                padding-top: 100px;
+            }
+            
+            .nav-menu {
+                height: calc(100vh - 80px);
+                overflow-y: auto;
+            }
+            
+            .nav-link {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .theme-toggle,
+            .hamburger,
+            .back-to-top,
+            .notification,
+            .footer-social,
+            .contact-form-container {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .navbar {
+                position: static;
+                background: white !important;
+                border: none;
+            }
+            
+            .hero {
+                page-break-after: always;
+            }
+            
+            .section {
+                padding: 2rem 0;
+                page-break-inside: avoid;
+            }
+            
+            .btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <div class="loader-text">EVA-CODES</div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-img">E</div>
+                <div class="logo-text">EVA-CODES</div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span data-translate="nav.home">Home</span>
+                </a></li>
+                <li><a href="#volunteers" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span data-translate="nav.volunteers">Volunteers</span>
+                </a></li>
+                <li><a href="#africa-map" class="nav-link">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span data-translate="nav.africa">Africa Initiative</span>
+                </a></li>
+                <li><a href="#about" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    <span data-translate="nav.about">About</span>
+                </a></li>
+                <li><a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span data-translate="nav.contact">Contact</span>
+                </a></li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge" data-translate="hero.badge">AFRICA TECH INITIATIVE</div>
+            <h1 class="hero-title" data-translate="hero.title">Empowering Africa Through Technology</h1>
+            <p class="hero-subtitle" data-translate="hero.subtitle">Meet our dedicated team of volunteers driving innovation and digital transformation across the African continent</p>
+            
+            <div class="hero-actions">
+                <a href="#volunteers" class="btn btn-primary" data-translate="hero.cta1">
+                    <i class="fas fa-users"></i>
+                    <span>Meet Our Team</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary" data-translate="hero.cta2">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>Join Us</span>
+                </a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label" data-translate="hero.stats.volunteers">Volunteers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label" data-translate="hero.stats.countries">Countries</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label" data-translate="hero.stats.projects">Projects</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-animation">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+    </section>
+
+    <!-- Volunteers Section -->
+    <section id="volunteers" class="section volunteers-section">
+        <div class="section-header">
+            <div class="section-subtitle" data-translate="volunteers.subtitle">OUR AMAZING TEAM</div>
+            <h2 class="section-title" data-translate="volunteers.title">Meet Our Volunteers</h2>
+            <p class="section-description" data-translate="volunteers.description">Passionate professionals from across Africa working together to drive technological innovation and digital transformation</p>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">
+                <span data-translate="filters.all">All Volunteers</span>
+            </button>
+            <button class="filter-btn" data-filter="leadership">
+                <span data-translate="filters.leadership">Leadership</span>
+            </button>
+            <button class="filter-btn" data-filter="technical">
+                <span data-translate="filters.technical">Technical</span>
+            </button>
+            <button class="filter-btn" data-filter="operations">
+                <span data-translate="filters.operations">Operations</span>
+            </button>
+            <button class="filter-btn" data-filter="design">
+                <span data-translate="filters.design">Design</span>
+            </button>
+        </div>
+        
+        <div class="volunteers-grid" id="volunteersContainer">
+            <!-- Volunteers will be loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- Africa Map Section -->
+    <section id="africa-map" class="section africa-map-section">
+        <div class="section-header">
+            <div class="section-subtitle" data-translate="africa.subtitle">CONTINENTAL REACH</div>
+            <h2 class="section-title" data-translate="africa.title">Eva-Codes Across Africa</h2>
+            <p class="section-description" data-translate="africa.description">Discover our presence and initiatives across the African continent. Click on any country to explore our local teams and projects</p>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-visual">
+                <svg class="africa-svg" viewBox="0 0 800 700">
+                    <!-- Africa Map with clickable countries -->
+                    <g class="map-countries">
+                        <!-- East Africa Region -->
+                        <path id="rwanda" class="map-country" d="M450,300 Q460,290 470,300 Q480,310 470,320 Q460,330 450,320 Q440,310 450,300Z" 
+                              data-country="rwanda" data-name="Rwanda" data-region="East Africa"></path>
+                        <path id="burundi" class="map-country" d="M440,320 Q450,310 460,320 Q470,330 460,340 Q450,350 440,340 Q430,330 440,320Z" 
+                              data-country="burundi" data-name="Burundi" data-region="East Africa"></path>
+                        <path id="tanzania" class="map-country" d="M480,350 Q520,340 550,380 Q520,420 480,400 Q460,380 480,350Z" 
+                              data-country="tanzania" data-name="Tanzania" data-region="East Africa"></path>
+                        <path id="kenya" class="map-country" d="M520,300 Q560,290 580,330 Q560,370 520,360 Q500,330 520,300Z" 
+                              data-country="kenya" data-name="Kenya" data-region="East Africa"></path>
+                        
+                        <!-- Central Africa -->
+                        <path id="drc" class="map-country" d="M400,350 Q450,340 480,400 Q430,450 380,420 Q370,380 400,350Z" 
+                              data-country="drc" data-name="DR Congo" data-region="Central Africa"></path>
+                        
+                        <!-- West Africa -->
+                        <path id="nigeria" class="map-country" d="M300,320 Q340,310 370,350 Q340,390 300,370 Q280,340 300,320Z" 
+                              data-country="nigeria" data-name="Nigeria" data-region="West Africa"></path>
+                        <path id="ghana" class="map-country" d="M270,330 Q290,320 300,340 Q290,360 270,350 Q260,340 270,330Z" 
+                              data-country="ghana" data-name="Ghana" data-region="West Africa"></path>
+                        
+                        <!-- Southern Africa -->
+                        <path id="south-africa" class="map-country" d="M450,500 Q500,480 550,520 Q500,560 450,540 Q430,520 450,500Z" 
+                              data-country="south-africa" data-name="South Africa" data-region="Southern Africa"></path>
+                    </g>
+                    
+                    <!-- Eva-Codes Headquarters Marker in Rwanda -->
+                    <g class="eva-hq-marker">
+                        <circle cx="450" cy="310" r="25" class="hq-pulse"></circle>
+                        <text x="450" y="320" text-anchor="middle" class="hq-text" data-translate="map.marker">Eva-Codes HQ</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="map-info">
+                <div class="info-card">
+                    <h3 class="info-title" data-translate="map.title">Our African Presence</h3>
+                    <p class="info-description" data-translate="map.description">Eva-Codes operates across multiple African countries with headquarters in Rwanda. We're committed to driving digital transformation and tech education across the continent.</p>
+                    
+                    <div class="country-details" id="countryDetails">
+                        <div class="default-content">
+                            <h4 class="country-name" data-translate="map.selectCountry">Select a Country</h4>
+                            <p class="country-description" data-translate="map.selectPrompt">Click on any African country on the map to view our local initiatives, team members, and project details in that region.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="country-stats" id="countryStats" style="display: none;">
+                        <div class="country-stat">
+                            <span class="stat-value" id="countryVolunteers">0</span>
+                            <span class="stat-label" data-translate="map.volunteers">Volunteers</span>
+                        </div>
+                        <div class="country-stat">
+                            <span class="stat-value" id="countryProjects">0</span>
+                            <span class="stat-label" data-translate="map.projects">Projects</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="exploreCountryBtn" style="margin-top: 3rem; width: 100%; display: none;" onclick="openCountryPage()">
+                        <i class="fas fa-external-link-alt"></i>
+                        <span data-translate="map.explore">Explore Country Details</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="section-header">
+            <div class="section-subtitle" data-translate="about.subtitle">OUR MISSION</div>
+            <h2 class="section-title" data-translate="about.title">About Our Initiative</h2>
+            <p class="section-description" data-translate="about.description">We're on a mission to transform Africa through technology education, innovation, and sustainable digital solutions</p>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3 data-translate="about.mission">Our Mission</h3>
+                <p data-translate="about.missionText">To empower African communities through accessible technology education, foster innovation, and create sustainable digital solutions that address local challenges while building global opportunities.</p>
+                
+                <h3 data-translate="about.vision">Our Vision</h3>
+                <p data-translate="about.visionText">A digitally literate and technologically advanced Africa where innovation drives economic growth, social development, and global competitiveness across all sectors and communities.</p>
+                
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4 data-translate="about.education">Tech Education</h4>
+                            <p data-translate="about.educationText">Comprehensive training programs in software development, digital skills, and emerging technologies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4 data-translate="about.innovation">Innovation Hub</h4>
+                            <p data-translate="about.innovationText">Supporting African innovators and startups through incubation, mentorship, and funding opportunities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4 data-translate="about.community">Community Impact</h4>
+                            <p data-translate="about.communityText">Implementing technology solutions that directly address community needs and create lasting social impact.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-stats">
+                <div class="about-stat">
+                    <h3>50+</h3>
+                    <p data-translate="about.stats.volunteers">Dedicated Volunteers</p>
+                </div>
+                <div class="about-stat">
+                    <h3>15+</h3>
+                    <p data-translate="about.stats.countries">African Countries</p>
+                </div>
+                <div class="about-stat">
+                    <h3>100+</h3>
+                    <p data-translate="about.stats.projects">Completed Projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="section-header">
+            <div class="section-subtitle" data-translate="contact.subtitle">GET INVOLVED</div>
+            <h2 class="section-title" data-translate="contact.title">Join Our Movement</h2>
+            <p class="section-description" data-translate="contact.description">Become a volunteer, partner with us, or support our mission to transform Africa through technology</p>
+        </div>
+        
+        <div class="contact-content">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4 data-translate="contact.volunteer">Become a Volunteer</h4>
+                        <p data-translate="contact.volunteerText">Join our team of passionate volunteers and contribute your skills to empower African communities.</p>
+                        <a href="volunteer-application.html" class="btn-detail" style="margin-top: 1.5rem;">
+                            <i class="fas fa-arrow-right"></i>
+                            <span data-translate="contact.apply">Apply Now</span>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4 data-translate="contact.partner">Partnership</h4>
+                        <p data-translate="contact.partnerText">Collaborate with us to create sustainable impact through technology innovation and education.</p>
+                        <a href="partnership.html" class="btn-detail" style="margin-top: 1.5rem;">
+                            <i class="fas fa-arrow-right"></i>
+                            <span data-translate="contact.partnerBtn">Partner With Us</span>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-donate"></i>
+                        </div>
+                        <h4 data-translate="contact.donate">Support Our Work</h4>
+                        <p data-translate="contact.donateText">Your donation helps us expand our programs and reach more communities across Africa.</p>
+                        <a href="donate.html" class="btn-detail" style="margin-top: 1.5rem;">
+                            <i class="fas fa-arrow-right"></i>
+                            <span data-translate="contact.donateBtn">Make a Donation</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-container">
+                    <h3 data-translate="contact.formTitle" style="font-size: 2rem; margin-bottom: 2.5rem; color: var(--dark-color);">Send Us a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" data-translate="contact.formName">Your Name *</label>
+                                <input type="text" class="form-control" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" data-translate="contact.formEmail">Email Address *</label>
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="contact.formSubject">Subject</label>
+                            <input type="text" class="form-control" placeholder="What is this regarding?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" data-translate="contact.formMessage">Your Message *</label>
+                            <textarea class="form-control" placeholder="Type your message here..." rows="6" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span data-translate="contact.formSubmit">Send Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#home" class="footer-logo">
+                    <div class="footer-logo-img">E</div>
+                    <div class="footer-logo-text">EVA-CODES</div>
+                </a>
+                <p class="footer-tagline" data-translate="footer.tagline">Empowering Africa through technology education, innovation, and sustainable digital solutions</p>
+                
+                <div class="footer-social">
+                    <a href="https://twitter.com/evacodes" class="social-link" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://linkedin.com/company/evacodes" class="social-link" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/evacodes" class="social-link" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://instagram.com/evacodes" class="social-link" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4 data-translate="footer.quickLinks">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#home" class="footer-nav-link" data-section="home">Home</a></li>
+                    <li><a href="#volunteers" class="footer-nav-link" data-section="volunteers">Volunteers</a></li>
+                    <li><a href="#africa-map" class="footer-nav-link" data-section="africa-map">Africa Initiative</a></li>
+                    <li><a href="#about" class="footer-nav-link" data-section="about">About</a></li>
+                    <li><a href="#contact" class="footer-nav-link" data-section="contact">Contact</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="volunteer-application">Become a Volunteer</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="partnership">Partnership</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="donate">Donate</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4 data-translate="footer.programs">Our Programs</h4>
+                <ul class="footer-links">
+                    <li><a href="#" class="footer-nav-link" data-modal="tech-education">Tech Education</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="digital-literacy">Digital Literacy</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="startup-support">Startup Support</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="community-projects">Community Projects</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="research-innovation">Research & Innovation</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="women-in-tech">Women in Tech</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="youth-programs">Youth Programs</a></li>
+                    <li><a href="#" class="footer-nav-link" data-modal="corporate-training">Corporate Training</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4 data-translate="footer.contact">Contact Info</h4>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5 data-translate="footer.address">Address</h5>
+                            <p>Kigali Innovation City<br>Kigali, Rwanda</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5 data-translate="footer.phone">Phone</h5>
+                            <p>+250 788 123 456</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h5 data-translate="footer.email">Email</h5>
+                            <p>info@eva-codes.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-language">
+                        <select class="language-selector" id="footerLanguageSelect">
+                            <option value="en">🌐 English</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="pt">🇵🇹 Português</option>
+                            <option value="ar">🇸🇦 العربية</option>
+                            <option value="sw">🇹🇿 Kiswahili</option>
+                            <option value="zh">🇨🇳 中文</option>
+                            <option value="hi">🇮🇳 हिन्दी</option>
+                            <option value="ru">🇷🇺 Русский</option>
+                            <option value="ja">🇯🇵 日本語</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="it">🇮🇹 Italiano</option>
+                            <option value="ko">🇰🇷 한국어</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>© 2024 Eva-Codes Volunteers Africa. All rights reserved.</p>
+            </div>
+            <div class="footer-legal">
+                <a href="#" class="footer-nav-link" data-modal="privacy-policy">Privacy Policy</a>
+                <a href="#" class="footer-nav-link" data-modal="terms-of-service">Terms of Service</a>
+                <a href="#" class="footer-nav-link" data-modal="cookies-policy">Cookies Policy</a>
+                <a href="#" class="footer-nav-link" data-modal="sitemap">Sitemap</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="notification-content">
+            <div class="notification-title" id="notificationTitle">Success</div>
+            <div class="notification-message" id="notificationMessage">Your message has been sent successfully!</div>
+        </div>
+        <button class="notification-close" id="notificationClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Modal for Volunteer Details -->
+    <div class="modal" id="volunteerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <div id="modalContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Footer Links -->
+    <div class="modal" id="footerModal">
+        <div class="modal-content">
+            <button class="modal-close" id="footerModalClose">&times;</button>
+            <div id="footerModalContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete Enhanced JavaScript Implementation
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApplication();
+        });
+
+        // Global Variables
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        let translations = {};
+        let selectedCountry = null;
+
+        // Main Application Initialization
+        function initializeApplication() {
+            // Remove preloader after 1.5 seconds
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('hidden');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 600);
+            }, 1500);
+
+            // Initialize all components
+            initThemeSystem();
+            initLanguageSystem();
+            initNavigation();
+            initVolunteers();
+            initMap();
+            initContactForm();
+            initScrollAnimations();
+            initBackToTop();
+            initNotification();
+            initFooterNavigation();
+        }
+
+        // Enhanced Theme System
+        function initThemeSystem() {
+            const themeBtn = document.getElementById('themeBtn');
+            
+            // Set initial theme
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            updateThemeMeta();
+            
+            themeBtn.addEventListener('click', () => {
+                currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                localStorage.setItem('theme', currentTheme);
+                updateThemeMeta();
+                
+                // Animation
+                themeBtn.style.transform = 'scale(1.2) rotate(180deg)';
+                setTimeout(() => {
+                    themeBtn.style.transform = '';
+                }, 400);
+            });
+        }
+
+        function updateThemeMeta() {
+            const themeColor = currentTheme === 'dark' ? '#121212' : '#4098E6';
+            let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+            if (!metaThemeColor) {
+                metaThemeColor = document.createElement('meta');
+                metaThemeColor.name = 'theme-color';
+                document.head.appendChild(metaThemeColor);
+            }
+            metaThemeColor.content = themeColor;
+        }
+
+        // Enhanced Language System
+        async function initLanguageSystem() {
+            const footerLanguageSelect = document.getElementById('footerLanguageSelect');
+            
+            // Set initial language
+            if (footerLanguageSelect) footerLanguageSelect.value = currentLanguage;
+            
+            // Load translations
+            await loadTranslations(currentLanguage);
+            applyTranslations();
+            
+            // Footer language change
+            if (footerLanguageSelect) {
+                footerLanguageSelect.addEventListener('change', async (e) => {
+                    await handleLanguageChange(e.target.value);
+                });
+            }
+        }
+
+        async function handleLanguageChange(newLanguage) {
+            currentLanguage = newLanguage;
+            localStorage.setItem('language', currentLanguage);
+            
+            // Show loading notification
+            showNotification('Loading language...', 'info');
+            
+            // Update selector
+            const footerSelect = document.getElementById('footerLanguageSelect');
+            if (footerSelect) footerSelect.value = currentLanguage;
+            
+            // Load and apply translations
+            await loadTranslations(currentLanguage);
+            applyTranslations();
+            
+            // Update text direction for RTL languages
+            updateTextDirection();
+            
+            // Show success notification
+            showNotification('Language changed successfully!', 'success');
+        }
+
+        // Translation Data
+        const translationData = {
+            en: {
+                // Navigation
+                'nav.home': 'Home',
+                'nav.volunteers': 'Volunteers',
+                'nav.africa': 'Africa Initiative',
+                'nav.about': 'About',
+                'nav.contact': 'Contact',
+                
+                // Hero Section
+                'hero.badge': 'AFRICA TECH INITIATIVE',
+                'hero.title': 'Empowering Africa Through Technology',
+                'hero.subtitle': 'Meet our dedicated team of volunteers driving innovation and digital transformation across the African continent',
+                'hero.cta1': 'Meet Our Team',
+                'hero.cta2': 'Join Us',
+                'hero.stats.volunteers': 'Volunteers',
+                'hero.stats.countries': 'Countries',
+                'hero.stats.projects': 'Projects',
+                
+                // Volunteers Section
+                'volunteers.subtitle': 'OUR AMAZING TEAM',
+                'volunteers.title': 'Meet Our Volunteers',
+                'volunteers.description': 'Passionate professionals from across Africa working together to drive technological innovation and digital transformation',
+                
+                // Filters
+                'filters.all': 'All Volunteers',
+                'filters.leadership': 'Leadership',
+                'filters.technical': 'Technical',
+                'filters.operations': 'Operations',
+                'filters.design': 'Design',
+                
+                // Africa Map Section
+                'africa.subtitle': 'CONTINENTAL REACH',
+                'africa.title': 'Eva-Codes Across Africa',
+                'africa.description': 'Discover our presence and initiatives across the African continent. Click on any country to explore our local teams and projects',
+                'map.marker': 'Eva-Codes HQ',
+                'map.title': 'Our African Presence',
+                'map.description': 'Eva-Codes operates across multiple African countries with headquarters in Rwanda. We\'re committed to driving digital transformation and tech education across the continent.',
+                'map.selectCountry': 'Select a Country',
+                'map.selectPrompt': 'Click on any African country on the map to view our local initiatives, team members, and project details in that region.',
+                'map.volunteers': 'Volunteers',
+                'map.projects': 'Projects',
+                'map.explore': 'Explore Country Details',
+                
+                // About Section
+                'about.subtitle': 'OUR MISSION',
+                'about.title': 'About Our Initiative',
+                'about.description': 'We\'re on a mission to transform Africa through technology education, innovation, and sustainable digital solutions',
+                'about.mission': 'Our Mission',
+                'about.missionText': 'To empower African communities through accessible technology education, foster innovation, and create sustainable digital solutions that address local challenges while building global opportunities.',
+                'about.vision': 'Our Vision',
+                'about.visionText': 'A digitally literate and technologically advanced Africa where innovation drives economic growth, social development, and global competitiveness across all sectors and communities.',
+                'about.education': 'Tech Education',
+                'about.educationText': 'Comprehensive training programs in software development, digital skills, and emerging technologies.',
+                'about.innovation': 'Innovation Hub',
+                'about.innovationText': 'Supporting African innovators and startups through incubation, mentorship, and funding opportunities.',
+                'about.community': 'Community Impact',
+                'about.communityText': 'Implementing technology solutions that directly address community needs and create lasting social impact.',
+                'about.stats.volunteers': 'Dedicated Volunteers',
+                'about.stats.countries': 'African Countries',
+                'about.stats.projects': 'Completed Projects',
+                
+                // Contact Section
+                'contact.subtitle': 'GET INVOLVED',
+                'contact.title': 'Join Our Movement',
+                'contact.description': 'Become a volunteer, partner with us, or support our mission to transform Africa through technology',
+                'contact.volunteer': 'Become a Volunteer',
+                'contact.volunteerText': 'Join our team of passionate volunteers and contribute your skills to empower African communities.',
+                'contact.apply': 'Apply Now',
+                'contact.partner': 'Partnership',
+                'contact.partnerText': 'Collaborate with us to create sustainable impact through technology innovation and education.',
+                'contact.partnerBtn': 'Partner With Us',
+                'contact.donate': 'Support Our Work',
+                'contact.donateText': 'Your donation helps us expand our programs and reach more communities across Africa.',
+                'contact.donateBtn': 'Make a Donation',
+                'contact.formTitle': 'Send Us a Message',
+                'contact.formName': 'Your Name *',
+                'contact.formEmail': 'Email Address *',
+                'contact.formSubject': 'Subject',
+                'contact.formMessage': 'Your Message *',
+                'contact.formSubmit': 'Send Message',
+                
+                // Footer
+                'footer.tagline': 'Empowering Africa through technology education, innovation, and sustainable digital solutions',
+                'footer.quickLinks': 'Quick Links',
+                'footer.programs': 'Our Programs',
+                'footer.contact': 'Contact Info',
+                'footer.address': 'Address',
+                'footer.phone': 'Phone',
+                'footer.email': 'Email'
+            }
+        };
+
+        async function loadTranslations(lang) {
+            if (translationData[lang]) {
+                translations = translationData[lang];
+            } else {
+                translations = translationData['en'];
+            }
+        }
+
+        function applyTranslations() {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.tagName === 'SELECT') {
+                        element.placeholder = translations[key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[key];
+                    } else {
+                        element.innerHTML = translations[key];
+                    }
+                }
+            });
+        }
+
+        function updateTextDirection() {
+            const rtlLanguages = ['ar', 'he', 'fa', 'ur'];
+            if (rtlLanguages.includes(currentLanguage)) {
+                document.body.style.direction = 'rtl';
+                document.body.style.textAlign = 'right';
+            } else {
+                document.body.style.direction = 'ltr';
+                document.body.style.textAlign = 'left';
+            }
+        }
+
+        // Enhanced Navigation System
+        function initNavigation() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            // Smooth scroll and active link
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    
+                    // Update active nav link
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Smooth scroll to section
+                    if (targetId.startsWith('#')) {
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            const offsetTop = targetSection.offsetTop - 80;
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                    
+                    // Close mobile menu
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    }
+                });
+            });
+
+            // Mobile navigation toggle
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && 
+                    !e.target.closest('.nav-menu') && 
+                    !e.target.closest('.hamburger') &&
+                    navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                }
+            });
+
+            // Update active link on scroll
+            window.addEventListener('scroll', updateActiveNavLink);
+        }
+
+        function updateActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Enhanced Footer Navigation
+        function initFooterNavigation() {
+            const footerLinks = document.querySelectorAll('.footer-nav-link');
+            const footerModal = document.getElementById('footerModal');
+            const footerModalClose = document.getElementById('footerModalClose');
+            const footerModalContent = document.getElementById('footerModalContent');
+
+            // Program Data for Modals
+            const programData = {
+                'tech-education': {
+                    title: 'Tech Education Program',
+                    content: `
+                        <h2>Tech Education Program</h2>
+                        <p>Our comprehensive tech education program focuses on:</p>
+                        <ul>
+                            <li>Software development bootcamps</li>
+                            <li>Digital skills training for all ages</li>
+                            <li>Certification programs in emerging technologies</li>
+                            <li>University partnerships for tech degrees</li>
+                            <li>Online learning platforms</li>
+                        </ul>
+                        <p><strong>Impact:</strong> Trained 5,000+ individuals across Africa</p>
+                    `
+                },
+                'digital-literacy': {
+                    title: 'Digital Literacy Initiative',
+                    content: `
+                        <h2>Digital Literacy Initiative</h2>
+                        <p>Bridging the digital divide through:</p>
+                        <ul>
+                            <li>Basic computer skills training</li>
+                            <li>Internet and smartphone literacy</li>
+                            <li>Digital safety and security workshops</li>
+                            <li>Community digital hubs</li>
+                            <li>Senior citizen digital programs</li>
+                        </ul>
+                    `
+                },
+                'startup-support': {
+                    title: 'Startup Support Program',
+                    content: `
+                        <h2>Startup Support Program</h2>
+                        <p>Supporting African entrepreneurs with:</p>
+                        <ul>
+                            <li>Incubation and acceleration programs</li>
+                            <li>Seed funding opportunities</li>
+                            <li>Mentorship from industry experts</li>
+                            <li>Business development support</li>
+                            <li>Investor networking events</li>
+                        </ul>
+                    `
+                },
+                'volunteer-application': {
+                    title: 'Volunteer Application',
+                    content: `
+                        <h2>Become a Volunteer</h2>
+                        <p>Join our team of passionate volunteers making a difference across Africa.</p>
+                        <form id="volunteerForm">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select class="form-control" required>
+                                    <option value="">Select your country</option>
+                                    <option value="rwanda">Rwanda</option>
+                                    <option value="kenya">Kenya</option>
+                                    <option value="nigeria">Nigeria</option>
+                                    <option value="south-africa">South Africa</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Skills</label>
+                                <textarea class="form-control" placeholder="Tell us about your skills and experience"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Application</button>
+                        </form>
+                    `
+                }
+            };
+
+            footerLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const section = link.getAttribute('data-section');
+                    const modalType = link.getAttribute('data-modal');
+
+                    if (section) {
+                        // Scroll to section
+                        const targetSection = document.getElementById(section);
+                        if (targetSection) {
+                            const offsetTop = targetSection.offsetTop - 80;
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    } else if (modalType && programData[modalType]) {
+                        // Show modal with program details
+                        showFooterModal(programData[modalType]);
+                    } else {
+                        // Show default modal
+                        showFooterModal({
+                            title: link.textContent,
+                            content: `<h2>${link.textContent}</h2><p>Details about ${link.textContent} will be available soon.</p>`
+                        });
+                    }
+                });
+            });
+
+            // Close modal
+            footerModalClose.addEventListener('click', () => {
+                footerModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+
+            // Close modal when clicking outside
+            footerModal.addEventListener('click', (e) => {
+                if (e.target === footerModal) {
+                    footerModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        function showFooterModal(data) {
+            const footerModal = document.getElementById('footerModal');
+            const footerModalContent = document.getElementById('footerModalContent');
+            
+            footerModalContent.innerHTML = `
+                <div class="modal-header">
+                    <h2>${data.title}</h2>
+                </div>
+                <div class="modal-body">
+                    ${data.content}
+                </div>
+            `;
+            
+            footerModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Enhanced Volunteers Data
+        const volunteers = [
+            {
+                id: 1,
+                name: "Evariste Bapfekurera",
+                position: "Founder & CEO",
+                category: "leadership",
+                skills: ["Leadership", "Strategy", "Business Development", "Project Management", "Innovation", "Entrepreneurship"],
+                bio: "Visionary leader with 12+ years experience in tech entrepreneurship across Africa. Founded Eva-Codes to bridge the digital divide and empower African youth through technology education.",
+                fullBio: "Evariste is a serial entrepreneur with a passion for digital transformation in Africa. He has launched multiple successful tech initiatives and believes in the power of technology to solve Africa's most pressing challenges. Under his leadership, Eva-Codes has trained over 5000 youth in digital skills.",
+                avatar: "EB",
+                country: "Rwanda",
+                city: "Kigali",
+                email: "evariste@eva-codes.com",
+                phone: "+250 788 111 222",
+                linkedin: "https://linkedin.com/in/evaristeb",
+                twitter: "https://twitter.com/evaristeb",
+                joined: "2018",
+                projects: 45,
+                expertise: ["Tech Entrepreneurship", "Digital Strategy", "Team Leadership", "Stakeholder Management", "Innovation"],
+                education: "MSc in Computer Science, University of Rwanda",
+                languages: ["English", "French", "Kinyarwanda"]
+            },
+            {
+                id: 2,
+                name: "Kaburo Audace",
+                position: "Technical Director",
+                category: "technical",
+                skills: ["Full-Stack Development", "DevOps", "Cloud Architecture", "System Design", "AI/ML", "Cybersecurity"],
+                bio: "Expert software architect with 8+ years experience in building scalable systems across Africa. Leads technical strategy and implementation for all Eva-Codes projects.",
+                fullBio: "Kaburo specializes in creating robust technical solutions for African contexts. He has led the development of numerous digital platforms that serve thousands of users across the continent. His expertise includes cloud infrastructure, mobile applications, and emerging technologies.",
+                avatar: "KA",
+                country: "Burundi",
+                city: "Bujumbura",
+                email: "kaburo@eva-codes.com",
+                phone: "+257 799 333 444",
+                linkedin: "https://linkedin.com/in/kaburoa",
+                github: "https://github.com/kaburo",
+                joined: "2019",
+                projects: 32,
+                expertise: ["Software Architecture", "Cloud Computing", "Mobile Development", "Technical Leadership", "System Security"],
+                education: "BSc in Software Engineering, University of Burundi",
+                languages: ["English", "French", "Kirundi"]
+            },
+            {
+                id: 3,
+                name: "Pascal Nkunzimana",
+                position: "Operations Manager",
+                category: "operations",
+                skills: ["Operations", "Team Management", "Logistics", "Process Optimization", "Resource Planning", "Supply Chain"],
+                bio: "Operations specialist focused on streamlining processes and ensuring efficient project delivery across multiple African countries.",
+                fullBio: "Pascal has extensive experience in managing complex operations across diverse African regions. He ensures that all Eva-Codes initiatives run smoothly, from rural digital literacy programs to urban tech hubs. His systematic approach has improved project delivery efficiency by 40%.",
+                avatar: "PN",
+                country: "Rwanda",
+                city: "Kigali",
+                email: "pascal@eva-codes.com",
+                phone: "+250 788 555 666",
+                linkedin: "https://linkedin.com/in/pascaln",
+                joined: "2020",
+                projects: 28,
+                expertise: ["Operations Management", "Process Improvement", "Team Coordination", "Supply Chain Management", "Project Delivery"],
+                education: "MBA in Operations Management, University of Kigali",
+                languages: ["English", "French", "Kinyarwanda"]
+            },
+            {
+                id: 4,
+                name: "Blaise Mutoni",
+                position: "Lead UI/UX Designer",
+                category: "design",
+                skills: ["UI/UX Design", "Figma", "Prototyping", "User Research", "Design Systems", "Design Thinking"],
+                bio: "Creative designer passionate about user-centered design and creating intuitive interfaces for African users.",
+                fullBio: "Blaise believes in designing for Africa, by Africa. She has created design systems that work across diverse African contexts, considering factors like low bandwidth, multiple languages, and varied digital literacy levels. Her designs have improved user engagement by 60% across Eva-Codes platforms.",
+                avatar: "BM",
+                country: "Kenya",
+                city: "Nairobi",
+                email: "blaise@eva-codes.com",
+                phone: "+254 711 777 888",
+                linkedin: "https://linkedin.com/in/blaisem",
+                behance: "https://behance.net/blaisem",
+                joined: "2021",
+                projects: 23,
+                expertise: ["User Experience", "Interface Design", "Design Thinking", "User Research", "Accessibility"],
+                education: "BFA in Graphic Design, University of Nairobi",
+                languages: ["English", "Swahili"]
+            }
+        ];
+
+        function initVolunteers() {
+            const volunteersContainer = document.getElementById('volunteersContainer');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            // Render initial volunteers
+            renderVolunteers('all');
+
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active filter
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Apply filter
+                    const filter = button.dataset.filter;
+                    renderVolunteers(filter);
+                });
+            });
+        }
+
+        function renderVolunteers(filter) {
+            const volunteersContainer = document.getElementById('volunteersContainer');
+            volunteersContainer.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? volunteers 
+                : volunteers.filter(v => v.category === filter);
+
+            if (filtered.length === 0) {
+                volunteersContainer.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: var(--secondary-color);">
+                        <i class="fas fa-users" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3>No volunteers found in this category</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((volunteer, index) => {
+                const card = document.createElement('div');
+                card.className = 'volunteer-card';
+                
+                card.innerHTML = `
+                    <div class="volunteer-header">
+                        <div class="volunteer-image">
+                            <span>${volunteer.avatar}</span>
+                        </div>
+                        <div class="volunteer-country">
+                            <i class="fas fa-map-marker-alt"></i> ${volunteer.country}
+                        </div>
+                    </div>
+                    <div class="volunteer-body">
+                        <h3 class="volunteer-name">${volunteer.name}</h3>
+                        <span class="volunteer-position">${volunteer.position}</span>
+                        <p class="volunteer-bio">${volunteer.bio}</p>
+                        <div class="volunteer-skills">
+                            ${volunteer.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                        </div>
+                        <div class="volunteer-footer">
+                            <div class="volunteer-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                ${volunteer.city}, ${volunteer.country}
+                            </div>
+                            <button class="btn-detail" onclick="showVolunteerDetail(${volunteer.id})">
+                                <i class="fas fa-arrow-right"></i>
+                                <span>View Profile</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                volunteersContainer.appendChild(card);
+                
+                // Add animation
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, index * 100);
+            });
+        }
+
+        // Enhanced Map System
+        const countryData = {
+            rwanda: {
+                name: "Rwanda",
+                capital: "Kigali",
+                volunteers: 12,
+                projects: 25,
+                initiatives: [
+                    "Tech Education Programs",
+                    "Startup Incubation Center",
+                    "Digital Skills Training",
+                    "Eva-Codes Headquarters",
+                    "Youth Innovation Hub",
+                    "Women in Tech Initiatives",
+                    "Digital Agriculture Projects"
+                ],
+                description: "Home to Eva-Codes headquarters, Rwanda is our central hub for innovation and technology education across Africa. We're actively involved in government digital transformation initiatives.",
+                page: "rwanda-initiatives.html"
+            },
+            burundi: {
+                name: "Burundi",
+                capital: "Bujumbura",
+                volunteers: 8,
+                projects: 15,
+                initiatives: [
+                    "Youth Coding Bootcamps",
+                    "Women in Tech Programs",
+                    "Digital Literacy Initiatives",
+                    "Mobile App Development",
+                    "Community Tech Centers",
+                    "Digital Skills for Youth"
+                ],
+                description: "Focusing on youth empowerment and digital literacy through community-based tech programs. We're working closely with local schools and community centers.",
+                page: "burundi-initiatives.html"
+            },
+            tanzania: {
+                name: "Tanzania",
+                capital: "Dar es Salaam",
+                volunteers: 10,
+                projects: 18,
+                initiatives: [
+                    "Rural Tech Access",
+                    "Mobile App Development",
+                    "E-commerce Solutions",
+                    "Digital Agriculture",
+                    "Fisheries Technology",
+                    "Tourism Tech"
+                ],
+                description: "Expanding tech access to rural communities and supporting digital entrepreneurship. Special focus on agriculture and tourism sectors.",
+                page: "tanzania-initiatives.html"
+            },
+            kenya: {
+                name: "Kenya",
+                capital: "Nairobi",
+                volunteers: 15,
+                projects: 30,
+                initiatives: [
+                    "Nairobi Tech Hub",
+                    "Fintech Innovation Lab",
+                    "AgriTech Solutions",
+                    "EdTech Platforms",
+                    "HealthTech Projects",
+                    "Mobile Money Solutions"
+                ],
+                description: "Leading innovation in fintech and agritech through our Nairobi-based tech hub. Strong partnerships with local universities and tech companies.",
+                page: "kenya-initiatives.html"
+            },
+            nigeria: {
+                name: "Nigeria",
+                capital: "Lagos",
+                volunteers: 20,
+                projects: 35,
+                initiatives: [
+                    "Lagos Development Center",
+                    "EdTech Platforms",
+                    "Digital Entrepreneurship",
+                    "AI Research Lab",
+                    "Creative Tech Hub",
+                    "Fintech Solutions"
+                ],
+                description: "Our largest operation center focusing on digital entrepreneurship and AI research. Strong emphasis on youth employment through tech.",
+                page: "nigeria-initiatives.html"
+            },
+            ghana: {
+                name: "Ghana",
+                capital: "Accra",
+                volunteers: 9,
+                projects: 16,
+                initiatives: [
+                    "Accra Tech Lab",
+                    "Mobile Banking Solutions",
+                    "HealthTech Innovations",
+                    "E-learning Platforms",
+                    "Digital Agriculture",
+                    "Fintech Training"
+                ],
+                description: "Pioneering healthtech and mobile banking solutions for West Africa. Strong focus on financial inclusion and healthcare technology.",
+                page: "ghana-initiatives.html"
+            },
+            "south-africa": {
+                name: "South Africa",
+                capital: "Cape Town",
+                volunteers: 14,
+                projects: 28,
+                initiatives: [
+                    "Cape Town Innovation Hub",
+                    "AI Research Center",
+                    "Tech Policy Advocacy",
+                    "Corporate Partnerships",
+                    "Blockchain Solutions",
+                    "Renewable Energy Tech"
+                ],
+                description: "Focusing on advanced research, AI development, and tech policy advocacy. Strong corporate partnerships and research collaborations.",
+                page: "south-africa-initiatives.html"
+            }
+        };
+
+        function initMap() {
+            const countries = document.querySelectorAll('.map-country');
+            const countryDetails = document.getElementById('countryDetails');
+            const countryStats = document.getElementById('countryStats');
+            const exploreBtn = document.getElementById('exploreCountryBtn');
+
+            countries.forEach(country => {
+                country.addEventListener('click', function() {
+                    const countryId = this.id;
+                    const data = countryData[countryId];
+                    
+                    // Remove active class from all countries
+                    countries.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked country
+                    this.classList.add('active');
+                    
+                    // Update selected country
+                    selectedCountry = data;
+                    
+                    // Show country info
+                    if (data) {
+                        countryDetails.innerHTML = `
+                            <h4 class="country-name">${data.name}</h4>
+                            <p class="country-description">${data.description}</p>
+                            <p style="margin-bottom: 1rem; color: var(--secondary-color);"><strong>Capital:</strong> ${data.capital}</p>
+                            <p style="margin-bottom: 1rem; color: var(--secondary-color);"><strong>Key Initiatives:</strong></p>
+                            <ul class="country-initiatives">
+                                ${data.initiatives.map(initiative => `<li>${initiative}</li>`).join('')}
+                            </ul>
+                        `;
+                        
+                        // Update and show stats
+                        document.getElementById('countryVolunteers').textContent = data.volunteers;
+                        document.getElementById('countryProjects').textContent = data.projects;
+                        countryStats.style.display = 'grid';
+                        
+                        // Show explore button
+                        exploreBtn.style.display = 'flex';
+                    }
+                });
+                
+                // Hover effects
+                country.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.fill = 'rgba(64, 152, 230, 0.3)';
+                    }
+                });
+                
+                country.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.fill = 'rgba(64, 152, 230, 0.15)';
+                    }
+                });
+            });
+        }
+
+        // Contact Form
+        function initContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(contactForm);
+                const data = Object.fromEntries(formData);
+                
+                // Validate
+                if (!data.name || !data.email || !data.message) {
+                    showNotification('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // Show loading
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Success
+                    showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.', 'success');
+                    
+                    // Reset form
+                    contactForm.reset();
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+        }
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all elements with animation classes
+            document.querySelectorAll('.volunteer-card, .about-stat, .feature-item, .contact-card').forEach(element => {
+                observer.observe(element);
+            });
+        }
+
+        // Back to Top
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+            
+            backToTop.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Notification System
+        function initNotification() {
+            const notificationClose = document.getElementById('notificationClose');
+            notificationClose.addEventListener('click', () => {
+                hideNotification();
+            });
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationTitle = document.getElementById('notificationTitle');
+            const notificationMessage = document.getElementById('notificationMessage');
+            
+            // Set title based on type
+            let title = '';
+            let bgColor = '';
+            
+            switch(type) {
+                case 'success':
+                    title = 'Success';
+                    bgColor = 'var(--success-color)';
+                    break;
+                case 'error':
+                    title = 'Error';
+                    bgColor = 'var(--accent-color)';
+                    break;
+                case 'info':
+                    title = 'Info';
+                    bgColor = 'var(--info-color)';
+                    break;
+                default:
+                    title = 'Notification';
+                    bgColor = 'var(--primary-color)';
+            }
+            
+            notificationTitle.textContent = title;
+            notificationMessage.textContent = message;
+            notification.style.background = bgColor;
+            
+            // Show notification
+            notification.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                hideNotification();
+            }, 5000);
+        }
+
+        function hideNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.remove('show');
+        }
+
+        // Volunteer Detail Modal
+        window.showVolunteerDetail = function(volunteerId) {
+            const volunteer = volunteers.find(v => v.id === volunteerId);
+            if (!volunteer) return;
+
+            const modal = document.getElementById('volunteerModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; margin-bottom: 2rem;">
+                    <div>
+                        <div style="width: 150px; height: 150px; background: linear-gradient(45deg, var(--primary-color), var(--accent-color)); border-radius: 25px; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem; font-weight: 800; margin: 0 auto 1.5rem;">
+                            ${volunteer.avatar}
+                        </div>
+                        <div style="text-align: center;">
+                            <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">${volunteer.name}</h3>
+                            <div style="color: var(--primary-color); font-weight: 700; margin-bottom: 1rem;">${volunteer.position}</div>
+                            <div style="color: var(--secondary-color); margin-bottom: 1rem;">
+                                <i class="fas fa-map-marker-alt"></i> ${volunteer.city}, ${volunteer.country}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--dark-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-color);">Profile</h4>
+                        <p style="color: var(--secondary-color); line-height: 1.8; margin-bottom: 1.5rem;">${volunteer.fullBio}</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0;">
+                            <div>
+                                <h5 style="color: var(--dark-color); margin-bottom: 0.8rem;">Contact</h5>
+                                <p style="color: var(--secondary-color); margin-bottom: 0.5rem;"><i class="fas fa-envelope"></i> ${volunteer.email}</p>
+                                <p style="color: var(--secondary-color);"><i class="fas fa-phone"></i> ${volunteer.phone}</p>
+                            </div>
+                            <div>
+                                <h5 style="color: var(--dark-color); margin-bottom: 0.8rem;">Joined</h5>
+                                <p style="color: var(--secondary-color);">${volunteer.joined}</p>
+                                <h5 style="color: var(--dark-color); margin-bottom: 0.8rem; margin-top: 1rem;">Projects</h5>
+                                <p style="color: var(--secondary-color);">${volunteer.projects} completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <h4 style="color: var(--dark-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-color);">Expertise</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+                        ${volunteer.expertise.map(skill => `<span style="background: rgba(64, 152, 230, 0.1); color: var(--primary-color); padding: 0.6rem 1.2rem; border-radius: 20px; font-size: 0.9rem;">${skill}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <h4 style="color: var(--dark-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-color);">Education</h4>
+                    <p style="color: var(--secondary-color);">${volunteer.education}</p>
+                </div>
+                
+                <div style="margin: 2rem 0;">
+                    <h4 style="color: var(--dark-color); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--primary-color);">Languages</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+                        ${volunteer.languages.map(lang => `<span style="background: rgba(64, 152, 230, 0.1); color: var(--primary-color); padding: 0.6rem 1.2rem; border-radius: 20px; font-size: 0.9rem;">${lang}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                    <a href="mailto:${volunteer.email}" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                    ${volunteer.linkedin ? `<a href="${volunteer.linkedin}" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>` : ''}
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Close modal handlers
+            const modalClose = document.getElementById('modalClose');
+            modalClose.onclick = () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+            
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            };
+        };
+
+        // Open country detail page
+        window.openCountryPage = function() {
+            if (selectedCountry && selectedCountry.page) {
+                showFooterModal({
+                    title: selectedCountry.name + ' Initiatives',
+                    content: `
+                        <h2>${selectedCountry.name} Initiatives</h2>
+                        <p>${selectedCountry.description}</p>
+                        <h3>Key Statistics</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                            <div style="text-align: center; padding: 1.5rem; background: rgba(64, 152, 230, 0.1); border-radius: 15px;">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-color);">${selectedCountry.volunteers}</div>
+                                <div style="font-weight: 600;">Volunteers</div>
+                            </div>
+                            <div style="text-align: center; padding: 1.5rem; background: rgba(64, 152, 230, 0.1); border-radius: 15px;">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-color);">${selectedCountry.projects}</div>
+                                <div style="font-weight: 600;">Projects</div>
+                            </div>
+                        </div>
+                        <h3>Active Programs</h3>
+                        <ul style="color: var(--secondary-color); line-height: 2;">
+                            ${selectedCountry.initiatives.map(initiative => `<li>${initiative}</li>`).join('')}
+                        </ul>
+                    `
+                });
+            }
+        };
+
+        // Touch support for mobile
+        document.addEventListener('touchstart', function() {}, {passive: true});
+
+        // Initialize everything
+        window.addEventListener('load', initializeApplication);
+    </script>
+</body>
+</html>
