@@ -11,7 +11,7 @@ body{
     justify-self: center;
     text-align: center;
     background-color: rgb(6, 36, 31);
-    flex-direction: column;
+    flex-wrap: wrap;
     background-size: cover;
     border-radius: none;
 }

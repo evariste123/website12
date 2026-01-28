@@ -93,6 +93,7 @@ body{
         width: 100vw;
         justify-self: center;
         border-radius: 5px;
+        flex-wrap: wrap;
         top: 10px;
         text-align: center;
         justify-content: space-between;
@@ -126,6 +127,11 @@ body{
         color: white;
         font-weight: 900;
      }
+     .logo:hover{
+        position: relative;
+        cursor: pointer;
+        transition: all ease 0.3s;
+     }
      .logo span{
         position: relative;
         color: greenyellow;
@@ -146,7 +152,6 @@ body{
      .navbar button:hover{
         position: relative;
         transition: 0.3s ease-in;
-        background-color: #2f0358;
         color: white;
         cursor: pointer;
         border: 1px solid #2f0358;

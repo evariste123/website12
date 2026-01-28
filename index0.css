@@ -8,7 +8,7 @@ body{
     text-align: center;
     justify-self: center;
     background-color: #2a292b;
-    flex-direction: column;
+    flex-wrap: wrap;
     bottom: 10px;
     background-size: cover;
     border-radius: 5px 5px 0 0;
@@ -62,6 +62,14 @@ body{
     font-size: large;
     font-weight: 900;
     font-style: italic;
+}
+.logo:hover{
+    position:relative;
+    transform: translateX(-10px);
+    transform: translateX(10px);
+    transform: translateX(10px);
+    cursor: pointer;
+    transition: all ease-in 0.3s;
 }
         #home.container{
             margin: 0;
