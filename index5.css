@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(32, 124, 131);
+    background-color: lch(13.1% 11.78 207.54);
     font-family: Arial, Helvetica, sans-serif;
 }
 .navbar{
@@ -72,7 +72,7 @@ body{
     flex: auto;
     width: auto;
     height: auto;
-    background-color:hwb(209 1% 63%);
+    background: linear-gradient(to right,lch(13.1% 11.78 207.54),hsl(197, 82%, 7%));
     border-radius: 20px;
 }
 .container h1{
@@ -212,7 +212,7 @@ body{
     }
     #works.container2{
         position: relative;
-        background-color: rgb(79, 79, 82);
+        background-color: lch(18.15% 12.54 249.2);
         color: white;
         top: 50px;
         width: 100vw;
@@ -331,7 +331,7 @@ body{
         width: 100vw;
         justify-self: center;
         height: auto;
-        background-color: rgb(32, 124, 131);
+        background-color: hsl(184, 87%, 9%);
         top: 50px;
     }
     .container3 h1{
