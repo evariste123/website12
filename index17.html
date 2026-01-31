@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eva-codes — Global Partner Network</title>
+    <meta name="description" content="Join Eva-codes Partner Network - Tech, Consultant, Data Exchange & Channel Partners. Transform digital education worldwide.">
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            /* Professional Color Palette */
+            --primary: #0F172A;
+            --secondary: #1E293B;
+            --accent-blue: #3B82F6;
+            --accent-green: #10B981;
+            --accent-purple: #8B5CF6;
+            --accent-pink: #EC4899;
+            --text-primary: #F8FAFC;
+            --text-secondary: #CBD5E1;
+            --text-muted: #94A3B8;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.2);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== LIGHT THEME ===== */
+        .light-theme {
+            --primary: #FFFFFF;
+            --secondary: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #334155;
+            --text-muted: #64748B;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            border-radius: 2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 300% 300%;
+            animation: gradient-shift 8s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ===== GLASS EFFECTS ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+        }
+
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .btn-outline:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .logo-text span {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-primary);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .control-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .language-select {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 180px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)),
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .light-theme .hero-bg {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)),
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== PARTNERS SECTION ===== */
+        .partners {
+            padding: 100px 0;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .partner-card {
+            padding: 40px;
+            transition: var(--transition);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .partner-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .partner-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .partner-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        .tech-partner .partner-icon {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            color: var(--accent-blue);
+        }
+
+        .consultant-partner .partner-icon {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+            color: var(--accent-green);
+        }
+
+        .data-partner .partner-icon {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            color: var(--accent-purple);
+        }
+
+        .channel-partner .partner-icon {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(236, 72, 153, 0.2));
+            color: var(--accent-pink);
+        }
+
+        .partner-features {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .partner-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+        }
+
+        .partner-features li i {
+            color: var(--accent-green);
+        }
+
+        /* ===== STATISTICS SECTION ===== */
+        .stats {
+            padding: 80px 0;
+            background: var(--glass-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 40px 20px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ===== COURSES SECTION ===== */
+        .courses {
+            padding: 100px 0;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .course-card {
+            padding: 40px;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-level {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .level-beginner {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        .level-intermediate {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .level-advanced {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+        }
+
+        .level-professional {
+            background: rgba(236, 72, 153, 0.2);
+            color: var(--accent-pink);
+        }
+
+        .course-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .course-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .course-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .course-price {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== APPLICATION MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--glass-bg);
+            backdrop-filter: blur(30px);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+        }
+
+        .modal-title {
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            color: var(--text-secondary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 80px 0 40px;
+            background: var(--secondary);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .float-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            opacity: 0.1;
+            animation: float-around 20s infinite linear;
+        }
+
+        @keyframes float-around {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(100px, 100px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 200px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-100px, 100px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .partners-grid,
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .modal {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+            }
+            
+            .section-title::after {
+                width: 40px;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .partner-card,
+            .course-card {
+                padding: 30px 20px;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 10px; }
+        .mt-2 { margin-top: 20px; }
+        .mt-3 { margin-top: 30px; }
+        .mt-4 { margin-top: 40px; }
+        .mt-5 { margin-top: 50px; }
+
+        .mb-1 { margin-bottom: 10px; }
+        .mb-2 { margin-bottom: 20px; }
+        .mb-3 { margin-bottom: 30px; }
+        .mb-4 { margin-bottom: 40px; }
+        .mb-5 { margin-bottom: 50px; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== LOADING SPINNER ===== */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--accent-green);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            z-index: 3000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="glass">
+        <div class="container nav-container">
+            <a href="./index5.html" class="logo">
+                <div class="logo-icon">EC</div>
+                <div class="logo-text">
+                    <h1>Eva-codes</h1>
+                    <span>Global Partner Network</span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active" data-i18n="nav.home">Home</a>
+                <a href="#partners" class="nav-link" data-i18n="nav.partners">Partners</a>
+                <a href="#courses" class="nav-link" data-i18n="nav.courses">Courses</a>
+                <a href="#apply" class="nav-link" data-i18n="nav.apply">Apply</a>
+                <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+            </nav>
+
+            <div class="nav-controls">
+                <select id="languageSelect" class="language-select">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="fr">🇫🇷 Français</option>
+                    <option value="es">🇪🇸 Español</option>
+                </select>
+                <button id="themeToggle" class="control-btn" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title gradient-text" data-i18n="hero.title">Transform Digital Education Together</h1>
+                <p class="hero-subtitle" data-i18n="hero.subtitle">Join our global network of Tech Partners, Consultants, Data Exchange Specialists, and Channel Partners to revolutionize coding education across Africa and beyond.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="applyHeroBtn" data-i18n="hero.apply">
+                        <i class="fas fa-rocket"></i> Become a Partner
+                    </button>
+                    <button class="btn btn-secondary" id="exploreCoursesBtn" data-i18n="hero.explore">
+                        <i class="fas fa-graduation-cap"></i> Explore Courses
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="partners">
+        <div class="container">
+            <h2 class="section-title gradient-text" data-i18n="partners.title">Partner Programs</h2>
+            <p class="text-center mb-5" data-i18n="partners.subtitle">Choose from our specialized partner programs designed for different expertise and business models</p>
+
+            <div class="partners-grid">
+                <!-- Tech Partner -->
+                <div class="partner-card glass fade-in tech-partner">
+                    <div class="partner-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 data-i18n="partners.tech.title">Tech Partner</h3>
+                    <p data-i18n="partners.tech.desc">Integrate your technology solutions with our learning platform. Co-develop tools and APIs for enhanced educational experiences.</p>
+                    <ul class="partner-features">
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.tech.feature1">API Integration Access</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.tech.feature2">Co-development Projects</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.tech.feature3">Technical Support</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.tech.feature4">Revenue Sharing</span></li>
+                    </ul>
+                    <button class="btn btn-primary apply-btn" data-type="tech" data-i18n="partners.apply">Apply Now</button>
+                </div>
+
+                <!-- Consultant Partner -->
+                <div class="partner-card glass fade-in consultant-partner">
+                    <div class="partner-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 data-i18n="partners.consultant.title">Consultant Partner</h3>
+                    <p data-i18n="partners.consultant.desc">Provide expert guidance and training. Deliver specialized workshops, mentorship programs, and corporate training solutions.</p>
+                    <ul class="partner-features">
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.consultant.feature1">Certification Program</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.consultant.feature2">Enterprise Training</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.consultant.feature3">Mentorship Network</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.consultant.feature4">Global Reach</span></li>
+                    </ul>
+                    <button class="btn btn-primary apply-btn" data-type="consultant" data-i18n="partners.apply">Apply Now</button>
+                </div>
+
+                <!-- Data Exchange Partner -->
+                <div class="partner-card glass fade-in data-partner">
+                    <div class="partner-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 data-i18n="partners.data.title">Data Exchange Partner</h3>
+                    <p data-i18n="partners.data.desc">Collaborate on data-driven educational insights. Share anonymized learning metrics and contribute to research initiatives.</p>
+                    <ul class="partner-features">
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.data.feature1">Research Collaboration</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.data.feature2">Analytics Dashboard</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.data.feature3">Data Security</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.data.feature4">Insight Sharing</span></li>
+                    </ul>
+                    <button class="btn btn-primary apply-btn" data-type="data" data-i18n="partners.apply">Apply Now</button>
+                </div>
+
+                <!-- Channel Partner -->
+                <div class="partner-card glass fade-in channel-partner">
+                    <div class="partner-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 data-i18n="partners.channel.title">Channel Partner</h3>
+                    <p data-i18n="partners.channel.desc">Resell our courses and programs in your region. Access exclusive territories with marketing support and sales training.</p>
+                    <ul class="partner-features">
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.channel.feature1">Territory Rights</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.channel.feature2">Marketing Materials</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.channel.feature3">Sales Commission</span></li>
+                        <li><i class="fas fa-check"></i> <span data-i18n="partners.channel.feature4">Training Support</span></li>
+                    </ul>
+                    <button class="btn btn-primary apply-btn" data-type="channel" data-i18n="partners.apply">Apply Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card glass fade-in">
+                    <div class="stat-number" data-count="250">0</div>
+                    <div class="stat-label" data-i18n="stats.partners">Active Partners</div>
+                </div>
+                <div class="stat-card glass fade-in">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label" data-i18n="stats.countries">Countries</div>
+                </div>
+                <div class="stat-card glass fade-in">
+                    <div class="stat-number" data-count="10000">0</div>
+                    <div class="stat-label" data-i18n="stats.students">Students Trained</div>
+                </div>
+                <div class="stat-card glass fade-in">
+                    <div class="stat-number" data-count="95">0</div>
+                    <div class="stat-label" data-i18n="stats.satisfaction">% Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <h2 class="section-title gradient-text" data-i18n="courses.title">Featured Courses</h2>
+            <p class="text-center mb-5" data-i18n="courses.subtitle">Comprehensive learning paths for all skill levels, developed with our partner network</p>
+
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card glass fade-in">
+                    <span class="course-level level-beginner" data-i18n="courses.levels.beginner">Beginner</span>
+                    <h3 data-i18n="courses.course1.title">Full-Stack Web Development</h3>
+                    <p data-i18n="courses.course1.desc">Master HTML, CSS, JavaScript, React, Node.js, and databases to build complete web applications.</p>
+                    <div class="course-details">
+                        <div class="course-info">
+                            <div class="course-info-item">
+                                <i class="far fa-clock"></i>
+                                <span data-i18n="courses.course1.duration">12 Weeks</span>
+                            </div>
+                            <div class="course-info-item">
+                                <i class="fas fa-book"></i>
+                                <span data-i18n="courses.course1.modules">24 Modules</span>
+                            </div>
+                        </div>
+                        <div class="course-price" data-i18n="courses.course1.price">$499</div>
+                    </div>
+                    <button class="btn btn-primary mt-3 enroll-btn" data-course="fullstack" data-i18n="courses.enroll">Enroll Now</button>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card glass fade-in">
+                    <span class="course-level level-intermediate" data-i18n="courses.levels.intermediate">Intermediate</span>
+                    <h3 data-i18n="courses.course2.title">Data Science & AI Fundamentals</h3>
+                    <p data-i18n="courses.course2.desc">Learn Python, data analysis, machine learning, and AI concepts with real-world projects.</p>
+                    <div class="course-details">
+                        <div class="course-info">
+                            <div class="course-info-item">
+                                <i class="far fa-clock"></i>
+                                <span data-i18n="courses.course2.duration">16 Weeks</span>
+                            </div>
+                            <div class="course-info-item">
+                                <i class="fas fa-book"></i>
+                                <span data-i18n="courses.course2.modules">28 Modules</span>
+                            </div>
+                        </div>
+                        <div class="course-price" data-i18n="courses.course2.price">$799</div>
+                    </div>
+                    <button class="btn btn-primary mt-3 enroll-btn" data-course="datascience" data-i18n="courses.enroll">Enroll Now</button>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="course-card glass fade-in">
+                    <span class="course-level level-advanced" data-i18n="courses.levels.advanced">Advanced</span>
+                    <h3 data-i18n="courses.course3.title">Cloud & DevOps Engineering</h3>
+                    <p data-i18n="courses.course3.desc">Master AWS, Docker, Kubernetes, CI/CD, and infrastructure as code for scalable applications.</p>
+                    <div class="course-details">
+                        <div class="course-info">
+                            <div class="course-info-item">
+                                <i class="far fa-clock"></i>
+                                <span data-i18n="courses.course3.duration">14 Weeks</span>
+                            </div>
+                            <div class="course-info-item">
+                                <i class="fas fa-book"></i>
+                                <span data-i18n="courses.course3.modules">26 Modules</span>
+                            </div>
+                        </div>
+                        <div class="course-price" data-i18n="courses.course3.price">$899</div>
+                    </div>
+                    <button class="btn btn-primary mt-3 enroll-btn" data-course="devops" data-i18n="courses.enroll">Enroll Now</button>
+                </div>
+
+                <!-- Course 4 -->
+                <div class="course-card glass fade-in">
+                    <span class="course-level level-professional" data-i18n="courses.levels.professional">Professional</span>
+                    <h3 data-i18n="courses.course4.title">Cybersecurity Specialist</h3>
+                    <p data-i18n="courses.course4.desc">Learn ethical hacking, network security, cryptography, and security operations center management.</p>
+                    <div class="course-details">
+                        <div class="course-info">
+                            <div class="course-info-item">
+                                <i class="far fa-clock"></i>
+                                <span data-i18n="courses.course4.duration">20 Weeks</span>
+                            </div>
+                            <div class="course-info-item">
+                                <i class="fas fa-book"></i>
+                                <span data-i18n="courses.course4.modules">32 Modules</span>
+                            </div>
+                        </div>
+                        <div class="course-price" data-i18n="courses.course4.price">$1299</div>
+                    </div>
+                    <button class="btn btn-primary mt-3 enroll-btn" data-course="cybersecurity" data-i18n="courses.enroll">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Modal -->
+    <div id="applicationModal" class="modal-overlay">
+        <div class="modal glass">
+            <div class="modal-header">
+                <h2 class="modal-title gradient-text" data-i18n="modal.title">Partner Application</h2>
+                <p class="modal-subtitle" data-i18n="modal.subtitle">Complete this form to apply for our partner program. We'll review your application within 48 hours.</p>
+            </div>
+
+            <form id="partnerForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.company">Company Name *</label>
+                        <input type="text" class="form-input" id="companyName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.country">Country *</label>
+                        <input type="text" class="form-input" id="country" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.type">Partner Type *</label>
+                        <select class="form-select" id="partnerType" required>
+                            <option value="" data-i18n="form.selectType">Select Partner Type</option>
+                            <option value="tech" data-i18n="form.types.tech">Tech Partner</option>
+                            <option value="consultant" data-i18n="form.types.consultant">Consultant Partner</option>
+                            <option value="data" data-i18n="form.types.data">Data Exchange Partner</option>
+                            <option value="channel" data-i18n="form.types.channel">Channel Partner</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.website">Website</label>
+                        <input type="url" class="form-input" id="website">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.contact">Contact Name *</label>
+                        <input type="text" class="form-input" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.email">Email Address *</label>
+                        <input type="email" class="form-input" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.phone">Phone Number</label>
+                        <input type="tel" class="form-input" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="form.employees">Number of Employees</label>
+                        <select class="form-select" id="employees">
+                            <option value="" data-i18n="form.selectEmployees">Select Range</option>
+                            <option value="1-10" data-i18n="form.employees1">1-10</option>
+                            <option value="11-50" data-i18n="form.employees2">11-50</option>
+                            <option value="51-200" data-i18n="form.employees3">51-200</option>
+                            <option value="201+" data-i18n="form.employees4">201+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-i18n="form.experience">Relevant Experience *</label>
+                    <textarea class="form-textarea" id="experience" required data-i18n="form.expPlaceholder" placeholder="Describe your company's experience in education, technology, or relevant field..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-i18n="form.motivation">Motivation & Goals *</label>
+                    <textarea class="form-textarea" id="motivation" required data-i18n="form.motivationPlaceholder" placeholder="Why do you want to partner with Eva-codes? What are your goals?"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-i18n="form.references">References (Clients or Partners)</label>
+                    <textarea class="form-textarea" id="references" data-i18n="form.refPlaceholder" placeholder="List 2-3 references with contact information..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span data-i18n="form.agree">I agree to the Terms & Conditions and Privacy Policy</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" id="newsletter">
+                        <span data-i18n="form.newsletter">Subscribe to partner newsletter and updates</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn" data-i18n="form.cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" data-i18n="form.submit">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 data-i18n="footer.about">About Eva-codes</h4>
+                    <p data-i18n="footer.aboutDesc">We're revolutionizing digital education through strategic partnerships across Africa and globally.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-i18n="footer.links">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home" data-i18n="nav.home">Home</a></li>
+                        <li><a href="#partners" data-i18n="nav.partners">Partners</a></li>
+                        <li><a href="#courses" data-i18n="nav.courses">Courses</a></li>
+                        <li><a href="#apply" data-i18n="nav.apply">Apply</a></li>
+                        <li><a href="#" data-i18n="footer.blog">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-i18n="footer.resources">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" data-i18n="footer.docs">Documentation</a></li>
+                        <li><a href="#" data-i18n="footer.api">API Access</a></li>
+                        <li><a href="#" data-i18n="footer.support">Support Center</a></li>
+                        <li><a href="#" data-i18n="footer.community">Community</a></li>
+                        <li><a href="#" data-i18n="footer.events">Events</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-i18n="footer.contact">Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> partners@eva-codes.com</li>
+                        <li><i class="fas fa-phone"></i> +250 785 786 547</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Kigali, Rwanda</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri, 9AM-6PM GMT+2</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright">© 2024 Eva-codes Partner Network. All rights reserved.</p>
+                <p style="margin-top: 10px;">
+                    <a href="#" data-i18n="footer.privacy">Privacy Policy</a> |
+                    <a href="#" data-i18n="footer.terms">Terms of Service</a> |
+                    <a href="#" data-i18n="footer.cookies">Cookie Policy</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i> <span data-i18n="success.message">Application submitted successfully!</span>
+    </div>
+
+    <script>
+        // ===== TRANSLATIONS =====
+        const translations = {
+            en: {
+                "nav.home": "Home",
+                "nav.partners": "Partners",
+                "nav.courses": "Courses",
+                "nav.apply": "Apply",
+                "nav.contact": "Contact",
+                
+                "hero.title": "Transform Digital Education Together",
+                "hero.subtitle": "Join our global network of Tech Partners, Consultants, Data Exchange Specialists, and Channel Partners to revolutionize coding education across Africa and beyond.",
+                "hero.apply": "Become a Partner",
+                "hero.explore": "Explore Courses",
+                
+                "partners.title": "Partner Programs",
+                "partners.subtitle": "Choose from our specialized partner programs designed for different expertise and business models",
+                "partners.tech.title": "Tech Partner",
+                "partners.tech.desc": "Integrate your technology solutions with our learning platform. Co-develop tools and APIs for enhanced educational experiences.",
+                "partners.tech.feature1": "API Integration Access",
+                "partners.tech.feature2": "Co-development Projects",
+                "partners.tech.feature3": "Technical Support",
+                "partners.tech.feature4": "Revenue Sharing",
+                "partners.consultant.title": "Consultant Partner",
+                "partners.consultant.desc": "Provide expert guidance and training. Deliver specialized workshops, mentorship programs, and corporate training solutions.",
+                "partners.consultant.feature1": "Certification Program",
+                "partners.consultant.feature2": "Enterprise Training",
+                "partners.consultant.feature3": "Mentorship Network",
+                "partners.consultant.feature4": "Global Reach",
+                "partners.data.title": "Data Exchange Partner",
+                "partners.data.desc": "Collaborate on data-driven educational insights. Share anonymized learning metrics and contribute to research initiatives.",
+                "partners.data.feature1": "Research Collaboration",
+                "partners.data.feature2": "Analytics Dashboard",
+                "partners.data.feature3": "Data Security",
+                "partners.data.feature4": "Insight Sharing",
+                "partners.channel.title": "Channel Partner",
+                "partners.channel.desc": "Resell our courses and programs in your region. Access exclusive territories with marketing support and sales training.",
+                "partners.channel.feature1": "Territory Rights",
+                "partners.channel.feature2": "Marketing Materials",
+                "partners.channel.feature3": "Sales Commission",
+                "partners.channel.feature4": "Training Support",
+                "partners.apply": "Apply Now",
+                
+                "stats.partners": "Active Partners",
+                "stats.countries": "Countries",
+                "stats.students": "Students Trained",
+                "stats.satisfaction": "% Satisfaction",
+                
+                "courses.title": "Featured Courses",
+                "courses.subtitle": "Comprehensive learning paths for all skill levels, developed with our partner network",
+                "courses.levels.beginner": "Beginner",
+                "courses.levels.intermediate": "Intermediate",
+                "courses.levels.advanced": "Advanced",
+                "courses.levels.professional": "Professional",
+                "courses.course1.title": "Full-Stack Web Development",
+                "courses.course1.desc": "Master HTML, CSS, JavaScript, React, Node.js, and databases to build complete web applications.",
+                "courses.course1.duration": "12 Weeks",
+                "courses.course1.modules": "24 Modules",
+                "courses.course1.price": "$499",
+                "courses.course2.title": "Data Science & AI Fundamentals",
+                "courses.course2.desc": "Learn Python, data analysis, machine learning, and AI concepts with real-world projects.",
+                "courses.course2.duration": "16 Weeks",
+                "courses.course2.modules": "28 Modules",
+                "courses.course2.price": "$799",
+                "courses.course3.title": "Cloud & DevOps Engineering",
+                "courses.course3.desc": "Master AWS, Docker, Kubernetes, CI/CD, and infrastructure as code for scalable applications.",
+                "courses.course3.duration": "14 Weeks",
+                "courses.course3.modules": "26 Modules",
+                "courses.course3.price": "$899",
+                "courses.course4.title": "Cybersecurity Specialist",
+                "courses.course4.desc": "Learn ethical hacking, network security, cryptography, and security operations center management.",
+                "courses.course4.duration": "20 Weeks",
+                "courses.course4.modules": "32 Modules",
+                "courses.course4.price": "$1299",
+                "courses.enroll": "Enroll Now",
+                
+                "modal.title": "Partner Application",
+                "modal.subtitle": "Complete this form to apply for our partner program. We'll review your application within 48 hours.",
+                
+                "form.company": "Company Name *",
+                "form.country": "Country *",
+                "form.type": "Partner Type *",
+                "form.website": "Website",
+                "form.contact": "Contact Name *",
+                "form.email": "Email Address *",
+                "form.phone": "Phone Number",
+                "form.employees": "Number of Employees",
+                "form.experience": "Relevant Experience *",
+                "form.motivation": "Motivation & Goals *",
+                "form.references": "References (Clients or Partners)",
+                "form.agree": "I agree to the Terms & Conditions and Privacy Policy",
+                "form.newsletter": "Subscribe to partner newsletter and updates",
+                "form.selectType": "Select Partner Type",
+                "form.types.tech": "Tech Partner",
+                "form.types.consultant": "Consultant Partner",
+                "form.types.data": "Data Exchange Partner",
+                "form.types.channel": "Channel Partner",
+                "form.selectEmployees": "Select Range",
+                "form.employees1": "1-10",
+                "form.employees2": "11-50",
+                "form.employees3": "51-200",
+                "form.employees4": "201+",
+                "form.expPlaceholder": "Describe your company's experience in education, technology, or relevant field...",
+                "form.motivationPlaceholder": "Why do you want to partner with Eva-codes? What are your goals?",
+                "form.refPlaceholder": "List 2-3 references with contact information...",
+                "form.cancel": "Cancel",
+                "form.submit": "Submit Application",
+                
+                "footer.about": "About Eva-codes",
+                "footer.aboutDesc": "We're revolutionizing digital education through strategic partnerships across Africa and globally.",
+                "footer.links": "Quick Links",
+                "footer.resources": "Resources",
+                "footer.contact": "Contact Us",
+                "footer.blog": "Blog",
+                "footer.docs": "Documentation",
+                "footer.api": "API Access",
+                "footer.support": "Support Center",
+                "footer.community": "Community",
+                "footer.events": "Events",
+                "footer.copyright": "© 2024 Eva-codes Partner Network. All rights reserved.",
+                "footer.privacy": "Privacy Policy",
+                "footer.terms": "Terms of Service",
+                "footer.cookies": "Cookie Policy",
+                
+                "success.message": "Application submitted successfully!"
+            },
+            
+            fr: {
+                "nav.home": "Accueil",
+                "nav.partners": "Partenaires",
+                "nav.courses": "Cours",
+                "nav.apply": "Postuler",
+                "nav.contact": "Contact",
+                
+                "hero.title": "Transformons l'Éducation Numérique Ensemble",
+                "hero.subtitle": "Rejoignez notre réseau mondial de Partenaires Technologiques, Consultants, Spécialistes d'Échange de Données et Partenaires de Distribution pour révolutionner l'éducation au codage en Afrique et au-delà.",
+                "hero.apply": "Devenir Partenaire",
+                "hero.explore": "Explorer les Cours",
+                
+                "partners.title": "Programmes de Partenariat",
+                "partners.subtitle": "Choisissez parmi nos programmes de partenariat spécialisés conçus pour différentes expertises et modèles commerciaux",
+                "partners.tech.title": "Partenaire Technologique",
+                "partners.tech.desc": "Intégrez vos solutions technologiques à notre plateforme d'apprentissage. Co-développez des outils et API pour des expériences éducatives améliorées.",
+                "partners.tech.feature1": "Accès à l'Intégration API",
+                "partners.tech.feature2": "Projets de Co-développement",
+                "partners.tech.feature3": "Support Technique",
+                "partners.tech.feature4": "Partage des Revenus",
+                "partners.consultant.title": "Partenaire Consultant",
+                "partners.consultant.desc": "Fournissez des conseils et formations d'experts. Animez des ateliers spécialisés, programmes de mentorat et solutions de formation d'entreprise.",
+                "partners.consultant.feature1": "Programme de Certification",
+                "partners.consultant.feature2": "Formation en Entreprise",
+                "partners.consultant.feature3": "Réseau de Mentorat",
+                "partners.consultant.feature4": "Portée Mondiale",
+                "partners.data.title": "Partenaire d'Échange de Données",
+                "partners.data.desc": "Collaborez sur des insights éducatifs basés sur les données. Partagez des métriques d'apprentissage anonymisées et contribuez aux initiatives de recherche.",
+                "partners.data.feature1": "Collaboration de Recherche",
+                "partners.data.feature2": "Tableau de Bord Analytique",
+                "partners.data.feature3": "Sécurité des Données",
+                "partners.data.feature4": "Partage d'Insights",
+                "partners.channel.title": "Partenaire de Distribution",
+                "partners.channel.desc": "Revendez nos cours et programmes dans votre région. Accédez à des territoires exclusifs avec support marketing et formation commerciale.",
+                "partners.channel.feature1": "Droits Territoriaux",
+                "partners.channel.feature2": "Matériel Marketing",
+                "partners.channel.feature3": "Commission sur les Ventes",
+                "partners.channel.feature4": "Support à la Formation",
+                "partners.apply": "Postuler Maintenant",
+                
+                "stats.partners": "Partenaires Actifs",
+                "stats.countries": "Pays",
+                "stats.students": "Étudiants Formés",
+                "stats.satisfaction": "% de Satisfaction",
+                
+                "courses.title": "Cours en Vedette",
+                "courses.subtitle": "Parcours d'apprentissage complets pour tous les niveaux, développés avec notre réseau de partenaires",
+                "courses.levels.beginner": "Débutant",
+                "courses.levels.intermediate": "Intermédiaire",
+                "courses.levels.advanced": "Avancé",
+                "courses.levels.professional": "Professionnel",
+                "courses.course1.title": "Développement Web Full-Stack",
+                "courses.course1.desc": "Maîtrisez HTML, CSS, JavaScript, React, Node.js et les bases de données pour créer des applications web complètes.",
+                "courses.course1.duration": "12 Semaines",
+                "courses.course1.modules": "24 Modules",
+                "courses.course1.price": "499€",
+                "courses.course2.title": "Fondamentaux de la Science des Données & IA",
+                "courses.course2.desc": "Apprenez Python, l'analyse de données, le machine learning et les concepts d'IA avec des projets réels.",
+                "courses.course2.duration": "16 Semaines",
+                "courses.course2.modules": "28 Modules",
+                "courses.course2.price": "799€",
+                "courses.course3.title": "Ingénierie Cloud & DevOps",
+                "courses.course3.desc": "Maîtrisez AWS, Docker, Kubernetes, CI/CD et l'infrastructure as code pour des applications évolutives.",
+                "courses.course3.duration": "14 Semaines",
+                "courses.course3.modules": "26 Modules",
+                "courses.course3.price": "899€",
+                "courses.course4.title": "Spécialiste en Cybersécurité",
+                "courses.course4.desc": "Apprenez le hacking éthique, la sécurité réseau, la cryptographie et la gestion des centres d'opérations de sécurité.",
+                "courses.course4.duration": "20 Semaines",
+                "courses.course4.modules": "32 Modules",
+                "courses.course4.price": "1299€",
+                "courses.enroll": "S'inscrire Maintenant",
+                
+                "modal.title": "Candidature Partenaire",
+                "modal.subtitle": "Remplissez ce formulaire pour postuler à notre programme de partenariat. Nous examinerons votre candidature dans les 48 heures.",
+                
+                "form.company": "Nom de l'Entreprise *",
+                "form.country": "Pays *",
+                "form.type": "Type de Partenaire *",
+                "form.website": "Site Web",
+                "form.contact": "Nom du Contact *",
+                "form.email": "Adresse Email *",
+                "form.phone": "Numéro de Téléphone",
+                "form.employees": "Nombre d'Employés",
+                "form.experience": "Expérience Pertinente *",
+                "form.motivation": "Motivation & Objectifs *",
+                "form.references": "Références (Clients ou Partenaires)",
+                "form.agree": "J'accepte les Conditions Générales et la Politique de Confidentialité",
+                "form.newsletter": "S'abonner à la newsletter partenaire et aux mises à jour",
+                "form.selectType": "Sélectionnez le Type de Partenaire",
+                "form.types.tech": "Partenaire Technologique",
+                "form.types.consultant": "Partenaire Consultant",
+                "form.types.data": "Partenaire d'Échange de Données",
+                "form.types.channel": "Partenaire de Distribution",
+                "form.selectEmployees": "Sélectionnez la Plage",
+                "form.employees1": "1-10",
+                "form.employees2": "11-50",
+                "form.employees3": "51-200",
+                "form.employees4": "201+",
+                "form.expPlaceholder": "Décrivez l'expérience de votre entreprise dans l'éducation, la technologie ou un domaine pertinent...",
+                "form.motivationPlaceholder": "Pourquoi voulez-vous devenir partenaire d'Eva-codes ? Quels sont vos objectifs ?",
+                "form.refPlaceholder": "Listez 2-3 références avec coordonnées...",
+                "form.cancel": "Annuler",
+                "form.submit": "Soumettre la Candidature",
+                
+                "footer.about": "À propos d'Eva-codes",
+                "footer.aboutDesc": "Nous révolutionnons l'éducation numérique grâce à des partenariats stratégiques à travers l'Afrique et dans le monde.",
+                "footer.links": "Liens Rapides",
+                "footer.resources": "Ressources",
+                "footer.contact": "Contactez-nous",
+                "footer.blog": "Blog",
+                "footer.docs": "Documentation",
+                "footer.api": "Accès API",
+                "footer.support": "Centre d'Aide",
+                "footer.community": "Communauté",
+                "footer.events": "Événements",
+                "footer.copyright": "© 2024 Réseau de Partenaires Eva-codes. Tous droits réservés.",
+                "footer.privacy": "Politique de Confidentialité",
+                "footer.terms": "Conditions d'Utilisation",
+                "footer.cookies": "Politique des Cookies",
+                
+                "success.message": "Candidature soumise avec succès !"
+            },
+            
+            es: {
+                "nav.home": "Inicio",
+                "nav.partners": "Socios",
+                "nav.courses": "Cursos",
+                "nav.apply": "Solicitar",
+                "nav.contact": "Contacto",
+                
+                "hero.title": "Transformemos la Educación Digital Juntos",
+                "hero.subtitle": "Únase a nuestra red global de Socios Tecnológicos, Consultores, Especialistas en Intercambio de Datos y Socios de Canal para revolucionar la educación en programación en África y más allá.",
+                "hero.apply": "Convertirse en Socio",
+                "hero.explore": "Explorar Cursos",
+                
+                "partners.title": "Programas de Asociación",
+                "partners.subtitle": "Elija entre nuestros programas de asociación especializados diseñados para diferentes áreas de experiencia y modelos de negocio",
+                "partners.tech.title": "Socio Tecnológico",
+                "partners.tech.desc": "Integre sus soluciones tecnológicas con nuestra plataforma de aprendizaje. Co-desarrolle herramientas y APIs para experiencias educativas mejoradas.",
+                "partners.tech.feature1": "Acceso a Integración API",
+                "partners.tech.feature2": "Proyectos de Co-desarrollo",
+                "partners.tech.feature3": "Soporte Técnico",
+                "partners.tech.feature4": "Participación en Ingresos",
+                "partners.consultant.title": "Socio Consultor",
+                "partners.consultant.desc": "Proporcione orientación y capacitación experta. Imparta talleres especializados, programas de mentoría y soluciones de capacitación corporativa.",
+                "partners.consultant.feature1": "Programa de Certificación",
+                "partners.consultant.feature2": "Capacitación Empresarial",
+                "partners.consultant.feature3": "Red de Mentoría",
+                "partners.consultant.feature4": "Alcance Global",
+                "partners.data.title": "Socio de Intercambio de Datos",
+                "partners.data.desc": "Colabore en insights educativos basados en datos. Comparta métricas de aprendizaje anonimizadas y contribuya a iniciativas de investigación.",
+                "partners.data.feature1": "Colaboración en Investigación",
+                "partners.data.feature2": "Panel de Análisis",
+                "partners.data.feature3": "Seguridad de Datos",
+                "partners.data.feature4": "Intercambio de Insights",
+                "partners.channel.title": "Socio de Canal",
+                "partners.channel.desc": "Revenda nuestros cursos y programas en su región. Acceda a territorios exclusivos con soporte de marketing y capacitación comercial.",
+                "partners.channel.feature1": "Derechos Territoriales",
+                "partners.channel.feature2": "Materiales de Marketing",
+                "partners.channel.feature3": "Comisión por Ventas",
+                "partners.channel.feature4": "Soporte de Capacitación",
+                "partners.apply": "Solicitar Ahora",
+                
+                "stats.partners": "Socios Activos",
+                "stats.countries": "Países",
+                "stats.students": "Estudiantes Capacitados",
+                "stats.satisfaction": "% de Satisfacción",
+                
+                "courses.title": "Cursos Destacados",
+                "courses.subtitle": "Rutas de aprendizaje integrales para todos los niveles, desarrolladas con nuestra red de socios",
+                "courses.levels.beginner": "Principiante",
+                "courses.levels.intermediate": "Intermedio",
+                "courses.levels.advanced": "Avanzado",
+                "courses.levels.professional": "Profesional",
+                "courses.course1.title": "Desarrollo Web Full-Stack",
+                "courses.course1.desc": "Domine HTML, CSS, JavaScript, React, Node.js y bases de datos para construir aplicaciones web completas.",
+                "courses.course1.duration": "12 Semanas",
+                "courses.course1.modules": "24 Módulos",
+                "courses.course1.price": "$499",
+                "courses.course2.title": "Fundamentos de Ciencia de Datos e IA",
+                "courses.course2.desc": "Aprenda Python, análisis de datos, aprendizaje automático y conceptos de IA con proyectos del mundo real.",
+                "courses.course2.duration": "16 Semanas",
+                "courses.course2.modules": "28 Módulos",
+                "courses.course2.price": "$799",
+                "courses.course3.title": "Ingeniería Cloud y DevOps",
+                "courses.course3.desc": "Domine AWS, Docker, Kubernetes, CI/CD e infraestructura como código para aplicaciones escalables.",
+                "courses.course3.duration": "14 Semanas",
+                "courses.course3.modules": "26 Módulos",
+                "courses.course3.price": "$899",
+                "courses.course4.title": "Especialista en Ciberseguridad",
+                "courses.course4.desc": "Aprenda hacking ético, seguridad de redes, criptografía y gestión de centros de operaciones de seguridad.",
+                "courses.course4.duration": "20 Semanas",
+                "courses.course4.modules": "32 Módulos",
+                "courses.course4.price": "$1299",
+                "courses.enroll": "Inscribirse Ahora",
+                
+                "modal.title": "Solicitud de Socio",
+                "modal.subtitle": "Complete este formulario para solicitar nuestro programa de socios. Revisaremos su solicitud en 48 horas.",
+                
+                "form.company": "Nombre de la Empresa *",
+                "form.country": "País *",
+                "form.type": "Tipo de Socio *",
+                "form.website": "Sitio Web",
+                "form.contact": "Nombre del Contacto *",
+                "form.email": "Correo Electrónico *",
+                "form.phone": "Número de Teléfono",
+                "form.employees": "Número de Empleados",
+                "form.experience": "Experiencia Relevante *",
+                "form.motivation": "Motivación y Objetivos *",
+                "form.references": "Referencias (Clientes o Socios)",
+                "form.agree": "Acepto los Términos y Condiciones y la Política de Privacidad",
+                "form.newsletter": "Suscribirse al boletín de socios y actualizaciones",
+                "form.selectType": "Seleccione Tipo de Socio",
+                "form.types.tech": "Socio Tecnológico",
+                "form.types.consultant": "Socio Consultor",
+                "form.types.data": "Socio de Intercambio de Datos",
+                "form.types.channel": "Socio de Canal",
+                "form.selectEmployees": "Seleccione Rango",
+                "form.employees1": "1-10",
+                "form.employees2": "11-50",
+                "form.employees3": "51-200",
+                "form.employees4": "201+",
+                "form.expPlaceholder": "Describa la experiencia de su empresa en educación, tecnología o campo relevante...",
+                "form.motivationPlaceholder": "¿Por qué quiere asociarse con Eva-codes? ¿Cuáles son sus objetivos?",
+                "form.refPlaceholder": "Enumere 2-3 referencias con información de contacto...",
+                "form.cancel": "Cancelar",
+                "form.submit": "Enviar Solicitud",
+                
+                "footer.about": "Acerca de Eva-codes",
+                "footer.aboutDesc": "Estamos revolucionando la educación digital a través de asociaciones estratégicas en África y a nivel mundial.",
+                "footer.links": "Enlaces Rápidos",
+                "footer.resources": "Recursos",
+                "footer.contact": "Contáctenos",
+                "footer.blog": "Blog",
+                "footer.docs": "Documentación",
+                "footer.api": "Acceso API",
+                "footer.support": "Centro de Soporte",
+                "footer.community": "Comunidad",
+                "footer.events": "Eventos",
+                "footer.copyright": "© 2024 Red de Socios Eva-codes. Todos los derechos reservados.",
+                "footer.privacy": "Política de Privacidad",
+                "footer.terms": "Términos de Servicio",
+                "footer.cookies": "Política de Cookies",
+                
+                "success.message": "¡Solicitud enviada exitosamente!"
+            }
+        };
+
+        // ===== MAIN APPLICATION LOGIC =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize
+            initTheme();
+            initLanguage();
+            initScrollAnimations();
+            initCounters();
+            initEventListeners();
+            createFloatingElements();
+
+            // ===== THEME MANAGEMENT =====
+            function initTheme() {
+                const savedTheme = localStorage.getItem('eva-theme') || 'dark';
+                if (savedTheme === 'light') {
+                    document.body.classList.add('light-theme');
+                }
+                updateThemeIcon();
+            }
+
+            function toggleTheme() {
+                const isLight = document.body.classList.toggle('light-theme');
+                localStorage.setItem('eva-theme', isLight ? 'light' : 'dark');
+                updateThemeIcon();
+            }
+
+            function updateThemeIcon() {
+                const icon = document.querySelector('#themeToggle i');
+                const isLight = document.body.classList.contains('light-theme');
+                icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            // ===== LANGUAGE MANAGEMENT =====
+            function initLanguage() {
+                const savedLang = localStorage.getItem('eva-lang') || 'en';
+                document.getElementById('languageSelect').value = savedLang;
+                setLanguage(savedLang);
+            }
+
+            function setLanguage(lang) {
+                // Update all translatable elements
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang] && translations[lang][key]) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = translations[lang][key];
+                        } else if (element.tagName === 'OPTION') {
+                            element.textContent = translations[lang][key];
+                        } else {
+                            element.textContent = translations[lang][key];
+                        }
+                    }
+                });
+                
+                localStorage.setItem('eva-lang', lang);
+            }
+
+            // ===== ANIMATIONS =====
+            function initScrollAnimations() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            }
+
+            function createFloatingElements() {
+                const hero = document.querySelector('.hero');
+                for (let i = 0; i < 5; i++) {
+                    const element = document.createElement('div');
+                    element.className = 'float-element';
+                    const size = Math.random() * 100 + 50;
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    element.style.left = `${Math.random() * 100}%`;
+                    element.style.top = `${Math.random() * 100}%`;
+                    element.style.animationDelay = `${Math.random() * 10}s`;
+                    hero.appendChild(element);
+                }
+            }
+
+            // ===== COUNTER ANIMATIONS =====
+            function initCounters() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounter(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                document.querySelectorAll('.stat-number').forEach(stat => observer.observe(stat));
+            }
+
+            function animateCounter(element) {
+                const target = parseInt(element.getAttribute('data-count'));
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current);
+                }, 16);
+            }
+
+            // ===== APPLICATION FORM =====
+            function showApplicationModal(partnerType = '') {
+                const modal = document.getElementById('applicationModal');
+                const form = document.getElementById('partnerForm');
+                
+                // Reset form
+                form.reset();
+                
+                // Set partner type if provided
+                if (partnerType) {
+                    document.getElementById('partnerType').value = partnerType;
+                }
+                
+                // Show modal
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function hideApplicationModal() {
+                const modal = document.getElementById('applicationModal');
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            function handleFormSubmit(e) {
+                e.preventDefault();
+                
+                // Validate form
+                const required = ['companyName', 'country', 'partnerType', 'contactName', 'email', 'experience', 'motivation'];
+                let isValid = true;
+                
+                required.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value.trim()) {
+                        element.style.borderColor = 'var(--danger)';
+                        isValid = false;
+                    } else {
+                        element.style.borderColor = '';
+                    }
+                });
+                
+                if (!document.getElementById('agreeTerms').checked) {
+                    alert('Please agree to the Terms & Conditions');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    showNotification('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // Simulate form submission
+                const submitBtn = document.getElementById('submitBtn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<div class="spinner"></div>';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    // Reset button
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Hide modal
+                    hideApplicationModal();
+                    
+                    // Show success message
+                    showSuccessMessage();
+                    
+                    // Log form data (in real app, send to server)
+                    const formData = {
+                        companyName: document.getElementById('companyName').value,
+                        country: document.getElementById('country').value,
+                        partnerType: document.getElementById('partnerType').value,
+                        contactName: document.getElementById('contactName').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        experience: document.getElementById('experience').value,
+                        motivation: document.getElementById('motivation').value,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    console.log('Form submitted:', formData);
+                }, 1500);
+            }
+
+            function showSuccessMessage() {
+                const successMsg = document.getElementById('successMessage');
+                successMsg.classList.add('show');
+                
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+            }
+
+            function showNotification(message, type = 'info') {
+                // In a real app, implement a proper notification system
+                alert(message);
+            }
+
+            // ===== NAVIGATION =====
+            function updateActiveNavLink() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let currentSection = '';
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        currentSection = section.id;
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // ===== EVENT LISTENERS =====
+            function initEventListeners() {
+                // Theme toggle
+                document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+                
+                // Language change
+                document.getElementById('languageSelect').addEventListener('change', (e) => {
+                    setLanguage(e.target.value);
+                });
+                
+                // Navigation
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        
+                        if (targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+                
+                // Apply buttons
+                document.getElementById('applyHeroBtn').addEventListener('click', () => showApplicationModal());
+                document.querySelectorAll('.apply-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const partnerType = btn.getAttribute('data-type');
+                        showApplicationModal(partnerType);
+                    });
+                });
+                
+                // Course enrollment
+                document.getElementById('exploreCoursesBtn').addEventListener('click', () => {
+                    document.getElementById('courses').scrollIntoView({ behavior: 'smooth' });
+                });
+                
+                document.querySelectorAll('.enroll-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const course = btn.getAttribute('data-course');
+                        showNotification(`Enrollment request for ${course} course has been submitted!`, 'success');
+                    });
+                });
+                
+                // Application modal
+                document.getElementById('cancelBtn').addEventListener('click', hideApplicationModal);
+                document.getElementById('applicationModal').addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) {
+                        hideApplicationModal();
+                    }
+                });
+                
+                // Form submission
+                document.getElementById('partnerForm').addEventListener('submit', handleFormSubmit);
+                
+                // Close modal on escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        hideApplicationModal();
+                    }
+                });
+                
+                // Scroll events
+                window.addEventListener('scroll', updateActiveNavLink);
+            }
+            
+            // Initialize active nav link
+            updateActiveNavLink();
+        });
+    </script>
+</body>
+</html>
