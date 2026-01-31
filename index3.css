@@ -1,6 +1,6 @@
 body{
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right,rgb(148, 74, 148),rgb(73, 73, 139),rgb(90, 143, 55));
+    background: linear-gradient(to right,hsl(300, 20%, 16%),hsl(240, 36%, 22%),hsl(96, 24%, 21%));
 }
 .reset{
     position: relative;
@@ -27,7 +27,7 @@ body{
 .card input{
     position: relative;
     width: 30vw;
-    height: 5vh;
+    height: 7vh;
     border: 1px transparent;
     border-radius: 5px;
     top: 20px;
@@ -35,7 +35,6 @@ body{
 .card input::placeholder{
     position: relative;
     color: black;
-    text-transform: lowercase;
     font-weight: 900;
     font-style: italic;
     flex: auto;
@@ -48,19 +47,20 @@ body{
 }
 .card button{
     position: relative;
-    width: 20vw;
-    height: 5vh;
-    border: 1px solid blue;
-    background-color: blue;
+    width: 22vw;
+    height: 7vh;
+    border: 1px solid #042b74;
+    background-color: #023b69;
+    overflow-wrap: break-word;
     color: white;
     font-weight: 900;
     top: 30px;
 }
 .card button:hover{
     position: relative;
-    background-color: rgb(2, 2, 65);
+    background-color: #042275;
     cursor: pointer;
-    border: 1px solid rgb(1, 1, 83);
+    border: 1px solid #050522;
     border-radius: 5px;
     font: 20px bold;
 }
@@ -70,6 +70,16 @@ body{
     text-decoration: none;
     color: white;
     text-transform: capitalize;
+}
+.card a{
+    position: relative;
+    text-decoration: none;
+    color: black;
+}
+.card a:hover{
+    position: relative;
+    transition: all ease 0.3s;
+    color: hsl(304, 96%, 10%);
 }
 .logo{
     position: relative;
@@ -85,4 +95,14 @@ body{
 .logo b{
     position: relative;
     top: 10px;
+}
+.logo a{
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+.logo a:hover{
+    position: relative;
+    transition: all ease 0.3s;
+    color: hsl(130, 98%, 16%);
 }
