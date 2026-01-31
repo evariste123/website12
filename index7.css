@@ -78,6 +78,7 @@ body{
     height: 50vh;
     background-color: #010101;
     text-align: center;
+    top: 80px;
 }
 .footer p{
     position: relative;
@@ -141,16 +142,44 @@ body{
         border-radius: 30px;
         top: 20px;
     }
+    .hero span{
+        position: relative;
+        top: 10px;
+        animation-timing-function: 300ms;
+        animation-duration: 5s;
+        animation-name: hero;
+        animation-delay: 2s;
+        animation-iteration-count: infinite;
+    }
+    @keyframes hero{
+        from{
+            color: hwb(300 1% 84%);
+            text-indent: 5;
+        }
+        to{
+       color: #2b2929;
+       text-shadow: 5px 5px 5px #4a01f3;
+        }
+    }
     .hero{
         position: relative;
         text-align: center;
         top: 100px;
+        width: 80vw;
+        height: 50vh;
+        background: linear-gradient(to right,hsl(197, 82%, 69%),rgb(212, 224, 226));
+        border-radius: 30px;
+        color: black;
+        justify-self: center;
+        overflow-wrap: break-word;
+        flex-wrap: wrap;
     }
     .hero strong,h2{
         position: relative;
         color:rgb(17, 17, 17);
         text-transform: capitalize;
         font: 20px bold;
+        top: 30px;
     }
     .btn{
         position: relative;
