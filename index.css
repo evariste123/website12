@@ -75,10 +75,30 @@ body{
     height: 120px;
     border-radius: 60px 0 0 60px;
     background-color: #ddfabc;
+    animation-name: line;
+    animation-timing-function: 300ms;
+    animation-duration: 5s;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+@keyframes line{
+    from{
+        background-color: indianred;
+        color: hwb(300 1% 87%);
+        transition-duration: 30ms;
+        transition-property:all ease;
+    }
+    to{
+        background-color:transparent;
+        color: #faf8f8;
+        transition-delay: 5s;
+    }
 }
 .line h3{
     position: relative;
     top: 10px;
+    overflow-wrap: break-word;
 }
 .line a{
     position: relative;
